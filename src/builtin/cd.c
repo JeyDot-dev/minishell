@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/17 19:26:52 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/08/17 19:27:31 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
-# include "libft.h"
-# include <errno.h>
+#include "minishell.h"
 
-void	test(void);
-//-----Built-in functions-----
-void	cd(char	*path);
-void	pwd(void);
-#endif
+void	cd(char	*path)
+{
+	if(chdir(path))
+		perror("cd");
+}

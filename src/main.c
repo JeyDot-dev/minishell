@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:19:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/17 17:52:39 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/08/17 19:21:26 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	main(int ac, char **av, char **envp)
 {
 	(void)	ac;
-	(void)	av;
 	(void)	envp;
-	test();
+	pwd();
+	cd(av[1]);
+	pwd();
+	exit(0);
 	return (0);
 }

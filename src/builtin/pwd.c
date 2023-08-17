@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/17 19:26:52 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/08/17 19:12:08 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/08/17 19:13:42 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
-# include "libft.h"
-# include <errno.h>
+#include "minishell.h"
 
-void	test(void);
-//-----Built-in functions-----
-void	cd(char	*path);
-void	pwd(void);
-#endif
+void	pwd(void)
+{
+	char	*str;
+
+	str = NULL;
+	ft_printf("%s\n", getcwd(str, PATH_MAX + 1));
+	free(str);
+}

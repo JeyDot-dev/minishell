@@ -19,7 +19,7 @@ LIB_D		:=	libft/
 INC			:=	libft/inc/	inc/
 
 #---------------Add .c / .h here \/--------------
-BUILTIN		:=	echo.c	
+BUILTIN		:=	echo.c cd.c pwd.c
 SRC			:=	main.c
 LIB			:=	ft
 #FRAMEWORK	:=	OpenGL	AppKit
