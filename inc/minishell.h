@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 14:19:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/17 17:52:39 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/08/17 17:52:12 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PIPEX_H
+# define PIPEX_H
+# include "libft.h"
 
-int	main(int ac, char **av, char **envp)
-{
-	(void)	ac;
-	(void)	av;
-	(void)	envp;
-	test();
-	return (0);
-}
+void	test(void);
+#endif

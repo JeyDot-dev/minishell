@@ -11,26 +11,33 @@ RST	= \033[0m
 
 NAME		:=	minishell
 UNAME_S 	:= $(shell uname -s)
-
+#---------------Directories----------------------
 SRC_D		:=	src/
+BUILTIN_D	:=	builtin/
 BUILD_D		:=	.build/
 LIB_D		:=	libft/
 INC			:=	libft/inc/	inc/
 
-LIB			:=	ft
+#---------------Add .c / .h here \/--------------
+BUILTIN		:=	echo.c	
 SRC			:=	main.c
+LIB			:=	ft
 #FRAMEWORK	:=	OpenGL	AppKit
-
+#----------------------IGNORE--------------------
+#------------------------------------------------
+SRC			+=	$(BUILTIN:%=$(BUILTIN_D)%)
 SRC			:=	$(SRC:%=$(SRC_D)%)
 OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)
 DEPS        :=	$(OBJ:.o=.d)
-
+#------------------------------------------------
+#----------------Linux libs \/-------------------
 ifeq ($(UNAME_S),Linux)
 INC		 	:=	libft/inc	inc
 LIB_D		:=	libft/
 LIB			:=	ft
 FRAMEWORK	:=	
 endif
+#-------------------------------------------------
 RM			:=	rm -rf
 CC			:=	gcc
 DIR_DUP     =	mkdir -p "$(@D)"

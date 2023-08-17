@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 14:20:58 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/17 14:22:11 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/08/17 17:48:29 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/08/17 17:50:55 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
-# include "libft.h"
-#endif
+#include "minishell.h"
+
+void	test(void)
+{
+	ft_printf("Wow\n");
+}
