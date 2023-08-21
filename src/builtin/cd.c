@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/21 18:17:41 by gipaul           ###   ########.fr       */
+/*   Updated: 2023/08/21 18:51:52 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static	void	print_error(char **args)
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd(": ", 2);
 	}
-	ft_putendl(args[1], 2);
+	ft_putendl_fd(args[1], 2);
 }
 
 static char	*get_env_path(t_env *env, const char *var, size_t len)
@@ -58,7 +58,9 @@ static int	update_oldpwd(t_env *env)
 {
 	char	cwd[PATH_MAX];
 	char	*oldpwd;
-
+	
+	if (!env)
+		return (1);
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (1);
 	if (!(oldpwd = ft_strjoin("OLDPWD=", cwd)))
@@ -78,7 +80,7 @@ static int	go_to_path(int option, t_env *env)
 		update_oldpwd(env);
 		env_path = get_env_path(env, "HOME", 4);
 		if (!env_path)
-			ft_putendl_fd("HOME not set", STDERR);
+			ft_putendl_fd("HOME not set", 2);
 		if (!env_path)
 			return (1);
 	}
@@ -86,7 +88,7 @@ static int	go_to_path(int option, t_env *env)
 	{
 		env_path = get_env_path(env, "OLDPWD", 6);
 		if (!env_path)
-			ft_putendl_fd("oldpwd not set", STDERR);
+			ft_putendl_fd("oldpwd not set", 2);
 		if (!env_path)
 			return (1);
 		update_oldpwd(env);

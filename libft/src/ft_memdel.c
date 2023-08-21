@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 10:52:01 by gipaul            #+#    #+#             */
-/*   Updated: 2023/08/21 18:53:25 by gipaul           ###   ########.fr       */
+/*   Created: 2023/08/21 18:44:41 by gipaul            #+#    #+#             */
+/*   Updated: 2023/08/21 18:45:23 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_env(t_env *env)
+void	*ft_memdel(void *ptr)
 {
-	while (env && env->next != NULL)
+	if (ptr)
 	{
-		ft_putendl_fd(env->data, 1);
-		env = env->next;
-	}	
-	if (env)
-		ft_putendl_fd(env->data, 1);
-	return (0);
+		free(ptr);
+		ptr = NULL;
+	}
+	return (NULL);
 }
