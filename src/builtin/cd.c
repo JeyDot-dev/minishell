@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/21 11:24:15 by gipaul           ###   ########.fr       */
+/*   Updated: 2023/08/21 18:17:41 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_cd(char **args, t_env *env)
 
 	if (!args[1])
 		return (go_to_path(0, env));
-	if (ft_strcmp(args[1], "-") == 0)
+	if (ft_strncmp(args[1], "-", 1) == 0)
 		cd_ret = go_to_path(1, env);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/21 11:30:59 by gipaul           ###   ########.fr       */
+/*   Updated: 2023/08/21 18:14:21 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct	s_shell
 int	ft_echo(char **args);
 int	ft_env(t_env *env);
 int	ft_pwd(void);
-int	exec_builtin(char **args);
+int	exec_builtin(char **args, t_shell *shell);
 int	is_builtin(char *command);
 int	ft_cd(char **args, t_env *env);
-int	ft_unset(char **args; t_shell *shell);
+int	ft_unset(char **a, t_shell *shell);
 
 #endif
