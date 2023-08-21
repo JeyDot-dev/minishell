@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   var_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
+/*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 17:51:47 by gipaul            #+#    #+#             */
-/*   Updated: 2023/08/21 21:20:57 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/08/21 21:06:47 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/08/21 21:16:07 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-int	main(int ac, char **av, char **envp)
+void	var_add_last(t_env **env, t_env *new_var)
 {
-	(void) ac;
-	(void) envp;
-	t_env	*env;
-
-	env = NULL;
-	ft_export(&env, "POPI=lolilol");
-	ft_env(env);
-	ft_pwd();
-	ft_cd(av, env);
-	ft_pwd();
-	exit(0);
-	return (0);
+	if (env && !*env)
+	{
+		*env = new_var;
+		return ;
+	}
+	while (env && (*env)->next)
+		*env = (*env)->next;
+	(*env)->next = new_var;
 }

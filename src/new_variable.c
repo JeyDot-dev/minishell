@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   new_variable.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
+/*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 17:51:47 by gipaul            #+#    #+#             */
-/*   Updated: 2023/08/21 21:20:57 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/08/21 19:35:12 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/08/21 21:17:08 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-int	main(int ac, char **av, char **envp)
+t_env	*new_variable(char	*var, char *data)
 {
-	(void) ac;
-	(void) envp;
-	t_env	*env;
+	t_env	*new_var;
 
-	env = NULL;
-	ft_export(&env, "POPI=lolilol");
-	ft_env(env);
-	ft_pwd();
-	ft_cd(av, env);
-	ft_pwd();
-	exit(0);
-	return (0);
+	new_var = NULL;
+	if (var && data)
+	{
+		new_var = malloc(sizeof(*new_var));
+		if (!new_var)
+			return (NULL);
+		new_var->var = ft_strdup(var);
+		new_var->data = ft_strdup(data);
+	}
+	return (new_var);
 }
