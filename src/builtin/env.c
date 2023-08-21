@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 19:12:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/18 11:44:55 by gipaul           ###   ########.fr       */
+/*   Created: 2023/08/18 10:52:01 by gipaul            #+#    #+#             */
+/*   Updated: 2023/08/18 10:54:58 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(void)
+int	ft_env(t_env *env)
 {
-	char	cwd[PATH_MAX];
-
-	if (getcwd(cwd, PATH_MAX))
+	while (env && env->next != NULL)
 	{
-		ft_putendl_fd(cwd, 1);
-		return (0);
-	}
-	else
-		return (1);
+		ft_putendl(env->data);
+		env = env->next;
+	}	
+	if (env)
+		ft_putendl(env->data);
+	return (0);
 }

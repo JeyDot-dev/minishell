@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/17 19:26:52 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/08/21 11:30:59 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,24 @@
 # include "libft.h"
 # include <errno.h>
 
-void	test(void);
+typedef struct	s_env
+{
+	char	*data;
+	struct	s_env	*next;
+}	t_env;
+
+typedef struct	s_shell
+{
+	t_env *env;
+}	t_shell;
+
 //-----Built-in functions-----
-void	cd(char	*path);
-void	pwd(void);
+int	ft_echo(char **args);
+int	ft_env(t_env *env);
+int	ft_pwd(void);
+int	exec_builtin(char **args);
+int	is_builtin(char *command);
+int	ft_cd(char **args, t_env *env);
+int	ft_unset(char **args; t_shell *shell);
+
 #endif
