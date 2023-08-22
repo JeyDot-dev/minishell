@@ -6,19 +6,26 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 21:06:47 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/21 21:16:07 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/08/22 21:02:44 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
+void	printvar(t_env *env)
+{
+	ft_printf("%s%s\n", env->var, env->data);
+}
 void	var_add_last(t_env **env, t_env *new_var)
 {
-	if (env && !*env)
-	{
+	t_env	*tmp;
+	
+	tmp = *env;
+	if (!tmp && new_var)
 		*env = new_var;
-		return ;
+	else if (env && new_var)
+	{
+		while (tmp && tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_var;
 	}
-	while (env && (*env)->next)
-		*env = (*env)->next;
-	(*env)->next = new_var;
 }

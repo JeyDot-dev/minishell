@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_variable.c                                     :+:      :+:    :+:   */
+/*   getvar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 19:35:12 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 21:07:08 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/08/22 18:20:30 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/08/22 18:20:32 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-t_env	*new_variable(char	*var, char *data)
+t_env	*getvar(t_env *env, char *to_find)
 {
-	t_env	*new_var;
-
-	new_var = NULL;
-	if (*var)
+	while (env)
 	{
-		new_var = malloc(sizeof(*new_var));
-		if (!new_var)
-			return (NULL);
-		new_var->var = ft_strdup(var);
-		if (data)
-			new_var->data = ft_strdup(data);
-		else
-			new_var->data = NULL;
-		new_var->next = NULL;
+		if (ft_strncmp(env->var, to_find, ft_strlen(to_find)) == 0)
+			return (env);
+		env = env->next;
 	}
-	ft_printf("******ADDED NEW VAR:%s%s\n", new_var->var, new_var->data);
-	return (new_var);
+	return (NULL);
 }
