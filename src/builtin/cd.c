@@ -65,6 +65,11 @@ static int	update_oldpwd(t_env *env)
 		return (1);
 	if (!(oldpwd = ft_strjoin("OLDPWD=", cwd)))
 		return (1);
+	if (ft_find_var(env, oldpwd) != 0)
+	{
+		extract_var_name(oldpwd);
+		extract_var_data(oldpwd);
+	}
 	ft_memdel(oldpwd);
 	return (0);
 }
