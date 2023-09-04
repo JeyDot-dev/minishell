@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/21 21:12:41 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:48:12 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,7 @@ int	ft_export(t_env **env, char *arg);
 //------env_var list functions----
 void	var_add_last(t_env **env, t_env *new_var);
 t_env	*new_variable(char	*var, char *data);
+t_env	*getvar(t_env *env, char *to_find);
+void	printvar(t_env *env);
+void	init_env(char **av, char **envp, t_env **env);
 #endif

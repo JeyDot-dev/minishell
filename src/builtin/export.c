@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/21 21:20:29 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/08/22 21:01:24 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -74,22 +74,25 @@ int	free_export(char **args)
 int	ft_export(t_env **env, char *arg)
 {
 	char	**args;
+	t_env	*tmp;
 
-	args = malloc(sizeof(args) * 2);
+	tmp = *env;
+	args = malloc(sizeof(char *) * 2);
 	args[0] = extract_var_name(arg);
 	if (!args[0])
 		free_export(args);
 	args[1] = extract_var_data(arg);
-	while (*env && ft_strncmp((*env)->var, args[0], ft_strlen(args[0])))
-		*env = (*env)->next;
-	if (*env)
+	while (tmp && ft_strncmp(tmp->var, args[0], ft_strlen(args[0])))
+		tmp = tmp->next;
+	if (tmp)
 	{
-		free((*env)->var);
-		free((*env)->data);
-		(*env)->var = args[0];
-		(*env)->data = args[1];
+		free(tmp->var);
+		free(tmp->data);
+		tmp->var = ft_strdup(args[0]);
+		tmp->data = ft_strdup(args[1]);
 	}
 	else
 		var_add_last(env, new_variable(args[0], args[1]));
+	free_export(args);
 	return (0);
 }
