@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   new_variable.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 19:12:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/18 11:44:55 by gipaul           ###   ########.fr       */
+/*   Created: 2023/08/21 19:35:12 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/08/22 21:07:08 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-int	ft_pwd(void)
+t_env	*new_variable(char	*var, char *data)
 {
-	char	cwd[PATH_MAX];
+	t_env	*new_var;
 
-	if (getcwd(cwd, PATH_MAX))
+	new_var = NULL;
+	if (*var)
 	{
-		ft_putendl_fd(cwd, 1);
-		return (0);
+		new_var = malloc(sizeof(*new_var));
+		if (!new_var)
+			return (NULL);
+		new_var->var = ft_strdup(var);
+		if (data)
+			new_var->data = ft_strdup(data);
+		else
+			new_var->data = NULL;
+		new_var->next = NULL;
 	}
-	else
-		return (1);
+	ft_printf("******ADDED NEW VAR:%s%s\n", new_var->var, new_var->data);
+	return (new_var);
 }

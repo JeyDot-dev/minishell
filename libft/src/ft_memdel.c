@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 19:12:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/18 11:44:55 by gipaul           ###   ########.fr       */
+/*   Created: 2023/08/21 18:44:41 by gipaul            #+#    #+#             */
+/*   Updated: 2023/08/21 18:45:23 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	ft_pwd(void)
+void	*ft_memdel(void *ptr)
 {
-	char	cwd[PATH_MAX];
-
-	if (getcwd(cwd, PATH_MAX))
+	if (ptr)
 	{
-		ft_putendl_fd(cwd, 1);
-		return (0);
+		free(ptr);
+		ptr = NULL;
 	}
-	else
-		return (1);
+	return (NULL);
 }
