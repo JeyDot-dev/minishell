@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/21 18:51:52 by gipaul           ###   ########.fr       */
+/*   Updated: 2023/09/07 17:24:08 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,9 @@ static int	update_oldpwd(t_env *env)
 		return (1);
 	if (!(oldpwd = ft_strjoin("OLDPWD=", cwd)))
 		return (1);
-	if (ft_find_var(env, oldpwd) != 0)
+	if (ft_find_var(env, "OLD_PWD=") != 0)
 	{
-		extract_var_name(oldpwd);
-		extract_var_data(oldpwd);
+		ft_export(&env, oldpwd);
 	}
 	ft_memdel(oldpwd);
 	return (0);
