@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 21:01:24 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:56:35 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -31,7 +31,9 @@ char	*extract_var_name(char *str)
 	char *var_name;
 
 	i = 0;
-	var_name = ft_calloc(i + 1, sizeof(char));
+	while (str && str[i] && str[i] != '=')
+			i++;
+	var_name = ft_calloc(i + 2, sizeof(char));
 	if (!var_name)
 		return (NULL);
 	i = 0;

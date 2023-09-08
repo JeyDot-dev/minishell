@@ -15,13 +15,13 @@ UNAME_S 	:= $(shell uname -s)
 SRC_D		:=	src/
 BUILTIN_D	:=	builtin/
 BUILD_D		:=	.build/
-LIB_D		:=	libft/
-INC			:=	libft/inc/	inc/
+LIB_D		:=	libft/ /usr/lib/
+INC			:=	libft/inc/	inc/ /usr/include/readline
 
 #---------------Add .c / .h here \/--------------
 BUILTIN		:=	cd.c echo.c env.c pwd.c unset.c export.c
 SRC			:=	main.c builtin.c new_variable.c var_list_utils.c getvar.c init_env.c
-LIB			:=	ft
+LIB			:=	ft readline history
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------
 #------------------------------------------------
@@ -32,9 +32,9 @@ DEPS        :=	$(OBJ:.o=.d)
 #------------------------------------------------
 #----------------Linux libs \/-------------------
 ifeq ($(UNAME_S),Linux)
-INC		 	:=	libft/inc	inc
 LIB_D		:=	libft/
-LIB			:=	ft
+INC			:=	libft/inc/	inc/
+LIB			:=	ft readline history
 FRAMEWORK	:=	
 endif
 #-------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/07 17:24:08 by gipaul           ###   ########.fr       */
+/*   Updated: 2023/09/08 13:15:41 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ static int	update_oldpwd(t_env *env)
 		return (1);
 	if (!(oldpwd = ft_strjoin("OLDPWD=", cwd)))
 		return (1);
-	if (ft_find_var(env, "OLD_PWD=") != 0)
-	{
-		ft_export(&env, oldpwd);
-	}
+	ft_export(&env, oldpwd);
 	ft_memdel(oldpwd);
 	return (0);
 }
@@ -77,16 +74,22 @@ static int	go_to_path(int option, t_env *env)
 {
 	int	ret;
 	char	*env_path;
+	t_env	*env_home;
 
 	env_path = NULL;
 	if (option == 0)
 	{
 		update_oldpwd(env);
-		env_path = get_env_path(env, "HOME", 4);
-		if (!env_path)
+		env_home = getvar(env, "HOME");
+		if (!env_home)
 			ft_putendl_fd("HOME not set", 2);
 		if (!env_path)
 			return (1);
+//		env_path = get_env_path(env, "HOME", 4);
+//		if (!env_path)
+//			ft_putendl_fd("HOME not set", 2);
+//		if (!env_path)
+//			return (1);
 	}
 	else if (option == 1)
 	{

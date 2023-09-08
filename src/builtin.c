@@ -6,7 +6,7 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:17:39 by gipaul            #+#    #+#             */
-/*   Updated: 2023/08/21 18:37:08 by gipaul           ###   ########.fr       */
+/*   Updated: 2023/09/08 15:06:45 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	exec_builtin(char **args, t_shell *shell)
 	if (ft_strncmp(args[0], "env", 3) == 0)
 		ft_env(shell->env);
 //	if (ft_strncmp(args[0], "export", 6) == 0)
-//		ft_export(args);
+//		ft_export();
 	if (ft_strncmp(args[0], "unset", 5) == 0)
 		ft_unset(args, shell);
 	return (result);
