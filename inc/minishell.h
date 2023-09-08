@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 18:48:12 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:54:17 by gipaul           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ int	is_builtin(char *command);
 int	ft_cd(char **args, t_env *env);
 int	ft_unset(char **a, t_shell *shell);
 int	ft_export(t_env **env, char *arg);
+char	*extract_var_name(char *str);
+char	*extract_var_data(char *str);
+int	ft_find_var(t_env *env, char *var);
 //------env_var list functions----
 void	var_add_last(t_env **env, t_env *new_var);
 t_env	*new_variable(char	*var, char *data);
