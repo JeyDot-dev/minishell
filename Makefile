@@ -15,8 +15,8 @@ UNAME_S 	:= $(shell uname -s)
 SRC_D		:=	src/
 BUILTIN_D	:=	builtin/
 BUILD_D		:=	.build/
-LIB_D		:=	libft/ /usr/lib/
-INC			:=	libft/inc/	inc/ /usr/include/readline
+LIB_D		:=	libft/
+INC			:=	libft/inc/	inc/
 
 #---------------Add .c / .h here \/--------------
 BUILTIN		:=	cd.c echo.c env.c pwd.c unset.c export.c

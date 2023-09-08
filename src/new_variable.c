@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:35:12 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 21:07:08 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:01:26 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -28,6 +28,6 @@ t_env	*new_variable(char	*var, char *data)
 			new_var->data = NULL;
 		new_var->next = NULL;
 	}
-	ft_printf("******ADDED NEW VAR:%s%s\n", new_var->var, new_var->data);
+//	ft_printf("******ADDED NEW VAR:%s%s\n", new_var->var, new_var->data);
 	return (new_var);
 }

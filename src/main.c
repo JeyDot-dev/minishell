@@ -6,7 +6,7 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:51:47 by gipaul            #+#    #+#             */
-/*   Updated: 2023/09/08 15:25:18 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:00:17 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,36 @@ void	ft_env2(t_env *env)
 		env = env->next;
 	}
 }
-void	test_cmd(char *cmd, char *arg, t_env *env)
+int	test_cmd(char *cmd, char *arg, t_env *env)
 {
-	char *arg_tmp[2];
+	char	*arg_tmp[2];
 
 	if (arg && *arg)
 		arg_tmp[1] = arg;
-	if (!ft_strncmp(cmd, "PWD", 3))
+	if (!ft_strncmp(cmd, "pwd", 4))
 	{
-		ft_printf ("PWD:");
+//		ft_printf ("PWD:");
 		ft_pwd();
 	}
-	if (!ft_strncmp(cmd, "CD", 2))
+	else if (!ft_strncmp(cmd, "cd", 3))
 	{
-		ft_printf("CD to : %s\n", arg);
+//		ft_printf("CD to : %s\n", arg);
 		ft_cd(arg_tmp, env);
 		test_cmd("PWD", NULL, env);
 	}
-	if (!ft_strncmp(cmd, "ENV", 3))
+	else if (!ft_strncmp(cmd, "env", 4))
 	{
 		ft_printf("-----ENV-----\n");
 		ft_env2(env);
 	}
+	else if (!ft_strncmp(cmd, "exit", 5))
+	{
+		ft_printf(GRN"Exited properly\n"WHT);
+		exit(0);
+	}
+	else
+		return (1);
+	return (0);
 }
 int	main(int ac, char **av, char **envp)
 {
@@ -59,14 +67,16 @@ int	main(int ac, char **av, char **envp)
 	while (activ)
 	{
 		ft_printf(CYN "minishell :) %s" WHT, getvar(env, "PWD")->data);
-		cmd_line = readline(">");
+		cmd_line = readline(YEL ">" WHT);
 		if (cmd_line && *cmd_line)
-			ft_printf("cmd_line : %s\n", cmd_line);
+		{
+			if (test_cmd(cmd_line, NULL, env))
+				ft_printf("cmd_line : %s\n", cmd_line);
+		}
 		else
-			activ = 0;
+			ft_printf("\n");
 		ft_memdel(cmd_line);
 	}
-	ft_printf(GRN"Exited properly\n"WHT);
 	exit(0);
 	ft_printf("-----printvar----\n");
 	printvar(getvar(env, "HOME"));
