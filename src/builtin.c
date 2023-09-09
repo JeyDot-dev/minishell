@@ -6,7 +6,7 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:17:39 by gipaul            #+#    #+#             */
-/*   Updated: 2023/09/08 15:06:45 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:50:39 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-int	exec_builtin(char **args, t_shell *shell)
+/*int	exec_builtin(char **args, t_shell *shell)
 {
 	int	result;
 
@@ -47,4 +47,4 @@ int	exec_builtin(char **args, t_shell *shell)
 	if (ft_strncmp(args[0], "unset", 5) == 0)
 		ft_unset(args, shell);
 	return (result);
-}
+}*/

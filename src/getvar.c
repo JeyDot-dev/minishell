@@ -5,20 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 18:20:30 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 18:20:32 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/09/09 15:54:20 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/09/09 19:00:43 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_env	*getvar(t_env *env, char *to_find)
+int		getvar_strncmp(char *s1, char *s2)
 {
-	while (env)
-	{
-		if (ft_strncmp(env->var, to_find, ft_strlen(to_find)) == 0)
-			return (env);
-		env = env->next;
-	}
-	return (NULL);
+	char *tmp;
+	int	ret;
+
+	tmp = ft_strjoin(s2, "=");
+	if (!tmp)
+		return (1);
+	ret = ft_strncmp(s1, tmp, ft_strlen(tmp));
+	free(tmp);
+	return (ret);
+}
+int	getvar_index(char **env, char *var)
+{
+	int	i;
+
+	if (!*env || !*var)
+		return (-1);
+	while (env[i] && getvar_strncmp(env[i], var))
+		i++;
+	return (i);
+}
+char	*getvar(char **env, char *var)
+{
+	if (!env || !*var)
+		return (NULL);
+	while (*env && getvar_strncmp(*env, var))
+		env++;
+	return (*env);
 }

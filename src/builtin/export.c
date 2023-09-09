@@ -6,24 +6,26 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/08 14:56:35 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:58:37 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
-
-int	ft_find_var(t_env *env, char *var)
+int	check_export_arg(char *arg)
 {
 	int	i;
 
 	i = 0;
-	while (env && ft_strncmp(env->var, var, ft_strlen(var)))
+	if (!arg || !*arg || !ft_isalpha(*arg))
 	{
-		env = env->next;
-		i++;
+		perror("not sure");
+		return (-1);
 	}
-	if (env)
+	while (arg[i] && arg[i] != '=')
+		i++;
+	if (arg[i])
 		return (i);
-	return (-1);
+	else
+		return (0);
 }
 char	*extract_var_name(char *str)
 {
@@ -33,7 +35,7 @@ char	*extract_var_name(char *str)
 	i = 0;
 	while (str && str[i] && str[i] != '=')
 			i++;
-	var_name = ft_calloc(i + 2, sizeof(char));
+	var_name = ft_calloc(i + 1, sizeof(char));
 	if (!var_name)
 		return (NULL);
 	i = 0;
@@ -42,8 +44,6 @@ char	*extract_var_name(char *str)
 		var_name[i] = str[i];
 		i++;
 	}
-	if (str[i] == '=')
-		var_name[i] = str[i];
 	return (var_name);
 }
 char	*extract_var_data(char *str)
@@ -67,34 +67,70 @@ char	*extract_var_data(char *str)
 		var_data[j++] = str[i++];
 	return (var_data);
 }
-int	free_export(char **args)
+int add_to_env(char ***env, char *new_var)
 {
-	free(args);
-	return (-1);
-}
-
-int	ft_export(t_env **env, char *arg)
-{
-	char	**args;
-	t_env	*tmp;
-
-	tmp = *env;
-	args = malloc(sizeof(char *) * 2);
-	args[0] = extract_var_name(arg);
-	if (!args[0])
-		free_export(args);
-	args[1] = extract_var_data(arg);
-	while (tmp && ft_strncmp(tmp->var, args[0], ft_strlen(args[0])))
-		tmp = tmp->next;
-	if (tmp)
+	char	**new_env;
+	int		nb_strings;
+	int		i;
+	
+	i = 0;
+	nb_strings = count_strings(*env);
+	if (!new_var)
+		return (-1);
+	new_env = ft_calloc(sizeof(char *), nb_strings + 2);
+	if (!new_env)
+		return (-1);
+	while (*env && (*env)[i])
 	{
-		free(tmp->var);
-		free(tmp->data);
-		tmp->var = ft_strdup(args[0]);
-		tmp->data = ft_strdup(args[1]);
+		ft_printf("nb_string = %i | *env[%i] = %s\n", nb_strings, i, *env[i]);
+		new_env[i] = ft_strdup(*env[i]);
+		i++;
 	}
-	else
-		var_add_last(env, new_variable(args[0], args[1]));
-	free_export(args);
+	ft_printf("i = %i\n", i);
+	new_env[i] = ft_strdup(new_var);
+	ft_printf("new_env : %s, new_var : %s\n", *new_env, new_var);
+	if (*env)
+		free_env(*env);
+				perror("add");
+	*env = new_env;
+	return (0);
+}
+int update_env(char ***env, char *new_var)
+{
+	char **tmp;
+
+	tmp = calloc(2, sizeof(*tmp));
+	if (!tmp)
+		return (1);
+	tmp[0] = extract_var_name(new_var);
+	if (!tmp[0])
+	{
+		free(tmp);
+		return (1);
+	}
+	tmp[1] = NULL;
+	ft_unset(env, tmp);
+	free(tmp[0]);
+	free(tmp);
+	add_to_env(env, new_var);
+	return (0);
+}
+int	ft_export(char ***env, char **args)
+{
+	int	i;
+
+	i = -1;
+	if (!args)
+		ft_env(*env);
+	while (args[++i])
+	{
+		if (check_export_arg(*args) > 0)
+		{
+			if (!getvar(*env, *args))
+				add_to_env(env, *args);
+			else
+				update_env(env, *args);
+		}
+	}
 	return (0);
 }

@@ -6,27 +6,23 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:51:47 by gipaul            #+#    #+#             */
-/*   Updated: 2023/09/09 13:27:55 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:59:28 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env2(t_env *env)
-{
-	while (env)
-	{
-		printvar(env);
-		env = env->next;
-	}
-}
-int	test_cmd(char *cmd, char *arg, t_env *env)
+int	test_cmd(char *cmd, char *arg, char ***env)
 {
 	char	*arg_tmp[2];
 
+(void)arg;
 	if (arg && *arg)
-		arg_tmp[1] = arg;
-	if (!ft_strncmp(cmd, "pwd", 4))
+	{
+		arg_tmp[0] = arg;
+		arg_tmp[1] = NULL;
+	}
+/*	if (!ft_strncmp(cmd, "pwd", 4))
 	{
 //		ft_printf ("PWD:");
 		ft_pwd();
@@ -34,14 +30,15 @@ int	test_cmd(char *cmd, char *arg, t_env *env)
 	else if (!ft_strncmp(cmd, "cd", 3))
 	{
 //		ft_printf("CD to : %s\n", arg);
-		ft_cd(arg_tmp, env);
+	//	ft_cd(arg_tmp, *env);
 		test_cmd("PWD", NULL, env);
-	}
-	else if (!ft_strncmp(cmd, "env", 4))
-	{
-		ft_printf("-----ENV-----\n");
-		ft_env2(env);
-	}
+	}*/
+	if (!ft_strncmp(cmd, "env", 4))
+		ft_env(*env);
+	else if (!ft_strncmp(cmd, "export", 7))
+		ft_export(env, arg_tmp);
+	else if (!ft_strncmp(cmd, "unset", 6))
+		ft_unset(env, arg_tmp);
 	else if (!ft_strncmp(cmd, "exit", 5))
 	{
 		ft_printf(GRN"Exited properly\n"WHT);
@@ -54,37 +51,35 @@ int	test_cmd(char *cmd, char *arg, t_env *env)
 int	main(int ac, char **av, char **envp)
 {
 	(void) ac;
-	(void) envp;
-	t_env	*env;
+	(void) av;
 	int		activ;
 	char	*cmd_line;
+	char	**tmp_cmd;
+	char	**env;
 
-	activ = 1;
 	env = NULL;
-	init_env(av, envp, &env);
+	activ = 1;
+//	init_env(av, env, &env);
 //	ft_printf("-----env2----\n");
 //	ft_env2(env);
 	while (activ)
 	{
-		ft_printf(MAG"minishell "CYN"%s " WHT, getvar(env, "PWD")->data);
+		ft_printf(MAG"minishell "CYN"%s " WHT, getvar(env, "PWD"));
 		cmd_line = readline(YEL "$ " WHT);
 		if (cmd_line && *cmd_line)
 		{
-			if (test_cmd(cmd_line, NULL, env))
+			tmp_cmd = ft_split(cmd_line, ' ');
+			if (test_cmd(tmp_cmd[0], tmp_cmd[1], &env))
 				ft_printf("cmd_line : %s\n", cmd_line);
+			free_env(tmp_cmd);
+	//		free(cmd_line);
 		}
 		else
 			ft_printf("\n");
-		ft_memdel(cmd_line);
 	}
 	exit(0);
-	ft_printf("-----printvar----\n");
-	printvar(getvar(env, "HOME"));
-	test_cmd("PWD", NULL, env);
-	test_cmd("CD", "nonexistant_dir", env);
-	test_cmd("CD", "minishell", env);
 	ft_printf("---printvar (oldpwd, pwd)---\n");
-	printvar(getvar(env, "OLDPWD"));
-	printvar(getvar(env, "PWD"));
+	printvar(envp, "OLDPWD");
+	printvar(envp, "PWD");
 	exit(0);
 }

@@ -19,8 +19,8 @@ LIB_D		:=	libft/
 INC			:=	libft/inc/	inc/
 
 #---------------Add .c / .h here \/--------------
-BUILTIN		:=	cd.c echo.c env.c pwd.c unset.c export.c
-SRC			:=	main.c builtin.c new_variable.c var_list_utils.c getvar.c init_env.c
+BUILTIN		:=	env.c export.c unset.c #cd.c echo.c env.c pwd.c unset.c export.c
+SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c
 LIB			:=	ft readline history
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------

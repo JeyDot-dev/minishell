@@ -6,20 +6,18 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:52:01 by gipaul            #+#    #+#             */
-/*   Updated: 2023/08/21 18:53:25 by gipaul           ###   ########.fr       */
+/*   Updated: 2023/09/09 19:47:43 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_env *env)
+int	ft_env(char **env)
 {
-	while (env && env->next != NULL)
+	while (env && *env)
 	{
-		ft_putendl_fd(env->data, 1);
-		env = env->next;
+		ft_putendl_fd(*env, 1);
+		env++;
 	}	
-	if (env)
-		ft_putendl_fd(env->data, 1);
 	return (0);
 }
