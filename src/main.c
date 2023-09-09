@@ -6,7 +6,7 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:51:47 by gipaul            #+#    #+#             */
-/*   Updated: 2023/09/08 16:00:17 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:27:55 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	main(int ac, char **av, char **envp)
 //	ft_env2(env);
 	while (activ)
 	{
-		ft_printf(CYN "minishell :) %s" WHT, getvar(env, "PWD")->data);
-		cmd_line = readline(YEL ">" WHT);
+		ft_printf(MAG"minishell "CYN"%s " WHT, getvar(env, "PWD")->data);
+		cmd_line = readline(YEL "$ " WHT);
 		if (cmd_line && *cmd_line)
 		{
 			if (test_cmd(cmd_line, NULL, env))
