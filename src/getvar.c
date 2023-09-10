@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:54:20 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 14:24:04 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:03:31 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,17 @@ char	*getvar(char **env, char *var)
 	}
 	free(tmp);
 	return (*env);
+}
+char	*getvar_data(char **env, char *var)
+{
+	char *tmp;
+
+	tmp = getvar(env, var);
+	if (!tmp)
+		return (NULL);
+	while (tmp && *tmp && *tmp != '=')
+		tmp++;
+	if (*tmp == '=')
+		tmp++;
+	return (tmp);
 }

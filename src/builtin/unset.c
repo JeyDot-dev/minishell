@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 18:00:28 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 14:12:21 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:02:23 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -32,16 +32,18 @@ void remove_from_env(char ***env, char *var)
 			new_env[i[1]++] = ft_strdup((*env)[i[0]]);
 		i[0]++;
 	}
-	free_env(*env);
+	free_matrix(*env);
 	*env = new_env;
-	perror("remove");
 }
-void	ft_unset(char ***env, char **var)
+int	ft_unset(char ***env, char **var)
 {
+	if (!*var)
+		return (1);
 	while (*var)
 	{
 		if (getvar(*env, *var))
 			remove_from_env(env, *var);
 		var += 1;
 	}
+	return (0);
 }

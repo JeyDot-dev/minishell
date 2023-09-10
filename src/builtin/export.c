@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 15:54:09 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:51:19 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -56,7 +56,7 @@ int add_to_env(char ***env, char *new_var)
 	}
 	new_env[i] = ft_strdup(new_var);
 	if (*env)
-		free_env(*env);
+		free_matrix(*env);
 	*env = new_env;
 	return (0);
 }
@@ -89,12 +89,12 @@ int	ft_export(char ***env, char **args)
 		ft_env(*env);
 	while (args[++i])
 	{
-		if (check_export_arg(*args) > 0)
+		if (check_export_arg(args[i]) > 0)
 		{
-			if (!getvar(*env, *args))
-				add_to_env(env, *args);
+			if (!getvar(*env, args[i]))
+				add_to_env(env, args[i]);
 			else
-				update_env(env, *args);
+				update_env(env, args[i]);
 		}
 	}
 	return (0);
