@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:54:20 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/09 19:00:43 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/10 14:24:04 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,36 @@ int		getvar_strncmp(char *s1, char *s2)
 int	getvar_index(char **env, char *var)
 {
 	int	i;
+	char	*tmp;
 
-	if (!*env || !*var)
+	i = 0;
+	if (!env || !*var)
+		return (-1);
+	tmp = extract_var_name(var);
+	if (!tmp || !*tmp)
 		return (-1);
 	while (env[i] && getvar_strncmp(env[i], var))
+	{
 		i++;
-	return (i);
+	}
+	free(tmp);
+	if (env[i])
+		return (i);
+	return (-1);
 }
 char	*getvar(char **env, char *var)
 {
+	char	*tmp;
+
 	if (!env || !*var)
 		return (NULL);
-	while (*env && getvar_strncmp(*env, var))
+	tmp = extract_var_name(var);
+	if (!tmp)
+		return (NULL);
+	while (*env && getvar_strncmp(*env, tmp))
+	{
 		env++;
+	}
+	free(tmp);
 	return (*env);
 }

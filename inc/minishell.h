@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/09 18:37:57 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/10 14:54:14 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	ft_cd(char **args, t_env *env);
 int	ft_export(char ***env, char **args);
 void	ft_unset(char ***env, char **var);
 //------env manipulation functions----
+void	init_env(char **av, char **envp, char ***env);
+char	*extract_var_name(char *str);
 char	*getvar(char **env, char *var);
 int		getvar_index(char **env, char *var);
 int		count_strings(char **matrix);

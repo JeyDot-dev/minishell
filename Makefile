@@ -20,7 +20,7 @@ INC			:=	libft/inc/	inc/
 
 #---------------Add .c / .h here \/--------------
 BUILTIN		:=	env.c export.c unset.c #cd.c echo.c env.c pwd.c unset.c export.c
-SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c
+SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c extract_var_name.c init_env.c
 LIB			:=	ft readline history
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------
