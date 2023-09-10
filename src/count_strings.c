@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   count_strings.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
+/*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 10:52:01 by gipaul            #+#    #+#             */
-/*   Updated: 2023/09/09 19:47:43 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/09/09 16:24:15 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/09/09 19:02:04 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(char **env)
+int	count_strings(char **matrix)
 {
-	while (env && *env)
-	{
-		ft_putendl_fd(*env, 1);
-		env++;
-	}	
-	return (0);
+	int	i;
+
+	i = 0;
+	if (!matrix)
+		return (0);
+	while (matrix[i])
+		i++;
+	return (i);
 }

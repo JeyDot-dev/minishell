@@ -19,9 +19,9 @@ LIB_D		:=	libft/
 INC			:=	libft/inc/	inc/
 
 #---------------Add .c / .h here \/--------------
-BUILTIN		:=	cd.c echo.c env.c pwd.c unset.c export.c
-SRC			:=	main.c builtin.c new_variable.c var_list_utils.c getvar.c init_env.c
-LIB			:=	ft
+BUILTIN		:=	env.c export.c unset.c echo.c pwd.c cd.c
+SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c extract_var_name.c init_env.c export_unset_utils.c
+LIB			:=	ft readline history
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------
 #------------------------------------------------
@@ -32,9 +32,9 @@ DEPS        :=	$(OBJ:.o=.d)
 #------------------------------------------------
 #----------------Linux libs \/-------------------
 ifeq ($(UNAME_S),Linux)
-INC		 	:=	libft/inc	inc
 LIB_D		:=	libft/
-LIB			:=	ft
+INC			:=	libft/inc/	inc/
+LIB			:=	ft readline history
 FRAMEWORK	:=	
 endif
 #-------------------------------------------------

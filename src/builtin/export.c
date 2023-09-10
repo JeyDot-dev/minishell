@@ -6,93 +6,96 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 21:01:24 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:51:19 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
-
-int	ft_find_var(t_env *env, char *var)
+int mini_isalpha(int c)
 {
-	int	i;
-
-	i = 0;
-	while (env && ft_strncmp(env->var, var, ft_strlen(var)))
-	{
-		env = env->next;
-		i++;
-	}
-	if (env)
-		return (i);
-	return (-1);
-}
-char	*extract_var_name(char *str)
-{
-	int	i;
-	char *var_name;
-
-	i = 0;
-	var_name = ft_calloc(i + 1, sizeof(char));
-	if (!var_name)
-		return (NULL);
-	i = 0;
-	while (str && str[i] && str[i] != '=')
-	{
-		var_name[i] = str[i];
-		i++;
-	}
-	if (str[i] == '=')
-		var_name[i] = str[i];
-	return (var_name);
-}
-char	*extract_var_data(char *str)
-{
-	int	i;
-	int	j;
-	char	*var_data;
-
-	i = 0;
-	j = 0;
-	while (str && str[i] && str[i] != '=')
-			i++;
-	if (i == 0)
-		return (NULL);
-	if (str[i] == '=')
-		i++;
-	var_data = ft_calloc(sizeof(char), ft_strlen(&str[i]) + 1);
-	if (!var_data)
-		return (NULL);
-	while (str[i])
-		var_data[j++] = str[i++];
-	return (var_data);
-}
-int	free_export(char **args)
-{
-	free(args);
-	return (-1);
-}
-
-int	ft_export(t_env **env, char *arg)
-{
-	char	**args;
-	t_env	*tmp;
-
-	tmp = *env;
-	args = malloc(sizeof(char *) * 2);
-	args[0] = extract_var_name(arg);
-	if (!args[0])
-		free_export(args);
-	args[1] = extract_var_data(arg);
-	while (tmp && ft_strncmp(tmp->var, args[0], ft_strlen(args[0])))
-		tmp = tmp->next;
-	if (tmp)
-	{
-		free(tmp->var);
-		free(tmp->data);
-		tmp->var = ft_strdup(args[0]);
-		tmp->data = ft_strdup(args[1]);
-	}
+	if ((c > 64 && c < 91) || (c > 96 && c < 123) || c == '_')
+		return (1);
 	else
-		var_add_last(env, new_variable(args[0], args[1]));
-	free_export(args);
+		return (0);
+}
+int check_export_arg(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (!arg || !*arg || !mini_isalpha(*arg))
+	{
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("not a valid identifier\n", 2);
+		return (-1);
+	}
+	while (arg[i] && arg[i] != '=')
+		i++;
+	if (arg[i])
+		return (i);
+	else
+		return (0);
+}
+int add_to_env(char ***env, char *new_var)
+{
+	char	**new_env;
+	int		nb_strings;
+	int		i;
+	
+	i = 0;
+	nb_strings = count_strings(*env);
+	if (!new_var)
+		return (-1);
+	new_env = ft_calloc(sizeof(char *), nb_strings + 2);
+	if (!new_env)
+		return (-1);
+	new_env[nb_strings + 1] = NULL;
+	while (*env && (*env)[i])
+	{
+		new_env[i] = ft_strdup((*env)[i]);
+		i++;
+	}
+	new_env[i] = ft_strdup(new_var);
+	if (*env)
+		free_matrix(*env);
+	*env = new_env;
+	return (0);
+}
+int update_env(char ***env, char *new_var)
+{
+	char **tmp;
+
+	tmp = calloc(2, sizeof(char *));
+	if (!tmp)
+		return (1);
+	tmp[0] = extract_var_name(new_var);
+	if (!tmp[0])
+	{
+		free(tmp);
+		return (1);
+	}
+	tmp[1] = NULL;
+	ft_unset(env, tmp);
+	free(tmp[0]);
+	free(tmp);
+	add_to_env(env, new_var);
+	return (0);
+}
+int	ft_export(char ***env, char **args)
+{
+	int	i;
+
+	i = -1;
+	if (!args  || !*args)
+		ft_env(*env);
+	while (args[++i])
+	{
+		if (check_export_arg(args[i]) > 0)
+		{
+			if (!getvar(*env, args[i]))
+				add_to_env(env, args[i]);
+			else
+				update_env(env, args[i]);
+		}
+	}
 	return (0);
 }

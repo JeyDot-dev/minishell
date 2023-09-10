@@ -5,20 +5,70 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 18:20:30 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 18:20:32 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/09/09 15:54:20 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/09/10 18:03:31 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_env	*getvar(t_env *env, char *to_find)
+int		getvar_strncmp(char *s1, char *s2)
 {
-	while (env)
+	char *tmp;
+	int	ret;
+
+	tmp = ft_strjoin(s2, "=");
+	if (!tmp)
+		return (1);
+	ret = ft_strncmp(s1, tmp, ft_strlen(tmp));
+	free(tmp);
+	return (ret);
+}
+int	getvar_index(char **env, char *var)
+{
+	int	i;
+	char	*tmp;
+
+	i = 0;
+	if (!env || !*var)
+		return (-1);
+	tmp = extract_var_name(var);
+	if (!tmp || !*tmp)
+		return (-1);
+	while (env[i] && getvar_strncmp(env[i], var))
 	{
-		if (ft_strncmp(env->var, to_find, ft_strlen(to_find)) == 0)
-			return (env);
-		env = env->next;
+		i++;
 	}
-	return (NULL);
+	free(tmp);
+	if (env[i])
+		return (i);
+	return (-1);
+}
+char	*getvar(char **env, char *var)
+{
+	char	*tmp;
+
+	if (!env || !*var)
+		return (NULL);
+	tmp = extract_var_name(var);
+	if (!tmp)
+		return (NULL);
+	while (*env && getvar_strncmp(*env, tmp))
+	{
+		env++;
+	}
+	free(tmp);
+	return (*env);
+}
+char	*getvar_data(char **env, char *var)
+{
+	char *tmp;
+
+	tmp = getvar(env, var);
+	if (!tmp)
+		return (NULL);
+	while (tmp && *tmp && *tmp != '=')
+		tmp++;
+	if (*tmp == '=')
+		tmp++;
+	return (tmp);
 }

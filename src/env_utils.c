@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
+/*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 10:52:01 by gipaul            #+#    #+#             */
-/*   Updated: 2023/09/09 19:47:43 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/09/09 17:15:57 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/09/10 18:52:43 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(char **env)
+void free_matrix(char **matrix)
 {
-	while (env && *env)
-	{
-		ft_putendl_fd(*env, 1);
-		env++;
-	}	
-	return (0);
+	int	i;
+
+	i = -1;
+	while (matrix[++i])
+		free(matrix[i]);
+	free(matrix);
+}
+void printvar(char **env, char *var)
+{
+	ft_printf("%s\n", getvar(env, var));
 }

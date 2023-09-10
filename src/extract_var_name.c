@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_list_utils.c                                   :+:      :+:    :+:   */
+/*   extract_var_name.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 21:06:47 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 21:02:44 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/09/10 13:18:03 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/09/10 13:18:26 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-void	printvar(t_env *env)
+char	*extract_var_name(char *str)
 {
-	ft_printf("%s%s\n", env->var, env->data);
-}
-void	var_add_last(t_env **env, t_env *new_var)
-{
-	t_env	*tmp;
-	
-	tmp = *env;
-	if (!tmp && new_var)
-		*env = new_var;
-	else if (env && new_var)
+	int	i;
+	char *var_name;
+
+	i = 0;
+	while (str && str[i] && str[i] != '=')
+			i++;
+	var_name = ft_calloc(i + 1, sizeof(char));
+	if (!var_name)
+		return (NULL);
+	i = 0;
+	while (str && str[i] && str[i] != '=')
 	{
-		while (tmp && tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_var;
+		var_name[i] = str[i];
+		i++;
 	}
+	return (var_name);
 }

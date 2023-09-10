@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_variable.c                                     :+:      :+:    :+:   */
+/*   export_unset_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 19:35:12 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/22 21:07:08 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/09/10 17:28:57 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/09/10 17:30:24 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-t_env	*new_variable(char	*var, char *data)
+void	super_unset(char ***env, char *new_var)
 {
-	t_env	*new_var;
+	char *tmp[2];
 
-	new_var = NULL;
-	if (*var)
-	{
-		new_var = malloc(sizeof(*new_var));
-		if (!new_var)
-			return (NULL);
-		new_var->var = ft_strdup(var);
-		if (data)
-			new_var->data = ft_strdup(data);
-		else
-			new_var->data = NULL;
-		new_var->next = NULL;
-	}
-	ft_printf("******ADDED NEW VAR:%s%s\n", new_var->var, new_var->data);
-	return (new_var);
+	tmp[0] = new_var;
+	tmp[1] = NULL;
+	ft_export(env, tmp);
+}
+void	super_export(char ***env, char *new_var)
+{
+	char *tmp[2];
+
+	tmp[0] = new_var;
+	tmp[1] = NULL;
+	ft_export(env, tmp);
+}
+void	super_double_export(char ***env, char *s1, char *s2)
+{
+	char *tmp;
+
+	tmp = ft_strjoin(s1, s2);
+	super_export(env, tmp);
+	free(tmp);
 }

@@ -3,62 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
+/*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 10:43:34 by gipaul            #+#    #+#             */
-/*   Updated: 2023/08/21 18:07:28 by gipaul           ###   ########.fr       */
+/*   Created: 2023/09/09 18:00:28 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/09/10 19:02:23 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
-
-static size_t	env_size(char *env)
+void remove_from_env(char ***env, char *var)
 {
-	size_t	i;
-	
-	i = 0;
-	while (env[i] && env[i] != '=')
-		i++;
-	return (i);
+	int	i[3];
+	char **new_env;
+
+	new_env = ft_calloc(sizeof(char *), count_strings(*env));
+	if (!new_env)
+		return ;
+	i[0] = 0;
+	i[1] = 0;
+	i[2] = getvar_index(*env, var);
+	if (i[2] < 0)
+	{
+		free(new_env);
+		return ;
+	}
+	while ((*env)[i[0]])
+	{
+		if (i[0] != i[2])
+			new_env[i[1]++] = ft_strdup((*env)[i[0]]);
+		i[0]++;
+	}
+	free_matrix(*env);
+	*env = new_env;
 }
-
-static void	free_node(t_shell *shell, t_env *env)
+int	ft_unset(char ***env, char **var)
 {
-	if (shell->env == env && env->next == NULL)
+	if (!*var)
+		return (1);
+	while (*var)
 	{
-		ft_memdel(shell->env->data);
-		shell->env->data = NULL;
-		shell->env->next = NULL;
-		return;
+		if (getvar(*env, *var))
+			remove_from_env(env, *var);
+		var += 1;
 	}
-	ft_memdel(env->data);
-	ft_memdel(env);
+	return (0);
 }
-
-int	ft_unset(char **a, t_shell *shell)
-{
-	t_env *env;
-	t_env *tmp;
-
-	env = shell->env;
-	if (!(a[1]))
-		return (0);
-	if (ft_strncmp(a[1], env->data, env_size(env->data)) == 0)
-	{
-		shell->env = (env->next) ? env->next : shell->env;
-		free_node(shell, env);
-		return (0);
-	}
-	while (env && env->next)
-	{
-		if (ft_strncmp(a[1], env->next->data, env_size(env->next->data)) == 0)
-		{
-			tmp = env->next->next;
-			free_node(shell, env->next);
-			env->next = tmp;
-			return (0);
-		}
-		env = env->next;
-	}
-	return(0);
-}	
