@@ -6,7 +6,7 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:51:47 by gipaul            #+#    #+#             */
-/*   Updated: 2023/09/10 19:03:43 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:49:52 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,5 @@ int	main(int ac, char **av, char **envp)
 				ft_printf("cmd_line : %s\n", cmd_line);
 			free_matrix(tmp_cmd);
 		}
-		else
-			ft_printf("\n");
 	}
 }
