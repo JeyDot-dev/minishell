@@ -6,7 +6,7 @@
 /*   By: jsousa-a <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 12:01:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/08/21 18:48:06 by gipaul           ###   ########.fr       */
+/*   Updated: 2023/09/17 14:25:40 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int				ft_isdigit(int c);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
+int				ft_isspace(int c);
 size_t			ft_strlen(const char *s);
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
