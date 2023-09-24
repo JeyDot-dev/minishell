@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 19:00:41 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/24 14:56:35 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,15 @@ int		count_strings(char **matrix);
 //--------------------OTHER USEFUL FUNCTIONS---------------------------
 //		v	function used to free a matrix (array[x][y]) and its content.
 void	free_matrix(char **env);
+//		v	function used to add a char* to a matrix.
+int		add_to_matrix(char ***env, char *new_var);
 //		v	function used to find and print an existing variable.
 void	printvar(char **env, char *var);
+//		v	prints a string in stderr and free another if needed, returns (void*)	NULL
+void	*free_return_null(char *to_del, char *to_print);
+//		v	prints a string in stderr and free another if needed, returns (int)		-1
+int		free_return_minone(char *to_del, char *to_print);
+//--------------------PARSING FUNCTIONS-------------------------------
+//		v	splits command line into usable tokens and expands variables
+char	**uber_split(char *cmd_line, int err);
 #endif

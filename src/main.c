@@ -6,7 +6,7 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 17:51:47 by gipaul            #+#    #+#             */
-/*   Updated: 2023/09/11 20:49:52 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/24 15:02:43 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ int	main(int ac, char **av, char **envp)
 		cmd_line = readline(YEL "$ " WHT);
 		if (cmd_line && *cmd_line)
 		{
-			tmp_cmd = ft_split(cmd_line, ' ');
-			if (builtin_cmd(tmp_cmd, &shell->env) == 777)
-				ft_printf("cmd_line : %s\n", cmd_line);
-			free_matrix(tmp_cmd);
+			tmp_cmd = uber_split(cmd_line, 1);
+			if (tmp_cmd)
+			{
+				ft_env(tmp_cmd);
+				free_matrix(tmp_cmd);
+			}
+//			if (builtin_cmd(tmp_cmd, &shell->env) == 777)
+//				ft_printf("cmd_line : %s\n", cmd_line);
 		}
 	}
 }

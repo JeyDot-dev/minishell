@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 18:51:19 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/23 16:12:01 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -35,31 +35,7 @@ int check_export_arg(char *arg)
 	else
 		return (0);
 }
-int add_to_env(char ***env, char *new_var)
-{
-	char	**new_env;
-	int		nb_strings;
-	int		i;
-	
-	i = 0;
-	nb_strings = count_strings(*env);
-	if (!new_var)
-		return (-1);
-	new_env = ft_calloc(sizeof(char *), nb_strings + 2);
-	if (!new_env)
-		return (-1);
-	new_env[nb_strings + 1] = NULL;
-	while (*env && (*env)[i])
-	{
-		new_env[i] = ft_strdup((*env)[i]);
-		i++;
-	}
-	new_env[i] = ft_strdup(new_var);
-	if (*env)
-		free_matrix(*env);
-	*env = new_env;
-	return (0);
-}
+
 int update_env(char ***env, char *new_var)
 {
 	char **tmp;
@@ -77,9 +53,10 @@ int update_env(char ***env, char *new_var)
 	ft_unset(env, tmp);
 	free(tmp[0]);
 	free(tmp);
-	add_to_env(env, new_var);
+	add_to_matrix(env, new_var);
 	return (0);
 }
+
 int	ft_export(char ***env, char **args)
 {
 	int	i;
@@ -92,7 +69,7 @@ int	ft_export(char ***env, char **args)
 		if (check_export_arg(args[i]) > 0)
 		{
 			if (!getvar(*env, args[i]))
-				add_to_env(env, args[i]);
+				add_to_matrix(env, args[i]);
 			else
 				update_env(env, args[i]);
 		}
