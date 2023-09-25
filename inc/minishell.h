@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/24 14:56:35 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/25 21:06:58 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	super_double_export(char ***env, char *s1, char *s2);
 void	init_env(char **av, char **envp, char ***env);
 //		v	makes an allocated copy of the name of a env variable (exemple input("VAR=data") = "VAR=").
 char	*extract_var_name(char *str);
+//		v	makes an allocated copy of the data of a env variable (exemple input("VAR=data") = "data").
+char	*extract_var_data(char *str);
 //		v	function to return an existing env var as char * if doesn't exist returns NULL instead (exemple output: "VAR=data").
 char	*getvar(char **env, char *var);
 //		v	function to return an existing env var data as char * if doesn't exist returns NULL instead (exemple output: "data").
