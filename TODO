@@ -1,0 +1,6 @@
+1. finish '"' and ''' and normal string tokenazation with var expansions.
+2. finish meta chars tokenization.
+3. organise tokens in struct.
+4. external cmd execution (execve).
+5. pipes and redirections
+6. update SHLVL
