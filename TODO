@@ -3,4 +3,4 @@
 3. organise tokens in struct.
 4. external cmd execution (execve).
 5. pipes and redirections
-6. update SHLVL
+6. update SHLVL and _=
