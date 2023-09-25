@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:00:22 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/24 15:05:42 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:55:36 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -31,6 +31,13 @@ char	*free_join(char *str, char *buffer)
 	buffer = ft_memdel(buffer);
 	return (new);
 }
+int		is_string(const char c)
+{
+	if (c && !is_meta(c)
+}
+int		set_mode(char *cmd_line, int i, int *mode)
+{
+}
 int		quote_token(char ***splitted_cmd, char *cmd_line, int i)
 {
 	int		mode;
@@ -40,7 +47,7 @@ int		quote_token(char ***splitted_cmd, char *cmd_line, int i)
 
 	buffer = NULL;
 	final = NULL;
-	while (cmd_line[i] && (cmd_line[i] == '\'' || cmd_line[i] == '\"'))
+	while ((cmd_line[i] && cmd_line[i] != 32) && (cmd_line[i] == '\'' || cmd_line[i] == '\"'))
 	{
 		mode = 1;
 		if (cmd_line[i] == '\'')
