@@ -20,8 +20,8 @@ INC			:=	libft/inc/	inc/
 
 #---------------Add .c / .h here \/--------------
 BUILTIN		:=	env.c export.c unset.c echo.c pwd.c cd.c
-SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c extract_var_name.c init_env.c export_unset_utils.c \
-				add_to_matrix.c	free_return.c
+SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c extract_var_name.c extract_var_data.c init_env.c 	\
+				export_unset_utils.c	add_to_matrix.c	free_return.c	\
 
 SRC			+=	parsing/uber_split.c
 LIB			:=	ft readline history

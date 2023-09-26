@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:16:01 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/24 14:21:10 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:18:14 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -17,6 +17,8 @@ char	*ft_strndup(const char *str, size_t n)
 	size_t	i;
 	size_t	len;
 
+	if (n <= 0)
+		return (NULL);
 	len = ft_strlen(str);
 	i = 0;
 	if (len < n)

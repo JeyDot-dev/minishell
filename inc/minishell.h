@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/25 21:06:58 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/26 09:36:12 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_arg
 typedef struct	s_shell
 {
 	char	**env;
+	int		err;
 }				t_shell;
 
 //-----------------BUILTIN FUNCTIONS---------------------------
@@ -79,5 +80,5 @@ void	*free_return_null(char *to_del, char *to_print);
 int		free_return_minone(char *to_del, char *to_print);
 //--------------------PARSING FUNCTIONS-------------------------------
 //		v	splits command line into usable tokens and expands variables
-char	**uber_split(char *cmd_line, int err);
+int		uber_split(char	***splitted_cmd, char *cmd_line, int err, char **env);
 #endif
