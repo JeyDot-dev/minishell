@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:30:45 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 17:07:04 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:00:51 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*extract_var_data(char *str)
 
 	i = 0;
 	j = 0;
+	if (!str)
+		return (NULL);
 	while (str && str[i] && str[i] != '=')
 			i++;
 	if (i == 0)

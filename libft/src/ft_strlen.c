@@ -6,7 +6,7 @@
 /*   By: jsousa-a <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:58:25 by jsousa-a          #+#    #+#             */
-/*   Updated: 2022/10/13 13:14:02 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:08:24 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (*s != 0)
 	{
 		i++;

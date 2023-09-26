@@ -24,7 +24,7 @@ SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c extract_var_name.
 				export_unset_utils.c	add_to_matrix.c	free_return.c	\
 
 SRC			+=	parsing/uber_split.c
-LIB			:=	ft readline history
+LIB			:=	ft readline
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------
 #------------------------------------------------
