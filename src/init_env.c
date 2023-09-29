@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:29:02 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 17:30:32 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:25:06 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -35,6 +35,7 @@ void	init_env(char **av, char **envp, char ***env)
 	char	*tmp;
 
 	tmp = NULL;
+	*env = NULL;
 	while (*envp)
 	{
 		super_export(env, *envp);

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/26 09:36:12 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:48:54 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
+# include <sys/ioctl.h>
 # define BLK "\e[0;30m"
 # define RED "\e[0;31m"
 # define GRN "\e[0;32m"
@@ -34,18 +36,18 @@ typedef struct	s_arg
 typedef struct	s_shell
 {
 	char	**env;
-	int		err;
 }				t_shell;
-
+extern int g_status;
 //-----------------BUILTIN FUNCTIONS---------------------------
 //	v	executes builtin, returns 0 if it executed builtin, returns error code if builtin failed, returns... 777 if not a builtin.
-int	builtin_cmd(char **args, char ***env);
-int	ft_echo(char **args);
-int	ft_env(char **env);
-int	ft_pwd(void);
-int	ft_cd(char ***env, char **args);
-int	ft_export(char ***env, char **args);
-int	ft_unset(char ***env, char **var);
+int		builtin_cmd(char **args, char ***env);
+int		ft_echo(char **args);
+int		ft_env(char **env);
+int		ft_pwd(void);
+int		ft_cd(char ***env, char **args);
+int		ft_export(char ***env, char **args);
+int		ft_unset(char ***env, char **var);
+char	*prompt(void);
 //-----------------ENV MANIPULATION FUNCTIONS-------------
 //		v	function to unset with a char* instead of char**.
 void	super_unset(char ***env, char *new_var);
@@ -78,7 +80,10 @@ void	printvar(char **env, char *var);
 void	*free_return_null(char *to_del, char *to_print);
 //		v	prints a string in stderr and free another if needed, returns (int)		-1
 int		free_return_minone(char *to_del, char *to_print);
+//		v	join str and buffer and frees them
+char	*free_join(char *str, char *buffer);
 //--------------------PARSING FUNCTIONS-------------------------------
 //		v	splits command line into usable tokens and expands variables
-int		uber_split(char	***splitted_cmd, char *cmd_line, int err, char **env);
+int		uber_split(char	***splitted_cmd, char *cmd_line, char **env);
+void	signal_handler(int sig);
 #endif

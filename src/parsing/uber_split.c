@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:00:22 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/26 14:12:03 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:51:59 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -17,20 +17,6 @@ int		is_meta(const int c)
 	return (0);
 }
 
-char	*free_join(char *str, char *buffer)
-{
-	char	*new;
-
-	if (str)
-		new = ft_strjoin(str, buffer);
-	else
-		return (buffer);
-	if (!new)
-		return (NULL);
-	str = ft_memdel(str);
-	buffer = ft_memdel(buffer);
-	return (new);
-}
 
 int		is_string(const int c)
 {
@@ -53,7 +39,7 @@ int		find_end_of_token(char *cmd_line, int i, int mode)
 	return (i);
 }
 
-int	expand_var(char *str, char **var, int i, int err, char **env)
+int	expand_var(char *str, char **var, int i, char **env)
 {
 	int		start;
 	char	*buffer;
@@ -65,7 +51,9 @@ int	expand_var(char *str, char **var, int i, int err, char **env)
 	if (!str[i])
 		*var = ft_strdup("$");
 	else if (str[i] == '?')
-		*var = ft_strdup(ft_itoa(err));
+		*var = ft_itoa(g_status);
+	if (str[i] == '?')
+		i++;
 	else
 	{
 		while (str[i] && str[i] != '$' && !is_meta(str[i]) &&
@@ -81,7 +69,7 @@ int	expand_var(char *str, char **var, int i, int err, char **env)
 	return (i);
 }
 
-char	*expand_string(char *str, int err, char **env)
+char	*expand_string(char *str, char **env)
 {
 	char	*new_s;
 	char	*var;
@@ -96,7 +84,7 @@ char	*expand_string(char *str, int err, char **env)
 	{
 		if (str[start] == '$')
 		{
-			start = expand_var(str, &var, end, err, env);
+			start = expand_var(str, &var, end, env);
 			end = start;
 			new_s = free_join(new_s, var);
 		}
@@ -108,7 +96,7 @@ char	*expand_string(char *str, int err, char **env)
 	return (new_s);
 }
 
-int		get_string(char *cmd_line, char **buffer, int i, int err, char **env)
+int		get_string(char *cmd_line, char **buffer, int i, char **env)
 {
 	int	start[2];
 
@@ -129,13 +117,13 @@ int		get_string(char *cmd_line, char **buffer, int i, int err, char **env)
 		return (i);
 	*buffer = ft_strndup(&cmd_line[start[0]], i - start[0]);
 	if (start[1] == 0 || start[1] == 1)
-		*buffer = expand_string(*buffer, err, env);
+		*buffer = expand_string(*buffer, env);
 	if (start[1])
 		i++;
 	return (i);
 }
 
-int		str_token(char ***splitted_cmd, char *cmd_line, int i, int err, char **env)
+int		str_token(char ***splitted_cmd, char *cmd_line, int i, char **env)
 {
 	char	*new_str;
 	char	*buffer;
@@ -144,7 +132,7 @@ int		str_token(char ***splitted_cmd, char *cmd_line, int i, int err, char **env)
 	new_str = NULL;
 	while (is_string(cmd_line[i]))
 	{
-		i = get_string(cmd_line, &buffer, i, err, env);
+		i = get_string(cmd_line, &buffer, i, env);
 		if (i >= 0)
 			new_str = free_join(new_str, buffer);
 	}
@@ -219,16 +207,16 @@ int		meta_token(char ***splitted_cmd, char *cmd_line, int i)
 
 }
 
-int		create_token(char ***splitted_cmd, char *cmd_line, int i, int err, char **env)
+int		create_token(char ***splitted_cmd, char *cmd_line, int i, char **env)
 {
 	if (is_meta(cmd_line[i]))
 		i = meta_token(splitted_cmd, cmd_line, i);
 	else if (cmd_line[i])
-		i = str_token(splitted_cmd, cmd_line, i, err, env);
+		i = str_token(splitted_cmd, cmd_line, i, env);
 	return (i);
 }
 
-int	uber_split(char	***splitted_cmd, char *cmd_line, int err, char **env)
+int	uber_split(char	***splitted_cmd, char *cmd_line, char **env)
 {
 	int		i;
 
@@ -238,7 +226,7 @@ int	uber_split(char	***splitted_cmd, char *cmd_line, int err, char **env)
 		while (cmd_line[i] && cmd_line[i] == 32)
 			i++;
 		if (cmd_line[i])
-			i = create_token(splitted_cmd, cmd_line, i, err, env);
+			i = create_token(splitted_cmd, cmd_line, i, env);
 		if (i == -1)
 		{
 			free_matrix(*splitted_cmd);

@@ -16,12 +16,12 @@ SRC_D		:=	src/
 BUILTIN_D	:=	builtin/
 BUILD_D		:=	.build/
 LIB_D		:=	libft/
-INC			:=	libft/inc/	inc/
+INC			:=	inc/ libft/inc/
 
 #---------------Add .c / .h here \/--------------
 BUILTIN		:=	env.c export.c unset.c echo.c pwd.c cd.c
 SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c extract_var_name.c extract_var_data.c init_env.c 	\
-				export_unset_utils.c	add_to_matrix.c	free_return.c	\
+				export_unset_utils.c	add_to_matrix.c	free_return.c	prompt.c	signal_handler.c	free_join.c	\
 
 SRC			+=	parsing/uber_split.c
 LIB			:=	ft readline
@@ -36,7 +36,7 @@ DEPS        :=	$(OBJ:.o=.d)
 #----------------Linux libs \/-------------------
 ifeq ($(UNAME_S),Linux)
 LIB_D		:=	libft/
-INC			:=	libft/inc/	inc/
+INC			:=	inc/ libft/inc/
 LIB			:=	ft readline history
 FRAMEWORK	:=	
 endif
