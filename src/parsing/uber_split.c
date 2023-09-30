@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:00:22 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/30 11:46:57 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/30 17:05:52 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -93,6 +93,7 @@ char	*expand_string(char *str, char **env)
 		new_s = free_join(new_s, ft_strndup(&str[start], end - start));
 		start = end;
 	}
+	free(str);
 	return (new_s);
 }
 
@@ -115,7 +116,7 @@ int		get_string(char *cmd_line, char **buffer, int i, char **env)
 	i = find_end_of_token(cmd_line, i, start[1]);
 	if (i < 0)
 		return (i);
-	*buffer = ft_strndup(&cmd_line[start[0]], i - start[0]);
+	*buffer = ft_strndup(&(cmd_line[start[0]]), i - start[0]);
 	if (start[1] == 0 || start[1] == 1)
 		*buffer = expand_string(*buffer, env);
 	if (start[1])
@@ -123,20 +124,20 @@ int		get_string(char *cmd_line, char **buffer, int i, char **env)
 	return (i);
 }
 
-int		str_token(char ***splitted_cmd, char *cmd_line, int i, char **env)
+int		str_token(char ***split_cmd, char *cmd_line, int i, char **env)
 {
 	char	*new_str;
 	char	*buffer;
 
-	buffer = NULL;
 	new_str = NULL;
 	while (is_string(cmd_line[i]))
 	{
+		buffer = NULL;
 		i = get_string(cmd_line, &buffer, i, env);
 		if (i >= 0)
 			new_str = free_join(new_str, buffer);
 	}
-	if (new_str && add_to_matrix(splitted_cmd, new_str) != 0)
+	if (new_str && add_to_matrix(split_cmd, new_str) != 0)
 		i = -1;
 	ft_memdel(new_str);
 	return (i);
@@ -161,7 +162,7 @@ int		check_post_meta_long(char *cmd_line, int i, char sign)
 	}
 	return (42);
 }
-int		check_post_meta(char *cmd_line, int i, char sign)
+int		check_post_meta(char **split_cmd, char *cmd_line, int i, char sign)
 {
 	int	ret;
 
@@ -169,6 +170,8 @@ int		check_post_meta(char *cmd_line, int i, char sign)
 	ret = 42;
 	if (sign == '|')
 	{
+		if (!split_cmd)
+			return (ret);
 		while (cmd_line[i] && cmd_line[i] == 32)
 			i++;
 		if (cmd_line[i] && cmd_line[i] != '|')
@@ -178,11 +181,11 @@ int		check_post_meta(char *cmd_line, int i, char sign)
 		ret = check_post_meta_long(cmd_line, i, sign);
 	return (ret);
 }
-int		meta_token(char ***splitted_cmd, char *cmd_line, int i)
+int		meta_token(char ***split_cmd, char *cmd_line, int i)
 {
 	int	j;
 
-	j = check_post_meta(cmd_line, i, cmd_line[i]);
+	j = check_post_meta(*split_cmd, cmd_line, i, cmd_line[i]);
 	if (j == 42)
 	{
 		ft_putstr_fd("Error near ", 2);
@@ -192,46 +195,47 @@ int		meta_token(char ***splitted_cmd, char *cmd_line, int i)
 	}
 	i++;
 	if (j == 0)
-		add_to_matrix(splitted_cmd, "<");
+		add_to_matrix(split_cmd, "<");
 	if (j == 1)
-		add_to_matrix(splitted_cmd, "<<");
+		add_to_matrix(split_cmd, "<<");
 	if (j == 2)
-		add_to_matrix(splitted_cmd, ">");
+		add_to_matrix(split_cmd, ">");
 	if (j == 3)
-		add_to_matrix(splitted_cmd, ">>");
+		add_to_matrix(split_cmd, ">>");
 	if (j == 4)
-		add_to_matrix(splitted_cmd, "|");
+		add_to_matrix(split_cmd, "|");
 	if (j == 3 || j == 1)
 		i++;
 	return (i);
-
 }
 
-int		create_token(char ***splitted_cmd, char *cmd_line, int i, char **env)
+int		create_token(char ***split_cmd, char *cmd_line, int i, char **env)
 {
 	if (is_meta(cmd_line[i]))
-		i = meta_token(splitted_cmd, cmd_line, i);
+		i = meta_token(split_cmd, cmd_line, i);
 	else if (cmd_line[i])
-		i = str_token(splitted_cmd, cmd_line, i, env);
+		i = str_token(split_cmd, cmd_line, i, env);
 	return (i);
 }
 
-int	uber_split(char	***splitted_cmd, char *cmd_line, char **env)
+int	uber_split(char	***split_cmd, char *cmd_line, char **env)
 {
 	int		i;
 
 	i = 0;
-	*splitted_cmd = NULL;
+	*split_cmd = NULL;
 	while (cmd_line[i])
 	{
 		while (cmd_line[i] && cmd_line[i] == 32)
 			i++;
 		if (cmd_line[i])
-			i = create_token(splitted_cmd, cmd_line, i, env);
+			i = create_token(split_cmd, cmd_line, i, env);
 		if (i == -1)
 		{
-			free_matrix(*splitted_cmd);
-			*splitted_cmd = NULL;
+			if (*split_cmd)
+				free_matrix(*split_cmd);
+			*split_cmd = NULL;
+			g_status = i;
 			return (i);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/30 10:33:24 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:58:24 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@
 # define MAG "\e[0;35m"
 # define CYN "\e[0;36m"
 # define WHT "\e[0;37m"
-typedef struct	s_arg
+typedef struct	s_cmds
 {
-	char			*cmd;
+	int				fd_out;
+	int				fd_in;
 	char			**args;
-	struct s_arg	*next;
-}				t_arg;
+	struct s_cmds	*next;
+}				t_cmds;
 
 typedef struct	s_shell
 {
 	char	**env;
 	char	**tokens;
 	char	*cmd_line;
+	t_cmds	*cmds;
 }				t_shell;
 extern int g_status;
 //-----------------BUILTIN FUNCTIONS---------------------------
@@ -86,6 +88,6 @@ int		free_return_minone(char *to_del, char *to_print);
 char	*free_join(char *str, char *buffer);
 //--------------------PARSING FUNCTIONS-------------------------------
 //		v	splits command line into usable tokens and expands variables
-int		uber_split(char	***splitted_cmd, char *cmd_line, char **env);
+int		uber_split(char	***split_cmd, char *cmd_line, char **env);
 void	signal_handler(int sig);
 #endif
