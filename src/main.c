@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/30 17:08:41 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/30 19:25:06 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int	main(int ac, char **av, char **envp)
 		free(shell->cmd_line);
 		if (shell->tokens)
 		{
-			ft_env(shell->tokens);
+			g_status = builtin_cmd(shell->tokens, &(shell->env));
+			if (g_status == 777)
+				ft_env(shell->tokens);
 			free_matrix(shell->tokens);
 		}
 	}
