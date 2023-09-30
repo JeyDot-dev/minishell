@@ -36,7 +36,7 @@ DEPS        :=	$(OBJ:.o=.d)
 #----------------Linux libs \/-------------------
 ifeq ($(USER),jansol)
 LIB_D		:=	libft/ /opt/homebrew/opt/readline/lib/
-INC			:=	opt/homebrew/opt/readline/include/ inc/ libft/inc/
+INC			:=	/opt/homebrew/opt/readline/include/ inc/ libft/inc/
 endif
 ifeq ($(UNAME_S),Linux)
 LIB_D		:=	libft/
