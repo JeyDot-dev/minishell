@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:29:02 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/29 16:25:06 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/30 10:05:15 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -30,6 +30,19 @@ void	export_underscore_var(char ***env, char *av)
 	super_export(env, tmp);
 	free(tmp);
 }
+
+void update_shlvl(char *shlvl, char ***env)
+{
+	int		new_lvl;
+	char	*itoa;
+
+	new_lvl = ft_atoi(shlvl) + 1;
+	itoa = ft_itoa(new_lvl);
+	super_double_export(env, "SHLVL=", itoa);
+	free(itoa);
+
+}
+
 void	init_env(char **av, char **envp, char ***env)
 {
 	char	*tmp;
@@ -43,6 +56,8 @@ void	init_env(char **av, char **envp, char ***env)
 	}
 	if (getvar(*env, "SHLVL") == NULL)
 		super_export(env, "SHLVL=1");
+	else 
+		update_shlvl(getvar_data(*env, "SHLVL"), env);
 	if (getvar(*env, "PWD") == NULL)
 	{
 		tmp = getcwd(tmp, PATH_MAX + 1);

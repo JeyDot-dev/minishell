@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:00:22 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/29 17:51:59 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/30 11:46:57 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -221,6 +221,7 @@ int	uber_split(char	***splitted_cmd, char *cmd_line, char **env)
 	int		i;
 
 	i = 0;
+	*splitted_cmd = NULL;
 	while (cmd_line[i])
 	{
 		while (cmd_line[i] && cmd_line[i] == 32)
@@ -234,5 +235,5 @@ int	uber_split(char	***splitted_cmd, char *cmd_line, char **env)
 			return (i);
 		}
 	}
-	return (i);
+	return (0);
 }

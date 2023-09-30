@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/29 17:48:54 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/09/30 10:33:24 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct	s_arg
 typedef struct	s_shell
 {
 	char	**env;
+	char	**tokens;
+	char	*cmd_line;
 }				t_shell;
 extern int g_status;
 //-----------------BUILTIN FUNCTIONS---------------------------
