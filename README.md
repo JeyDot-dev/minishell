@@ -31,5 +31,5 @@ home/user/minishell
 4. update some env vars
    + SHLVL ✓
    + _=
-
+5. fix rare bug with history/terminal (echo -n cause it)
 probably some other stuff that I'll figure out.
