@@ -23,7 +23,7 @@ BUILTIN		:=	env.c export.c unset.c echo.c pwd.c cd.c
 SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c extract_var_name.c extract_var_data.c init_env.c 	\
 				export_unset_utils.c	add_to_matrix.c	free_return.c	prompt.c	signal_handler.c	free_join.c	\
 
-SRC			+=	parsing/uber_split.c
+SRC			+=	parsing/tokenizer.c
 LIB			:=	ft readline
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------

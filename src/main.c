@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/30 19:25:06 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 09:40:28 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **envp)
 		if (!shell->cmd_line)
 			exit(1);
 		else
-			uber_split(&(shell->tokens), shell->cmd_line, shell->env);
+			tokenizer(&(shell->tokens), shell->cmd_line, shell->env);
 //		if (g_status == 0 && shell->tokens)
 //		{
 			add_history(shell->cmd_line);

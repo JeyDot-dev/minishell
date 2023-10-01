@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   uber_split.c                                       :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:00:22 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/30 17:05:52 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 09:41:07 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -218,7 +218,7 @@ int		create_token(char ***split_cmd, char *cmd_line, int i, char **env)
 	return (i);
 }
 
-int	uber_split(char	***split_cmd, char *cmd_line, char **env)
+int	tokenizer(char	***split_cmd, char *cmd_line, char **env)
 {
 	int		i;
 

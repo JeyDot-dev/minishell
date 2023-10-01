@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/30 15:58:24 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 09:17:01 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ int		free_return_minone(char *to_del, char *to_print);
 char	*free_join(char *str, char *buffer);
 //--------------------PARSING FUNCTIONS-------------------------------
 //		v	splits command line into usable tokens and expands variables
-int		uber_split(char	***split_cmd, char *cmd_line, char **env);
+int		tokenizer(char	***split_cmd, char *cmd_line, char **env);
 void	signal_handler(int sig);
 #endif
