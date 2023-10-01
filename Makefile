@@ -13,22 +13,25 @@ NAME		:=	minishell
 UNAME_S 	:= $(shell uname -s)
 #---------------Directories----------------------
 SRC_D		:=	src/
-BUILTIN_D	:=	builtin/
 BUILD_D		:=	.build/
 LIB_D		:=	libft/
 INC			:=	inc/ libft/inc/
 
 #---------------Add .c / .h here \/--------------
-BUILTIN		:=	env.c export.c unset.c echo.c pwd.c cd.c
-SRC			:=	builtin.c count_strings.c env_utils.c getvar.c main.c extract_var_name.c extract_var_data.c init_env.c 	\
-				export_unset_utils.c	add_to_matrix.c	free_return.c	prompt.c	signal_handler.c	free_join.c	\
+BUILTIN		:=	env.c	export.c	unset.c	echo.c	pwd.c	cd.c
+UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\
+				getvar.c	extract_var_data.c	extract_var_name.c		\
+				add_to_matrix.c	free_join.c	count_strings.c	only_spaces.c\
+				fprint_debug.c	fprint_matrix.c
+SRC			:=	builtin.c	main.c	init_env.c	prompt.c	signal_handler.c	\
+				tokenizer.c	update_history.c
 
-SRC			+=	parsing/uber_split.c
 LIB			:=	ft readline
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------
 #------------------------------------------------
-SRC			+=	$(BUILTIN:%=$(BUILTIN_D)%)
+SRC			+=	$(BUILTIN:%=builtin/%)
+SRC			+=	$(UTILS:%=utils/%)
 SRC			:=	$(SRC:%=$(SRC_D)%)
 OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)
 DEPS        :=	$(OBJ:.o=.d)

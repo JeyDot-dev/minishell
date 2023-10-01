@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/30 15:58:24 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:39:59 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define WHT "\e[0;37m"
 typedef struct	s_cmds
 {
+	int				pipes[2];
 	int				fd_out;
 	int				fd_in;
 	char			**args;
@@ -37,11 +38,16 @@ typedef struct	s_cmds
 typedef struct	s_shell
 {
 	char	**env;
-	char	**tokens;
 	char	*cmd_line;
+	char	*last_cmd_line;
+	char	**tokens;
 	t_cmds	*cmds;
+	int		debug;
 }				t_shell;
 extern int g_status;
+//-----------------MAIN FUNCTIONS---------------------------
+char	*prompt(void);
+void	update_history(t_shell *shell);
 //-----------------BUILTIN FUNCTIONS---------------------------
 //	v	executes builtin, returns 0 if it executed builtin, returns error code if builtin failed, returns... 777 if not a builtin.
 int		builtin_cmd(char **args, char ***env);
@@ -51,7 +57,6 @@ int		ft_pwd(void);
 int		ft_cd(char ***env, char **args);
 int		ft_export(char ***env, char **args);
 int		ft_unset(char ***env, char **var);
-char	*prompt(void);
 //-----------------ENV MANIPULATION FUNCTIONS-------------
 //		v	function to unset with a char* instead of char**.
 void	super_unset(char ***env, char *new_var);
@@ -86,8 +91,18 @@ void	*free_return_null(char *to_del, char *to_print);
 int		free_return_minone(char *to_del, char *to_print);
 //		v	join str and buffer and frees them
 char	*free_join(char *str, char *buffer);
+//		v	returns 1 if there are only spaces in the string else returns 0
+int		only_spaces(char *str);
+void	fprint_matrix(int fd, char **matrix);
+//--------------------DEBUG FUNCTIONS---------------------------------
+//		v	debug function to print a single t_cmds struct (has different modes depending on debug mode)
+void	fprint_struct_cmds(int fd, t_cmds cmds, int mode);
+//		v	debug function to print the entirety of t_cmds list (has different modes depending on debug mode (shell.debug))
+void	fprint_list_cmds(int fd, t_shell shell, char *str);
+//		v	debug function to print t_shell (has different modes depending on debug mode (shell->debug))
+void	fprint_shell(int fd, t_shell *shell, char *str);
 //--------------------PARSING FUNCTIONS-------------------------------
 //		v	splits command line into usable tokens and expands variables
-int		uber_split(char	***split_cmd, char *cmd_line, char **env);
+int		tokenizer(char	***split_cmd, t_shell *shell);
 void	signal_handler(int sig);
 #endif
