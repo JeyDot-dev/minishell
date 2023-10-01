@@ -6,13 +6,12 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:15:57 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 18:52:43 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:19:19 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-void free_matrix(char **matrix)
+void	free_matrix(char **matrix)
 {
 	int	i;
 
@@ -21,7 +20,8 @@ void free_matrix(char **matrix)
 		free(matrix[i]);
 	free(matrix);
 }
-void printvar(char **env, char *var)
+
+void	printvar(char **env, char *var)
 {
 	ft_printf("%s\n", getvar(env, var));
 }

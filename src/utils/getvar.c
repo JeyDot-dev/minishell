@@ -6,15 +6,15 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:54:20 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 18:03:31 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:21:37 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
-int		getvar_strncmp(char *s1, char *s2)
+
+int	getvar_strncmp(char *s1, char *s2)
 {
-	char *tmp;
-	int	ret;
+	char	*tmp;
+	int		ret;
 
 	tmp = ft_strjoin(s2, "=");
 	if (!tmp)
@@ -23,9 +23,10 @@ int		getvar_strncmp(char *s1, char *s2)
 	free(tmp);
 	return (ret);
 }
+
 int	getvar_index(char **env, char *var)
 {
-	int	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;
@@ -43,6 +44,7 @@ int	getvar_index(char **env, char *var)
 		return (i);
 	return (-1);
 }
+
 char	*getvar(char **env, char *var)
 {
 	char	*tmp;
@@ -59,9 +61,10 @@ char	*getvar(char **env, char *var)
 	free(tmp);
 	return (*env);
 }
+
 char	*getvar_data(char **env, char *var)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = getvar(env, var);
 	if (!tmp)

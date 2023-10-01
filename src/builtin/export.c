@@ -6,18 +6,20 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/23 16:12:01 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:38:48 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
-int mini_isalpha(int c)
+
+int	mini_isalpha(int c)
 {
 	if ((c > 64 && c < 91) || (c > 96 && c < 123) || c == '_')
 		return (1);
 	else
 		return (0);
 }
-int check_export_arg(char *arg)
+
+int	check_export_arg(char *arg)
 {
 	int	i;
 
@@ -36,9 +38,9 @@ int check_export_arg(char *arg)
 		return (0);
 }
 
-int update_env(char ***env, char *new_var)
+int	update_env(char ***env, char *new_var)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = calloc(2, sizeof(char *));
 	if (!tmp)
@@ -62,7 +64,7 @@ int	ft_export(char ***env, char **args)
 	int	i;
 
 	i = -1;
-	if (!args  || !*args)
+	if (!args || !*args)
 		ft_env(*env);
 	while (args[++i])
 	{

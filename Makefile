@@ -22,9 +22,11 @@ BUILTIN		:=	env.c	export.c	unset.c	echo.c	pwd.c	cd.c
 UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\
 				getvar.c	extract_var_data.c	extract_var_name.c		\
 				add_to_matrix.c	free_join.c	count_strings.c	only_spaces.c\
-				fprint_debug.c	fprint_matrix.c
+				fprint_debug.c	fprint_matrix.c	is_meta.c	is_string.c
+
 SRC			:=	builtin.c	main.c	init_env.c	prompt.c	signal_handler.c	\
-				tokenizer.c	update_history.c
+				tokenizer.c	update_history.c	tokenization_utils.c	\
+				var_expansion.c
 
 LIB			:=	ft readline
 #FRAMEWORK	:=	OpenGL	AppKit

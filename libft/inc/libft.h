@@ -6,7 +6,7 @@
 /*   By: jsousa-a <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 12:01:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 14:56:41 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:34:34 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 # define CYAN "\e[0;36m"
 # define WHITE "\e[0;37m"
 # define COLOR_RESET "\e[0m"
+# define HEX "0123456789abcdef"
+# define HEX_C "0123456789ABCDEF"
+# define DEC "0123456789"
 //struct
 typedef struct s_list
 {
