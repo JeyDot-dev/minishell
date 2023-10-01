@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 11:31:40 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:39:59 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define WHT "\e[0;37m"
 typedef struct	s_cmds
 {
+	int				pipes[2];
 	int				fd_out;
 	int				fd_in;
 	char			**args;
@@ -41,6 +42,7 @@ typedef struct	s_shell
 	char	*last_cmd_line;
 	char	**tokens;
 	t_cmds	*cmds;
+	int		debug;
 }				t_shell;
 extern int g_status;
 //-----------------MAIN FUNCTIONS---------------------------
@@ -91,8 +93,16 @@ int		free_return_minone(char *to_del, char *to_print);
 char	*free_join(char *str, char *buffer);
 //		v	returns 1 if there are only spaces in the string else returns 0
 int		only_spaces(char *str);
+void	fprint_matrix(int fd, char **matrix);
+//--------------------DEBUG FUNCTIONS---------------------------------
+//		v	debug function to print a single t_cmds struct (has different modes depending on debug mode)
+void	fprint_struct_cmds(int fd, t_cmds cmds, int mode);
+//		v	debug function to print the entirety of t_cmds list (has different modes depending on debug mode (shell.debug))
+void	fprint_list_cmds(int fd, t_shell shell, char *str);
+//		v	debug function to print t_shell (has different modes depending on debug mode (shell->debug))
+void	fprint_shell(int fd, t_shell *shell, char *str);
 //--------------------PARSING FUNCTIONS-------------------------------
 //		v	splits command line into usable tokens and expands variables
-int		tokenizer(char	***split_cmd, char *cmd_line, char **env);
+int		tokenizer(char	***split_cmd, t_shell *shell);
 void	signal_handler(int sig);
 #endif

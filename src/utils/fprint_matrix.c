@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_history.c                                   :+:      :+:    :+:   */
+/*   fprint_matrix.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/01 11:30:37 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 15:16:19 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/10/01 15:55:57 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/10/01 15:58:33 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
-void	update_history(t_shell *shell)
+void	fprint_matrix(int fd, char **matrix)
 {
-	if (!only_spaces(shell->cmd_line) && ft_strncmp(shell->last_cmd_line,
-			shell->cmd_line, ft_strlen(shell->cmd_line)))
+	if (!matrix)
+		ft_putstr_fd("NULL\n", fd);
+	while (matrix && *matrix)
 	{
-		add_history(shell->cmd_line);
-		if (shell->last_cmd_line)
-			ft_memdel(shell->last_cmd_line);
-		shell->last_cmd_line = shell->cmd_line;
-		shell->cmd_line = NULL;
-	}
-	else
-		ft_memdel(shell->cmd_line);
+		ft_putchar_fd('\n', fd);
+		ft_putstr_fd(*matrix, fd);
+		matrix++;
+	}	
 }
