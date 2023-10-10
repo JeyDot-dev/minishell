@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 18:34:16 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:31:58 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define MAG "\e[0;35m"
 # define CYN "\e[0;36m"
 # define WHT "\e[0;37m"
+# define PIPE 124
 
 extern int	g_status;
 typedef struct s_cmds
@@ -36,6 +37,12 @@ typedef struct s_cmds
 	char			**args;
 	struct s_cmds	*next;
 }				t_cmds;
+typedef struct s_tokens
+{
+	char			*token;
+	int				is_meta;
+	struct s_tokens	*next;
+}				t_tokens;
 
 typedef struct s_shell
 {
