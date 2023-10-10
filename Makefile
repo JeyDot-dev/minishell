@@ -8,7 +8,6 @@ PUR	= \033[35m
 CYN	= \033[36m
 LGR	= \033[37m
 RST	= \033[0m
-USER		:=$(shell whoami)
 NAME		:=	minishell
 UNAME_S 	:= $(shell uname -s)
 #---------------Directories----------------------
@@ -39,10 +38,6 @@ OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)
 DEPS        :=	$(OBJ:.o=.d)
 #------------------------------------------------
 #----------------Linux libs \/-------------------
-ifeq ($(USER),jansol)
-LIB_D		:=	libft/ /opt/homebrew/opt/readline/lib/
-INC			:=	/opt/homebrew/opt/readline/include/ inc/ libft/inc/
-endif
 ifeq ($(UNAME_S),Linux)
 LIB_D		:=	libft/
 INC			:=	inc/ libft/inc/
