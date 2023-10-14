@@ -24,12 +24,13 @@ home/user/minishell
 #### TODO
 
 1. organise tokens in struct.
-   + make and plan struct
+   + make and plan struct                  [X]
    + parsing
 2. external cmd execution (execve).
 3. pipes and redirections
 4. update some env vars
    + SHLVL ✓
    + _=
-5. fix rare bug with history/terminal (echo -n cause it)
-probably some other stuff that I'll figure out.
+5. bugfix
+   + fix rare bug with history/terminal (echo -n cause it)
+   + fix "" segfault
