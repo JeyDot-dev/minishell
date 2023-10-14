@@ -6,33 +6,38 @@
 /*   By: jsousa-a <jsousa-a@student.42lausan>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:25:18 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/12 16:49:38 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:03:49 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+t_tokens *find_last(t_tokens *list)
+{
+	t_tokens	*tmp;
+
+	tmp = list;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	return (tmp);
+}
 int	add_token(char *token, int is_meta, t_tokens **token_list)
 {
-	t_tokens 	*head;
+	t_tokens 	*tmp;
 	t_tokens	*new;
 
-	head = *token_list;
-	new = malloc(sizeof(*new));
+	new = malloc(sizeof(t_tokens));
 	if (!new)
 		return (-1);
 	new->token = token;
 	new->is_meta = is_meta;
 	new->next = NULL;
 	if (!*token_list)
-	{
 		*token_list = new;
-	}
 	else
 	{
-			while (head->next)
-				head = head->next;
-		head->next = new;
+		tmp = find_last(*token_list);
+		tmp->next = new;
 	}
 	return (0);
 }

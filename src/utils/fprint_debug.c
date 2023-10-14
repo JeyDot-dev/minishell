@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 15:19:47 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 19:18:39 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:00:18 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -67,7 +67,10 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str)
 		i++;
 	}
 }
-
+/*void	fprint_tokens(int fd, t_shell *shell, char *str)
+{
+	ft_printf(2, "Tokens %s\n", str);
+}*/
 void	fprint_shell(int fd, t_shell *shell, char *str)
 {
 	if (shell->debug == 0)
@@ -76,10 +79,10 @@ void	fprint_shell(int fd, t_shell *shell, char *str)
 	str_arr(fd, shell->env, "env", shell->debug);
 	fprint_str(fd, shell->cmd_line, "cmd_line");
 	fprint_str(fd, shell->last_cmd_line, "last_cmd_line");
-	str_arr(fd, shell->tokens, "tokens", shell->debug);
-	if (shell->cmds)
-		ft_fprintf(fd, "cmds : ✓\n");
+	ft_fprintf(fd, "--tokens--\n");
+	if (shell->tokens)
+		print_tokens(shell->tokens);
 	else
-		ft_fprintf(fd, "cmds : NULL\n"WHT);
-	ft_putchar_fd('\n', fd);
+		ft_fprintf(fd, "NULL\n"WHT);
+	ft_fprintf(fd, WHT"\n");
 }

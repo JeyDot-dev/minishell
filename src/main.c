@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 17:39:00 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:02:20 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -52,7 +52,7 @@ int	cmd_loop(t_shell *shell)
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;
-	int		tmp_err;
+//	int		tmp_err;
 
 	if (init_minishell(ac, av, envp, &shell) || g_status)
 		exit(1);
@@ -60,10 +60,10 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (shell->tokens)
 		{
-			tmp_err = builtin_cmd(shell->tokens, &(shell->env));
-			if (tmp_err != 777)
-				g_status = tmp_err;
-			free_matrix(shell->tokens);
+			//tmp_err = builtin_cmd(shell->tokens, &(shell->env));
+			//if (tmp_err != 777)
+//			g_status = tmp_err;
+							//!!!!!!!!!!!!!!!!FREE TOKENS
 		}
 	}
 	exit(0);

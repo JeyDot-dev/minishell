@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:43:15 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 18:16:58 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:53:53 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -31,8 +31,16 @@ int	check_post_meta_long(char *cmd_line, int i, char sign)
 	}
 	return (42);
 }
+void	print_tokens(t_tokens *tokens)
+{
+	while (tokens)
+	{
+		ft_fprintf(2, "[\"%s\" : %i]\n", tokens->token, tokens->is_meta);
+		tokens = tokens->next;
+	}
+}
 
-int	check_post_meta(char **split_cmds, char *cmd_line, int i, char sign)
+int	check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign)
 {
 	int	ret;
 
@@ -40,7 +48,7 @@ int	check_post_meta(char **split_cmds, char *cmd_line, int i, char sign)
 	ret = 42;
 	if (sign == '|')
 	{
-		if (!split_cmds)
+		if (!tokens)
 			return (ret);
 		while (cmd_line[i] && cmd_line[i] == 32)
 			i++;

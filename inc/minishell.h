@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/09 17:31:58 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:30:10 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ typedef struct s_tokens
 
 typedef struct s_shell
 {
-	char	**env;
-	char	*cmd_line;
-	char	*last_cmd_line;
-	char	**tokens;
-	t_cmds	*cmds;
-	int		debug;
+	char		**env;
+	char		*cmd_line;
+	char		*last_cmd_line;
+	t_tokens	*tokens;
+	t_cmds		*cmds;
+	int			debug;
 }				t_shell;
 //-----------------MAIN FUNCTIONS---------------------------
 char	*prompt(void);
 void	update_history(t_shell *shell);
 //		v	splits command line into usable tokens and expands variables
-int		tokenizer(char	***split_cmds, t_shell *shell);
+int		tokenizer(t_tokens **tokens, t_shell *shell);
 //			--tokenizer_utilities--
 //		v	check the validity of the meta character by checking what's after it
-int		check_post_meta(char **split_cmds, char *cmd_line, int i, char sign);
+int		check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign);
 //		v	check if character is "|><" returns 0 if not
 int		is_meta(const int c);
 //		v	check if character is potential string (c != 32 || is_meta(c) || \0)
@@ -70,6 +70,7 @@ char	*expand_string(char *str, char **env);
 //		 __|finds end of string and returns index
 //		v  |checks for quotes and output error if needed
 int		find_end_of_token(char *cmd_line, int i, int mode);
+int		add_token(char *new_token, int is_meta, t_tokens **token_list);
 //-----------------BUILTIN FUNCTIONS---------------------------
 //		 __|executes builtin, returns 0 if it executed builtin
 //		v  |returns error code if builtin failed, returns 777 if not a builtin.
@@ -136,6 +137,7 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str);
 //		 __|debug function to print t_shell.
 //		v  |(has different modes depending on debug mode (shell->debug))
 void	fprint_shell(int fd, t_shell *shell, char *str);
+void	print_tokens(t_tokens *tokens);
 //--------------------PARSING FUNCTIONS-------------------------------
 void	signal_handler(int sig);
 #endif
