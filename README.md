@@ -1,36 +1,18 @@
-minishell
-=
-## Summary:
-This project is about creating a simple shell.
-### Features so far
-*  tokenize cmd_line to an array of strings usable for parsing and handles errors such as missing arg after "|><" and updates g_status also expands env variables and "$?" to last executed command code. Example :
-  ```
-input: "Hello'X'" I 'a'm > "A string" $PWD
-output:
-Hello'X'
-I
-am
->
-A string
-home/user/minishell
-```
-*  handles Ctrl-D, Ctrl-C, Ctrl-\ (Ctrl-\ has no effect)
-*  displays a prompt with the PWD and the color of the prompt shows if the last one had an error or not
-*  has builtin functions (env, cd, pwd, unset, echo, exit)
-*  Updates the environement when needed (SHLVL, PWD, OLD_PWD and soon _=)
-*  If an environement doesn't exist, then minishell creates a simple one.
-*  Has 2 debug modes that show different informations while using the shell (-d for standard debug and -v for a little more informations)
-*  History works like bash, it doesn't store duplicate commands and empty commands
-#### TODO
+## Minishell Project Summary
 
-1. organise tokens in struct.
-   + make and plan struct                  [X]
-   + parsing
-2. external cmd execution (execve).
-3. pipes and redirections
-4. update some env vars
-   + SHLVL ✓
-   + _=
-5. bugfix
-   + fix rare bug with history/terminal (echo -n cause it)
-   + fix "" segfault
+Minishell is a simple shell implementation with the following features:
+
+### Current Features:
+- Tokenizes command lines for parsing, handling errors such as missing arguments after "|><," and expanding environment variables.
+- Handles Ctrl-D, Ctrl-C, and displays a colored prompt indicating the success or failure of the last command.
+- Offers built-in functions (env, cd, pwd, unset, echo, exit).
+- Updates the environment variables (SHLVL, PWD, OLD_PWD) as needed and creates a simple environment if it doesn't exist.
+- Provides two debug modes for additional information (-d for standard debug and -v for more details).
+- Implements history functionality similar to bash, excluding duplicates and empty commands.
+
+### To-Do List:
+1. Organize tokens into a structured format.
+2. Implement external command execution (execve).
+3. Add support for pipes and redirections.
+4. Update specific environment variables (SHLVL, _=).
+5. Address and fix minor bugs, including those related to history and handling empty input.
