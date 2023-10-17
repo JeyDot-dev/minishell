@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/14 17:30:10 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:39:05 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ int		count_strings(char **matrix);
 //--------------------OTHER USEFUL FUNCTIONS---------------------------
 //		v	function used to free a matrix and its content.
 void	free_matrix(char **env);
+//		v	frees the struct s_token
+void	delete_tokens(t_tokens *tokens_struct);
 //		v	function used to add a char* to a matrix.
 int		add_to_matrix(char ***env, char *new_var);
 //		v	function used to find and print an existing variable.

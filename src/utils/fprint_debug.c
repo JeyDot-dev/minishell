@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 15:19:47 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/14 18:00:18 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:40:29 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -79,6 +79,7 @@ void	fprint_shell(int fd, t_shell *shell, char *str)
 	str_arr(fd, shell->env, "env", shell->debug);
 	fprint_str(fd, shell->cmd_line, "cmd_line");
 	fprint_str(fd, shell->last_cmd_line, "last_cmd_line");
+	ft_fprintf(fd, "status code : %i\n", g_status);
 	ft_fprintf(fd, "--tokens--\n");
 	if (shell->tokens)
 		print_tokens(shell->tokens);

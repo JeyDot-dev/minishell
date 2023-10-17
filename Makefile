@@ -23,17 +23,16 @@ UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\
 				add_to_matrix.c	free_join.c	count_strings.c	only_spaces.c\
 				fprint_debug.c	fprint_matrix.c	is_meta.c	is_string.c\
 				token_struct_utils.c
+PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c
 
-SRC			:=	builtin.c	main.c	init_env.c	prompt.c	signal_handler.c	\
-				tokenizer.c	update_history.c	tokenization_utils.c	\
-				var_expansion.c
+SRC			:=	main.c	exec_builtins.c	init_env.c	prompt.c	signal_handler.c	\
+				update_history.c
 
 LIB			:=	ft readline
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------
 #------------------------------------------------
-SRC			+=	$(BUILTIN:%=builtin/%)
-SRC			+=	$(UTILS:%=utils/%)
+SRC			+=	$(BUILTIN:%=builtin/%) $(UTILS:%=utils/%) $(PARSING:%=parsing/%)
 SRC			:=	$(SRC:%=$(SRC_D)%)
 OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)
 DEPS        :=	$(OBJ:.o=.d)

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:43:15 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/14 16:53:53 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:35:23 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -35,7 +35,8 @@ void	print_tokens(t_tokens *tokens)
 {
 	while (tokens)
 	{
-		ft_fprintf(2, "[\"%s\" : %i]\n", tokens->token, tokens->is_meta);
+		if (tokens->token)
+			ft_fprintf(2, "[\"%s\" : %i]\n", tokens->token, tokens->is_meta);
 		tokens = tokens->next;
 	}
 }

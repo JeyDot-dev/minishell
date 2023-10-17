@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausan>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:25:18 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/14 18:03:49 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:10:46 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_tokens *find_last(t_tokens *list)
 		tmp = tmp->next;
 	return (tmp);
 }
+
 int	add_token(char *token, int is_meta, t_tokens **token_list)
 {
 	t_tokens 	*tmp;
@@ -40,6 +41,23 @@ int	add_token(char *token, int is_meta, t_tokens **token_list)
 		tmp->next = new;
 	}
 	return (0);
+}
+
+void	delete_tokens(t_tokens *token_list)
+{
+	t_tokens	*tmp;
+
+	if (!token_list)
+		return ;
+	while(token_list)
+	{
+		tmp = token_list;
+		if (tmp->token)
+			free(tmp->token);
+		token_list = token_list->next;
+		free(tmp);
+		tmp = token_list;
+	}
 }
 /*int main(void)
 {
