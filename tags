@@ -227,6 +227,7 @@ next	inc/minishell.h	/^	struct s_tokens	*next;$/;"	m	struct:s_tokens	typeref:str
 next	libft/inc/libft.h	/^	struct s_list	*next;$/;"	m	struct:s_list	typeref:struct:s_list::s_list
 nf	libft/src/ft_printf.c	/^int	nf(char *str, int fd)$/;"	f
 only_spaces	src/utils/only_spaces.c	/^int	only_spaces(char *str)$/;"	f
+parse_tokens	src/parsing/parse_tokens.c	/^int	parse_tokens(t_tokens *tokens, t_shell *shell)$/;"	f
 pipes	inc/minishell.h	/^	int				pipes[2];$/;"	m	struct:s_cmds
 populate	libft/src/ft_itoa.c	/^void	populate(char *s, int neg, long int nb, int toalloc)$/;"	f
 print_tokens	src/parsing/tokenization_utils.c	/^void	print_tokens(t_tokens *tokens)$/;"	f
