@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:02:06 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 15:05:31 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:36:11 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -46,16 +46,16 @@ int	ft_isparam(char c, va_list arg, int fd)
 		return (1);
 	}
 	else if (c == 'x')
-		return (f(ft_itoa_base(va_arg(arg, unsigned int), "0123456789abcdef"), fd));
+		return (f(ft_itoa_base(va_arg(arg, unsigned int), HEX), fd));
 	else if (c == 'X')
-		return (f(ft_itoa_base(va_arg(arg, unsigned int), "0123456789ABCDEF"), fd));
+		return (f(ft_itoa_base(va_arg(arg, unsigned int), HEX_C), fd));
 	else if (c == 'u')
-		return (f(ft_itoa_base(va_arg(arg, unsigned int), "0123456789"), fd));
+		return (f(ft_itoa_base(va_arg(arg, unsigned int), DEC), fd));
 	else if (c == 'p')
 	{
 		ft_putstr_fd("0x", fd);
 		return (f(ft_itoa_base(va_arg(arg, unsigned long long int),
-					"0123456789abcdef") + 2, fd));
+					HEX) + 2, fd));
 	}
 	else
 		return (0);
@@ -86,6 +86,7 @@ int	ft_fprintf(int fd, const char *strparam, ...)
 	va_end(args);
 	return (ct);
 }
+
 int	ft_printf(const char *strparam, ...)
 {
 	va_list	args;

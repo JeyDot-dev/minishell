@@ -6,14 +6,14 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 19:04:07 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:14:02 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 //if cd = 1 then too many args
 //if cd = 2 then HOME not set
-int ft_count_args(char **args)
+int	ft_count_args(char **args)
 {
 	int	i;
 
@@ -22,10 +22,11 @@ int ft_count_args(char **args)
 		i++;
 	return (i);
 }
+
 void	update_env_cd(char ***env, char *old_pwd)
 {
-	char pwd[PATH_MAX];
-	
+	char	pwd[PATH_MAX];
+
 	if (!getvar(*env, "PWD"))
 		super_unset(env, "OLDPWD");
 	else
@@ -35,11 +36,11 @@ void	update_env_cd(char ***env, char *old_pwd)
 		super_double_export(env, "PWD=", pwd);
 	}
 }
+
 int	ft_cd(char ***env, char **args)
 {
 	char	*tmp;
 	char	*old_pwd;
-	
 
 	if (!*args || (**args == '~' && (*args)[1] == 0))
 		tmp = getvar_data(*env, "HOME");

@@ -1,0 +1,257 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AR	Makefile	/^AR          :=	ar$/;"	m
+AR	libft/Makefile	/^AR			:=	ar$/;"	m
+ARFLAGS	Makefile	/^ARFLAGS     :=	-r -c -s$/;"	m
+ARFLAGS	libft/Makefile	/^ARFLAGS		:=	-r -c -s$/;"	m
+BLACK	libft/inc/libft.h	26;"	d
+BLK	Makefile	/^BLK	= \\033[30m$/;"	m
+BLK	inc/minishell.h	21;"	d
+BLK	libft/Makefile	/^BLK	= \\033[30m$/;"	m
+BLU	Makefile	/^BLU	= \\033[34m$/;"	m
+BLU	inc/minishell.h	25;"	d
+BLU	libft/Makefile	/^BLU	= \\033[34m$/;"	m
+BLUE	libft/inc/libft.h	30;"	d
+BRN	Makefile	/^BRN	= \\033[33m$/;"	m
+BRN	libft/Makefile	/^BRN	= \\033[33m$/;"	m
+BUFFER_SIZE	libft/inc/libft.h	15;"	d
+BUILD_D	Makefile	/^BUILD_D		:=	.build\/$/;"	m
+BUILD_D	libft/Makefile	/^BUILD_D		:=	.build\/$/;"	m
+BUILTIN	Makefile	/^BUILTIN		:=	env.c	export.c	unset.c	echo.c	pwd.c	cd.c$/;"	m
+CC	Makefile	/^CC			:=	gcc$/;"	m
+CC	libft/Makefile	/^CC			:=	gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS		:=	-Wextra -Werror -Wall$/;"	m
+CFLAGS	libft/Makefile	/^CFLAGS		:=	-Wextra -Werror -Wall$/;"	m
+COLOR_RESET	libft/inc/libft.h	34;"	d
+CPPFLAGS	Makefile	/^CPPFLAGS    :=	-MMD -MP $(addprefix -I,$(INC))$/;"	m
+CPPFLAGS	libft/Makefile	/^CPPFLAGS	:=	-MMD -MP $(addprefix -I,$(INC))$/;"	m
+CYAN	libft/inc/libft.h	32;"	d
+CYN	Makefile	/^CYN	= \\033[36m$/;"	m
+CYN	inc/minishell.h	27;"	d
+CYN	libft/Makefile	/^CYN	= \\033[36m$/;"	m
+DEC	libft/inc/libft.h	37;"	d
+DEPS	Makefile	/^DEPS        :=	$(OBJ:.o=.d)$/;"	m
+DEPS	libft/Makefile	/^DEPS		:=	$(OBJ:.o=.d)$/;"	m
+DIR_DUP	Makefile	/^DIR_DUP     =	mkdir -p "$(@D)"$/;"	m
+DIR_DUP	libft/Makefile	/^DIR_DUP		=	mkdir -p "$(@D)"$/;"	m
+FRAMEWORK	Makefile	/^FRAMEWORK	:=	$/;"	m
+FRAMEWORK	libft/Makefile	/^FRAMEWORK	:=$/;"	m
+GET_NEXT_LINE_H	libft/inc/get_next_line.h	14;"	d
+GREEN	libft/inc/libft.h	28;"	d
+GRN	Makefile	/^GRN	= \\033[32m$/;"	m
+GRN	inc/minishell.h	23;"	d
+GRN	libft/Makefile	/^GRN	= \\033[32m$/;"	m
+HEX	libft/inc/libft.h	35;"	d
+HEX_C	libft/inc/libft.h	36;"	d
+INC	Makefile	/^INC			:=	inc\/ libft\/inc\/$/;"	m
+INC	libft/Makefile	/^INC			:=	inc\/	get_next_line\/$/;"	m
+INC	libft/Makefile	/^INC			:=	inc\/$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS     :=	$(addprefix -L,$(dir $(LIB_D)))$/;"	m
+LDFLAGS	libft/Makefile	/^LDFLAGS		:=	$(addprefix -L,$(dir $(LIB_D)))$/;"	m
+LDFMWK	Makefile	/^LDFMWK		:=	$(addprefix -framework ,$(FRAMEWORKS))$/;"	m
+LDFMWK	libft/Makefile	/^LDFMWK		:=	$(addprefix -framework ,$(FRAMEWORKS))$/;"	m
+LDLIBS	Makefile	/^LDLIBS      :=	$(addprefix -l,$(LIB))$/;"	m
+LDLIBS	libft/Makefile	/^LDLIBS		:=	$(addprefix -l,$(LIB))$/;"	m
+LGR	Makefile	/^LGR	= \\033[37m$/;"	m
+LGR	libft/Makefile	/^LGR	= \\033[37m$/;"	m
+LIB	Makefile	/^LIB			:=	ft readline history$/;"	m
+LIB	Makefile	/^LIB			:=	ft readline$/;"	m
+LIB	libft/Makefile	/^LIB			:=$/;"	m
+LIBFT_H	libft/inc/libft.h	14;"	d
+LIB_D	Makefile	/^LIB_D		:=	libft\/$/;"	m
+LIB_D	libft/Makefile	/^LIB_D		:=$/;"	m
+MAG	inc/minishell.h	26;"	d
+MAGENTA	libft/inc/libft.h	31;"	d
+MINISHELL_H	inc/minishell.h	14;"	d
+NAME	Makefile	/^NAME		:=	minishell$/;"	m
+NAME	libft/Makefile	/^NAME		:=	libft.a$/;"	m
+OBJ	Makefile	/^OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)$/;"	m
+OBJ	libft/Makefile	/^OBJ			:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)$/;"	m
+PARSING	Makefile	/^PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c$/;"	m
+PIPE	inc/minishell.h	29;"	d
+PUR	Makefile	/^PUR	= \\033[35m$/;"	m
+PUR	libft/Makefile	/^PUR	= \\033[35m$/;"	m
+RED	Makefile	/^RED	= \\033[31m$/;"	m
+RED	inc/minishell.h	22;"	d
+RED	libft/Makefile	/^RED	= \\033[31m$/;"	m
+RED	libft/inc/libft.h	27;"	d
+RM	Makefile	/^RM			:=	rm -rf$/;"	m
+RM	libft/Makefile	/^RM			:=	rm -rf$/;"	m
+RST	Makefile	/^RST	= \\033[0m$/;"	m
+RST	libft/Makefile	/^RST	= \\033[0m$/;"	m
+SRC	Makefile	/^SRC			:=	$(SRC:%=$(SRC_D)%)$/;"	m
+SRC	Makefile	/^SRC			:=	main.c	exec_builtins.c	init_env.c	prompt.c	signal_handler.c	\\$/;"	m
+SRC	libft/Makefile	/^SRC			:=	$(SRC:%=$(SRC_D)%)$/;"	m
+SRC	libft/Makefile	/^SRC			:=	ft_isalpha.c		ft_isdigit.c		ft_isalnum.c		ft_isascii.c	\\$/;"	m
+SRC_D	Makefile	/^SRC_D		:=	src\/$/;"	m
+SRC_D	libft/Makefile	/^SRC_D		:=	src\/$/;"	m
+UNAME_S	Makefile	/^UNAME_S 	:= $(shell uname -s)$/;"	m
+UNAME_S	libft/Makefile	/^UNAME_S		:= $(shell uname -s)$/;"	m
+UTILS	Makefile	/^UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\\$/;"	m
+WHITE	libft/inc/libft.h	33;"	d
+WHT	inc/minishell.h	28;"	d
+YEL	inc/minishell.h	24;"	d
+YELLOW	libft/inc/libft.h	29;"	d
+add_to_matrix	src/utils/add_to_matrix.c	/^int	add_to_matrix(char ***env, char *new_var)$/;"	f
+add_token	src/utils/token_struct_utils.c	/^int	add_token(char *token, int is_meta, t_tokens **token_list)$/;"	f
+args	inc/minishell.h	/^	char			**args;$/;"	m	struct:s_cmds
+builtin_cmd	src/exec_builtins.c	/^int	builtin_cmd(char **args, char ***env)$/;"	f
+check_export_arg	src/builtin/export.c	/^int	check_export_arg(char *arg)$/;"	f
+check_post_meta	src/parsing/tokenization_utils.c	/^int	check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign)$/;"	f
+check_post_meta_long	src/parsing/tokenization_utils.c	/^int	check_post_meta_long(char *cmd_line, int i, char sign)$/;"	f
+cmd_line	inc/minishell.h	/^	char		*cmd_line;$/;"	m	struct:s_shell
+cmd_loop	src/main.c	/^int	cmd_loop(t_shell *shell)$/;"	f
+cmds	inc/minishell.h	/^	t_cmds		*cmds;$/;"	m	struct:s_shell
+content	libft/inc/libft.h	/^	void			*content;$/;"	m	struct:s_list
+count_strings	src/utils/count_strings.c	/^int	count_strings(char **matrix)$/;"	f
+ctalloc	libft/src/ft_itoa.c	/^int	ctalloc(int n, long int ct)$/;"	f
+debug	inc/minishell.h	/^	int			debug;$/;"	m	struct:s_shell
+delete_tokens	src/utils/token_struct_utils.c	/^void	delete_tokens(t_tokens *token_list)$/;"	f
+env	inc/minishell.h	/^	char		**env;$/;"	m	struct:s_shell
+expand_string	src/parsing/var_expansion.c	/^char	*expand_string(char *str, char **env)$/;"	f
+expand_var	src/parsing/var_expansion.c	/^int	expand_var(char *str, char **var, int i, char **env)$/;"	f
+export_underscore_var	src/init_env.c	/^void	export_underscore_var(char ***env, char *av)$/;"	f
+extract_var_data	src/utils/extract_var_data.c	/^char	*extract_var_data(char *str)$/;"	f
+extract_var_name	src/utils/extract_var_name.c	/^char	*extract_var_name(char *str)$/;"	f
+f	libft/src/ft_printf.c	/^int	f(char *str, int fd)$/;"	f
+fd_in	inc/minishell.h	/^	int				fd_in;$/;"	m	struct:s_cmds
+fd_out	inc/minishell.h	/^	int				fd_out;$/;"	m	struct:s_cmds
+find_end_of_token	src/parsing/tokenization_utils.c	/^int	find_end_of_token(char *cmd_line, int i, int mode)$/;"	f
+find_last	src/utils/token_struct_utils.c	/^t_tokens *find_last(t_tokens *list)$/;"	f
+fprint_list_cmds	src/utils/fprint_debug.c	/^void	fprint_list_cmds(int fd, t_shell shell, char *str)$/;"	f
+fprint_matrix	src/utils/fprint_matrix.c	/^void	fprint_matrix(int fd, char **matrix)$/;"	f
+fprint_shell	src/utils/fprint_debug.c	/^void	fprint_shell(int fd, t_shell *shell, char *str)$/;"	f
+fprint_str	src/utils/fprint_debug.c	/^void	fprint_str(int fd, char *var, char *str)$/;"	f
+fprint_struct_cmds	src/utils/fprint_debug.c	/^void	fprint_struct_cmds(int fd, t_cmds cmds, int mode)$/;"	f
+free_join	src/utils/free_join.c	/^char	*free_join(char *str, char *buffer)$/;"	f
+free_matrix	src/utils/env_utils.c	/^void	free_matrix(char **matrix)$/;"	f
+free_return_minone	src/utils/free_return.c	/^int	free_return_minone(char *to_free, char *to_write)$/;"	f
+free_return_null	src/utils/free_return.c	/^void	*free_return_null(char *to_free, char *to_write)$/;"	f
+ft_abs	libft/src/ft_abs.c	/^int	ft_abs(int n)$/;"	f
+ft_atoi	libft/src/ft_atoi.c	/^int	ft_atoi(const char *str)$/;"	f
+ft_bzero	libft/src/ft_bzero.c	/^void	ft_bzero(void *s, size_t n)$/;"	f
+ft_calloc	libft/src/ft_calloc.c	/^void	*ft_calloc(size_t count, size_t size)$/;"	f
+ft_cd	src/builtin/cd.c	/^int	ft_cd(char ***env, char **args)$/;"	f
+ft_check	libft/src/ft_strnstr.c	/^int	ft_check(const char *big, const char *little, size_t i, size_t len)$/;"	f
+ft_count_args	src/builtin/cd.c	/^int	ft_count_args(char **args)$/;"	f
+ft_ct	libft/src/ft_split.c	/^size_t	ft_ct(char const *s, char c)$/;"	f
+ft_ctalloc_base	libft/src/ft_itoa_base.c	/^int	ft_ctalloc_base(unsigned long long int n, int basei)$/;"	f
+ft_echo	src/builtin/echo.c	/^int	ft_echo(char **args)$/;"	f
+ft_env	src/builtin/env.c	/^int	ft_env(char **env)$/;"	f
+ft_export	src/builtin/export.c	/^int	ft_export(char ***env, char **args)$/;"	f
+ft_fprintf	libft/src/ft_printf.c	/^int	ft_fprintf(int fd, const char *strparam, ...)$/;"	f
+ft_freetibet	libft/src/ft_split.c	/^char	**ft_freetibet(char **s, int i)$/;"	f
+ft_isalnum	libft/src/ft_isalnum.c	/^int	ft_isalnum(int c)$/;"	f
+ft_isalpha	libft/src/ft_isalpha.c	/^int	ft_isalpha(int c)$/;"	f
+ft_isascii	libft/src/ft_isascii.c	/^int	ft_isascii(int c)$/;"	f
+ft_isdigit	libft/src/ft_isdigit.c	/^int	ft_isdigit(int c)$/;"	f
+ft_isparam	libft/src/ft_printf.c	/^int	ft_isparam(char c, va_list arg, int fd)$/;"	f
+ft_isprint	libft/src/ft_isprint.c	/^int	ft_isprint(int c)$/;"	f
+ft_isspace	libft/src/ft_isspace.c	/^int	ft_isspace(int c)$/;"	f
+ft_itoa	libft/src/ft_itoa.c	/^char	*ft_itoa(int n)$/;"	f
+ft_itoa_base	libft/src/ft_itoa_base.c	/^char	*ft_itoa_base(unsigned long long int n, char *base)$/;"	f
+ft_lenct	libft/src/ft_split.c	/^size_t	ft_lenct(char const *s, char c, int i)$/;"	f
+ft_lstadd_back	libft/src/ft_lstadd_back.c	/^void	ft_lstadd_back(t_list **lst, t_list *new)$/;"	f
+ft_lstadd_front	libft/src/ft_lstadd_front.c	/^void	ft_lstadd_front(t_list **lst, t_list *new)$/;"	f
+ft_lstclear	libft/src/ft_lstclear.c	/^void	ft_lstclear(t_list **lst, void (*del)(void *))$/;"	f
+ft_lstdelone	libft/src/ft_lstdelone.c	/^void	ft_lstdelone(t_list *lst, void (*del)(void *))$/;"	f
+ft_lstiter	libft/src/ft_lstiter.c	/^void	ft_lstiter(t_list *lst, void (*f)(void *))$/;"	f
+ft_lstlast	libft/src/ft_lstlast.c	/^t_list	*ft_lstlast(t_list *lst)$/;"	f
+ft_lstmap	libft/src/ft_lstmap.c	/^t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))$/;"	f
+ft_lstnew	libft/src/ft_lstnew.c	/^t_list	*ft_lstnew(void *content)$/;"	f
+ft_lstsize	libft/src/ft_lstsize.c	/^int	ft_lstsize(t_list *lst)$/;"	f
+ft_memchr	libft/src/ft_memchr.c	/^void	*ft_memchr(const void *s, int c, size_t n)$/;"	f
+ft_memcmp	libft/src/ft_memcmp.c	/^int	ft_memcmp(const void *s1, const void *s2, size_t n)$/;"	f
+ft_memcpy	libft/src/ft_memcpy.c	/^void	*ft_memcpy(void *dst, const void *src, size_t n)$/;"	f
+ft_memdel	libft/src/ft_memdel.c	/^void	*ft_memdel(void *ptr)$/;"	f
+ft_memmove	libft/src/ft_memmove.c	/^void	*ft_memmove(void *dst, const void *src, size_t len)$/;"	f
+ft_memset	libft/src/ft_memset.c	/^void	*ft_memset(void *b, int c, size_t len)$/;"	f
+ft_p	libft/src/ft_itoa_base.c	/^void	ft_p(char *s, char *bs, unsigned long long int nb, int to_oc)$/;"	f
+ft_printf	libft/src/ft_printf.c	/^int	ft_printf(const char *strparam, ...)$/;"	f
+ft_putchar_fd	libft/src/ft_putchar_fd.c	/^void	ft_putchar_fd(char c, int fd)$/;"	f
+ft_putendl_fd	libft/src/ft_putendl_fd.c	/^void	ft_putendl_fd(char *s, int fd)$/;"	f
+ft_putnbr_fd	libft/src/ft_putnbr_fd.c	/^void	ft_putnbr_fd(int n, int fd)$/;"	f
+ft_putstr_fd	libft/src/ft_putstr_fd.c	/^void	ft_putstr_fd(char *s, int fd)$/;"	f
+ft_pwd	src/builtin/pwd.c	/^int	ft_pwd(void)$/;"	f
+ft_split	libft/src/ft_split.c	/^char	**ft_split(char const *s, char c)$/;"	f
+ft_start	libft/src/ft_strtrim.c	/^int	ft_start(int i, char const *s1, char const *set)$/;"	f
+ft_strchr	libft/src/ft_strchr.c	/^char	*ft_strchr(const char *s, int c)$/;"	f
+ft_strdup	libft/src/ft_strdup.c	/^char	*ft_strdup(const char *s)$/;"	f
+ft_striteri	libft/src/ft_striteri.c	/^void	ft_striteri(char *s, void (*f)(unsigned int, char*))$/;"	f
+ft_strjoin	libft/src/ft_strjoin.c	/^char	*ft_strjoin(char const *s1, char const *s2)$/;"	f
+ft_strlcat	libft/src/ft_strlcat.c	/^size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)$/;"	f
+ft_strlcpy	libft/src/ft_strlcpy.c	/^size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)$/;"	f
+ft_strlen	libft/src/ft_strlen.c	/^size_t	ft_strlen(const char *s)$/;"	f
+ft_strmapi	libft/src/ft_strmapi.c	/^char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))$/;"	f
+ft_strncmp	libft/src/ft_strncmp.c	/^int	ft_strncmp(const char *s1, const char *s2, size_t n)$/;"	f
+ft_strndup	libft/src/ft_strndup.c	/^char	*ft_strndup(const char *str, size_t n)$/;"	f
+ft_strnstr	libft/src/ft_strnstr.c	/^char	*ft_strnstr(const char *big, const char *little, size_t len)$/;"	f
+ft_strrchr	libft/src/ft_strrchr.c	/^char	*ft_strrchr(const char *s, int c)$/;"	f
+ft_strrev	libft/src/ft_itoa.c	/^void	ft_strrev(char *str, long int nb)$/;"	f
+ft_strrev_base	libft/src/ft_itoa_base.c	/^void	ft_strrev_base(char *str, int nb)$/;"	f
+ft_strtrim	libft/src/ft_strtrim.c	/^char	*ft_strtrim(char const *s1, char const *set)$/;"	f
+ft_substr	libft/src/ft_substr.c	/^char	*ft_substr(char const *s, unsigned int start, size_t len)$/;"	f
+ft_tolower	libft/src/ft_tolower.c	/^int	ft_tolower(int c)$/;"	f
+ft_toupper	libft/src/ft_toupper.c	/^int	ft_toupper(int c)$/;"	f
+ft_unset	src/builtin/unset.c	/^int	ft_unset(char ***env, char **var)$/;"	f
+g_calloc	libft/src/get_next_line/get_next_line_utils.c	/^char	*g_calloc(int ct)$/;"	f
+g_cat	libft/src/get_next_line/get_next_line.c	/^char	*g_cat(char *sttc_str, char *buffer, int ct_count)$/;"	f
+g_check_n	libft/src/get_next_line/get_next_line_utils.c	/^int	g_check_n(char *str)$/;"	f
+g_free	libft/src/get_next_line/get_next_line_utils.c	/^char	*g_free(char *str)$/;"	f
+g_getline	libft/src/get_next_line/get_next_line.c	/^char	*g_getline(char *sttc_str)$/;"	f
+g_readfile	libft/src/get_next_line/get_next_line.c	/^char	*g_readfile(int fd, char *sttc_str)$/;"	f
+g_status	src/main.c	/^int	g_status;$/;"	v
+g_strlen	libft/src/get_next_line/get_next_line_utils.c	/^int	g_strlen(char *str)$/;"	f
+g_trim	libft/src/get_next_line/get_next_line.c	/^char	*g_trim(char *sttc_str)$/;"	f
+get_next_line	libft/src/get_next_line/get_next_line.c	/^char	*get_next_line(int fd)$/;"	f
+get_string	src/parsing/tokenizer.c	/^int	get_string(char *cmd_line, char **buffer, int i, char **env)$/;"	f
+getvar	src/utils/getvar.c	/^char	*getvar(char **env, char *var)$/;"	f
+getvar_data	src/utils/getvar.c	/^char	*getvar_data(char **env, char *var)$/;"	f
+getvar_index	src/utils/getvar.c	/^int	getvar_index(char **env, char *var)$/;"	f
+getvar_strncmp	src/utils/getvar.c	/^int	getvar_strncmp(char *s1, char *s2)$/;"	f
+init_env	src/init_env.c	/^void	init_env(char **av, char **envp, char ***env)$/;"	f
+init_minishell	src/main.c	/^int	init_minishell(int ac, char **av, char **envp, t_shell **shell)$/;"	f
+is_meta	inc/minishell.h	/^	int				is_meta;$/;"	m	struct:s_tokens
+is_meta	src/utils/is_meta.c	/^int	is_meta(const int c)$/;"	f
+is_string	src/utils/is_string.c	/^int	is_string(const int c)$/;"	f
+last_cmd_line	inc/minishell.h	/^	char		*last_cmd_line;$/;"	m	struct:s_shell
+main	src/main.c	/^int	main(int ac, char **av, char **envp)$/;"	f
+meta_token	src/parsing/tokenizer.c	/^int	meta_token(t_tokens **tokens, char *cmd_line, int i)$/;"	f
+mini_isalpha	src/builtin/export.c	/^int	mini_isalpha(int c)$/;"	f
+next	inc/minishell.h	/^	struct s_cmds	*next;$/;"	m	struct:s_cmds	typeref:struct:s_cmds::s_cmds
+next	inc/minishell.h	/^	struct s_tokens	*next;$/;"	m	struct:s_tokens	typeref:struct:s_tokens::s_tokens
+next	libft/inc/libft.h	/^	struct s_list	*next;$/;"	m	struct:s_list	typeref:struct:s_list::s_list
+nf	libft/src/ft_printf.c	/^int	nf(char *str, int fd)$/;"	f
+only_spaces	src/utils/only_spaces.c	/^int	only_spaces(char *str)$/;"	f
+pipes	inc/minishell.h	/^	int				pipes[2];$/;"	m	struct:s_cmds
+populate	libft/src/ft_itoa.c	/^void	populate(char *s, int neg, long int nb, int toalloc)$/;"	f
+print_tokens	src/parsing/tokenization_utils.c	/^void	print_tokens(t_tokens *tokens)$/;"	f
+printvar	src/utils/env_utils.c	/^void	printvar(char **env, char *var)$/;"	f
+prompt	src/prompt.c	/^char	*prompt(void)$/;"	f
+remove_from_env	src/builtin/unset.c	/^void	remove_from_env(char ***env, char *var)$/;"	f
+s_cmds	inc/minishell.h	/^typedef struct s_cmds$/;"	s
+s_list	libft/inc/libft.h	/^typedef struct s_list$/;"	s
+s_shell	inc/minishell.h	/^typedef struct s_shell$/;"	s
+s_tokens	inc/minishell.h	/^typedef struct s_tokens$/;"	s
+signal_handler	src/signal_handler.c	/^void	signal_handler(int sig)$/;"	f
+skip_dollar	src/parsing/var_expansion.c	/^int	skip_dollar(char *str, int i, int mode)$/;"	f
+str_arr	src/utils/fprint_debug.c	/^void	str_arr(int fd, char **strarr, char *str, int mode)$/;"	f
+str_token	src/parsing/tokenizer.c	/^int	str_token(t_tokens **tokens, char *cmd_line, int i, char **env)$/;"	f
+super_double_export	src/utils/export_unset_utils.c	/^void	super_double_export(char ***env, char *s1, char *s2)$/;"	f
+super_export	src/utils/export_unset_utils.c	/^void	super_export(char ***env, char *new_var)$/;"	f
+super_unset	src/utils/export_unset_utils.c	/^void	super_unset(char ***env, char *new_var)$/;"	f
+t_cmds	inc/minishell.h	/^}				t_cmds;$/;"	t	typeref:struct:s_cmds
+t_list	libft/inc/libft.h	/^}					t_list;$/;"	t	typeref:struct:s_list
+t_shell	inc/minishell.h	/^}				t_shell;$/;"	t	typeref:struct:s_shell
+t_tokens	inc/minishell.h	/^}				t_tokens;$/;"	t	typeref:struct:s_tokens
+token	inc/minishell.h	/^	char			*token;$/;"	m	struct:s_tokens
+tokenizer	src/parsing/tokenizer.c	/^int	tokenizer(t_tokens **tokens, t_shell *shell)$/;"	f
+tokens	inc/minishell.h	/^	t_tokens	*tokens;$/;"	m	struct:s_shell
+update_env	src/builtin/export.c	/^int	update_env(char ***env, char *new_var)$/;"	f
+update_env_cd	src/builtin/cd.c	/^void	update_env_cd(char ***env, char *old_pwd)$/;"	f
+update_history	src/update_history.c	/^void	update_history(t_shell *shell)$/;"	f
+update_shlvl	src/init_env.c	/^void	update_shlvl(char *shlvl, char ***env)$/;"	f

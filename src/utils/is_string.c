@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   only_spaces.c                                      :+:      :+:    :+:   */
+/*   is_string.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/01 10:14:41 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 10:51:47 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/10/01 18:00:02 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/10/01 19:21:55 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-int	only_spaces(char *str)
+int	is_string(const int c)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] == 32)
-		i++;
-	if (str[i] == 0)
-		return (1);
-	return (0);
+	if (c == 0 || is_meta(c) || c == 32)
+		return (0);
+	return (1);
 }

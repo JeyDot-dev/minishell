@@ -8,7 +8,6 @@ PUR	= \033[35m
 CYN	= \033[36m
 LGR	= \033[37m
 RST	= \033[0m
-USER		:=$(shell whoami)
 NAME		:=	minishell
 UNAME_S 	:= $(shell uname -s)
 #---------------Directories----------------------
@@ -22,25 +21,23 @@ BUILTIN		:=	env.c	export.c	unset.c	echo.c	pwd.c	cd.c
 UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\
 				getvar.c	extract_var_data.c	extract_var_name.c		\
 				add_to_matrix.c	free_join.c	count_strings.c	only_spaces.c\
-				fprint_debug.c	fprint_matrix.c
-SRC			:=	builtin.c	main.c	init_env.c	prompt.c	signal_handler.c	\
-				tokenizer.c	update_history.c
+				fprint_debug.c	fprint_matrix.c	is_meta.c	is_string.c\
+				token_struct_utils.c
+PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c
+
+SRC			:=	main.c	exec_builtins.c	init_env.c	prompt.c	signal_handler.c	\
+				update_history.c
 
 LIB			:=	ft readline
 #FRAMEWORK	:=	OpenGL	AppKit
 #----------------------IGNORE--------------------
 #------------------------------------------------
-SRC			+=	$(BUILTIN:%=builtin/%)
-SRC			+=	$(UTILS:%=utils/%)
+SRC			+=	$(BUILTIN:%=builtin/%) $(UTILS:%=utils/%) $(PARSING:%=parsing/%)
 SRC			:=	$(SRC:%=$(SRC_D)%)
 OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)
 DEPS        :=	$(OBJ:.o=.d)
 #------------------------------------------------
 #----------------Linux libs \/-------------------
-ifeq ($(USER),jansol)
-LIB_D		:=	libft/ /opt/homebrew/opt/readline/lib/
-INC			:=	/opt/homebrew/opt/readline/include/ inc/ libft/inc/
-endif
 ifeq ($(UNAME_S),Linux)
 LIB_D		:=	libft/
 INC			:=	inc/ libft/inc/

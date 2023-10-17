@@ -6,14 +6,15 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 18:00:28 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/09/10 19:02:23 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:40:10 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
-void remove_from_env(char ***env, char *var)
+
+void	remove_from_env(char ***env, char *var)
 {
-	int	i[3];
-	char **new_env;
+	int		i[3];
+	char	**new_env;
 
 	new_env = ft_calloc(sizeof(char *), count_strings(*env));
 	if (!new_env)
@@ -35,6 +36,7 @@ void remove_from_env(char ***env, char *var)
 	free_matrix(*env);
 	*env = new_env;
 }
+
 int	ft_unset(char ***env, char **var)
 {
 	if (!*var)

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 15:19:47 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 17:13:34 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:40:29 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -25,11 +25,13 @@ void	str_arr(int fd, char **strarr, char *str, int mode)
 	else
 		ft_fprintf(fd, "%s : NULL\n", str);
 }
+
 void	fprint_struct_cmds(int fd, t_cmds cmds, int mode)
 {
 	if (mode == 0)
 		return ;
-	ft_fprintf(fd, RED"pipe[0] : %i\npipe[1] : %i\n", cmds.pipes[0], cmds.pipes[1]);
+	ft_fprintf(fd, RED"pipe[0] : %i\npipe[1] : %i\n",
+		cmds.pipes[0], cmds.pipes[1]);
 	ft_fprintf(fd, "fd_out : %i\n", cmds.fd_out);
 	ft_fprintf(fd, "fd_in : %i\n", cmds.fd_in);
 	str_arr(fd, cmds.args, "args", mode);
@@ -49,10 +51,11 @@ void	fprint_str(int fd, char *var, char *str)
 
 void	fprint_list_cmds(int fd, t_shell shell, char *str)
 {
-	if (shell.debug == 0)
-		return ;
 	int		i;
 	t_cmds	*tmp;
+
+	if (shell.debug == 0)
+		return ;
 	tmp = shell.cmds;
 	ft_fprintf(fd, "---DEBUG t_cmds list : %s---\n", str);
 	i = 0;
@@ -64,6 +67,10 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str)
 		i++;
 	}
 }
+/*void	fprint_tokens(int fd, t_shell *shell, char *str)
+{
+	ft_printf(2, "Tokens %s\n", str);
+}*/
 void	fprint_shell(int fd, t_shell *shell, char *str)
 {
 	if (shell->debug == 0)
@@ -72,10 +79,11 @@ void	fprint_shell(int fd, t_shell *shell, char *str)
 	str_arr(fd, shell->env, "env", shell->debug);
 	fprint_str(fd, shell->cmd_line, "cmd_line");
 	fprint_str(fd, shell->last_cmd_line, "last_cmd_line");
-	str_arr(fd, shell->tokens, "tokens", shell->debug);
-	if (shell->cmds)
-		ft_fprintf(fd, "cmds : ✓\n");
+	ft_fprintf(fd, "status code : %i\n", g_status);
+	ft_fprintf(fd, "--tokens--\n");
+	if (shell->tokens)
+		print_tokens(shell->tokens);
 	else
-		ft_fprintf(fd, "cmds : NULL\n"WHT);
-	ft_putchar_fd('\n', fd);
+		ft_fprintf(fd, "NULL\n"WHT);
+	ft_fprintf(fd, WHT"\n");
 }
