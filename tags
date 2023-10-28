@@ -107,6 +107,7 @@ cmd_line	inc/minishell.h	/^	char		*cmd_line;$/;"	m	struct:s_shell
 cmd_loop	src/main.c	/^int	cmd_loop(t_shell *shell)$/;"	f
 cmds	inc/minishell.h	/^	t_cmds		*cmds;$/;"	m	struct:s_shell
 content	libft/inc/libft.h	/^	void			*content;$/;"	m	struct:s_list
+count_pipes	src/utils/parse_tokens_utils.c	/^int	count_pipes(t_tokens *tokens)$/;"	f
 count_strings	src/utils/count_strings.c	/^int	count_strings(char **matrix)$/;"	f
 ctalloc	libft/src/ft_itoa.c	/^int	ctalloc(int n, long int ct)$/;"	f
 debug	inc/minishell.h	/^	int			debug;$/;"	m	struct:s_shell
@@ -118,6 +119,7 @@ export_underscore_var	src/init_env.c	/^void	export_underscore_var(char ***env, c
 extract_var_data	src/utils/extract_var_data.c	/^char	*extract_var_data(char *str)$/;"	f
 extract_var_name	src/utils/extract_var_name.c	/^char	*extract_var_name(char *str)$/;"	f
 f	libft/src/ft_printf.c	/^int	f(char *str, int fd)$/;"	f
+fatal_error	src/utils/fatal_error.c	/^void	fatal_error(char *str)$/;"	f
 fd_in	inc/minishell.h	/^	int				fd_in;$/;"	m	struct:s_cmds
 fd_out	inc/minishell.h	/^	int				fd_out;$/;"	m	struct:s_cmds
 find_end_of_token	src/parsing/tokenization_utils.c	/^int	find_end_of_token(char *cmd_line, int i, int mode)$/;"	f
@@ -234,6 +236,7 @@ print_tokens	src/parsing/tokenization_utils.c	/^void	print_tokens(t_tokens *toke
 printvar	src/utils/env_utils.c	/^void	printvar(char **env, char *var)$/;"	f
 prompt	src/prompt.c	/^char	*prompt(void)$/;"	f
 remove_from_env	src/builtin/unset.c	/^void	remove_from_env(char ***env, char *var)$/;"	f
+run	inc/minishell.h	/^	int				run;$/;"	m	struct:s_cmds
 s_cmds	inc/minishell.h	/^typedef struct s_cmds$/;"	s
 s_list	libft/inc/libft.h	/^typedef struct s_list$/;"	s
 s_shell	inc/minishell.h	/^typedef struct s_shell$/;"	s

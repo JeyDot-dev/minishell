@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/17 14:39:05 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:41:43 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_cmds
 	int				pipes[2];
 	int				fd_out;
 	int				fd_in;
+	int				run;
 	char			**args;
 	struct s_cmds	*next;
 }				t_cmds;
@@ -129,6 +130,7 @@ char	*free_join(char *str, char *buffer);
 //		v	returns 1 if there are only spaces in the string else returns 0
 int		only_spaces(char *str);
 void	fprint_matrix(int fd, char **matrix);
+void	fatal_error(char *to_print);
 //--------------------DEBUG FUNCTIONS---------------------------------
 //		 __|debug function to print a single t_cmds struct
 //		v  |(has different modes depending on debug mode)
@@ -141,5 +143,6 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str);
 void	fprint_shell(int fd, t_shell *shell, char *str);
 void	print_tokens(t_tokens *tokens);
 //--------------------PARSING FUNCTIONS-------------------------------
+int		count_pipes(t_tokens *tokens);
 void	signal_handler(int sig);
 #endif
