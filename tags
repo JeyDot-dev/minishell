@@ -26,6 +26,10 @@ CC	Makefile	/^CC			:=	gcc$/;"	m
 CC	libft/Makefile	/^CC			:=	gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS		:=	-Wextra -Werror -Wall$/;"	m
 CFLAGS	libft/Makefile	/^CFLAGS		:=	-Wextra -Werror -Wall$/;"	m
+CHL	inc/minishell.h	29;"	d
+CHLL	inc/minishell.h	30;"	d
+CHR	inc/minishell.h	31;"	d
+CHRR	inc/minishell.h	32;"	d
 COLOR_RESET	libft/inc/libft.h	34;"	d
 CPPFLAGS	Makefile	/^CPPFLAGS    :=	-MMD -MP $(addprefix -I,$(INC))$/;"	m
 CPPFLAGS	libft/Makefile	/^CPPFLAGS	:=	-MMD -MP $(addprefix -I,$(INC))$/;"	m
@@ -72,7 +76,7 @@ NAME	libft/Makefile	/^NAME		:=	libft.a$/;"	m
 OBJ	Makefile	/^OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)$/;"	m
 OBJ	libft/Makefile	/^OBJ			:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)$/;"	m
 PARSING	Makefile	/^PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c$/;"	m
-PIPE	inc/minishell.h	29;"	d
+PIPE	inc/minishell.h	33;"	d
 PUR	Makefile	/^PUR	= \\033[35m$/;"	m
 PUR	libft/Makefile	/^PUR	= \\033[35m$/;"	m
 RED	Makefile	/^RED	= \\033[31m$/;"	m
@@ -109,6 +113,8 @@ cmds	inc/minishell.h	/^	t_cmds		*cmds;$/;"	m	struct:s_shell
 content	libft/inc/libft.h	/^	void			*content;$/;"	m	struct:s_list
 count_pipes	src/utils/parse_tokens_utils.c	/^int	count_pipes(t_tokens *tokens)$/;"	f
 count_strings	src/utils/count_strings.c	/^int	count_strings(char **matrix)$/;"	f
+create_cmds_struct	src/parsing/parse_tokens.c	/^int	create_cmds_struct(int pipes, t_cmds **cmds)$/;"	f
+create_new_empty_cmd	src/parsing/parse_tokens.c	/^t_cmds	create_new_empty_cmd(void)$/;"	f
 ctalloc	libft/src/ft_itoa.c	/^int	ctalloc(int n, long int ct)$/;"	f
 debug	inc/minishell.h	/^	int			debug;$/;"	m	struct:s_shell
 delete_tokens	src/utils/token_struct_utils.c	/^void	delete_tokens(t_tokens *token_list)$/;"	f
@@ -215,6 +221,7 @@ getvar	src/utils/getvar.c	/^char	*getvar(char **env, char *var)$/;"	f
 getvar_data	src/utils/getvar.c	/^char	*getvar_data(char **env, char *var)$/;"	f
 getvar_index	src/utils/getvar.c	/^int	getvar_index(char **env, char *var)$/;"	f
 getvar_strncmp	src/utils/getvar.c	/^int	getvar_strncmp(char *s1, char *s2)$/;"	f
+init_cmd_struct	src/parsing/parse_tokens.c	/^t_cmds	*init_cmd_struct(int pipes)$/;"	f
 init_env	src/init_env.c	/^void	init_env(char **av, char **envp, char ***env)$/;"	f
 init_minishell	src/main.c	/^int	init_minishell(int ac, char **av, char **envp, t_shell **shell)$/;"	f
 is_meta	inc/minishell.h	/^	int				is_meta;$/;"	m	struct:s_tokens
@@ -241,6 +248,7 @@ s_cmds	inc/minishell.h	/^typedef struct s_cmds$/;"	s
 s_list	libft/inc/libft.h	/^typedef struct s_list$/;"	s
 s_shell	inc/minishell.h	/^typedef struct s_shell$/;"	s
 s_tokens	inc/minishell.h	/^typedef struct s_tokens$/;"	s
+set_in_out	src/parsing/parse_tokens.c	/^int	set_in_out(t_cmds **cmds, t_tokens *tokens)$/;"	f
 signal_handler	src/signal_handler.c	/^void	signal_handler(int sig)$/;"	f
 skip_dollar	src/parsing/var_expansion.c	/^int	skip_dollar(char *str, int i, int mode)$/;"	f
 str_arr	src/utils/fprint_debug.c	/^void	str_arr(int fd, char **strarr, char *str, int mode)$/;"	f

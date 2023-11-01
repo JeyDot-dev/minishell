@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/28 14:41:43 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:00:52 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@
 # define MAG "\e[0;35m"
 # define CYN "\e[0;36m"
 # define WHT "\e[0;37m"
-# define PIPE 124
-
+# define CHL	1
+# define CHLL	2
+# define CHR	3
+# define CHRR	4
+# define PIPE	5
+// ^  [< = 1] [<< = 2] [> = 3] [>> = 4] [| = 5]
 extern int	g_status;
 typedef struct s_cmds
 {
