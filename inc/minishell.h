@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/01 12:00:52 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:13:24 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ typedef struct s_shell
 	t_cmds		*cmds;
 	int			debug;
 }				t_shell;
+typedef struct s_io
+{
+	char	*in;
+	char	*out;
+	int		prev_pipe;
+}			t_struct;
 //-----------------MAIN FUNCTIONS---------------------------
 char	*prompt(void);
 void	update_history(t_shell *shell);
@@ -148,5 +154,6 @@ void	fprint_shell(int fd, t_shell *shell, char *str);
 void	print_tokens(t_tokens *tokens);
 //--------------------PARSING FUNCTIONS-------------------------------
 int		count_pipes(t_tokens *tokens);
+void	close_pipes(t_cmds *cmd);
 void	signal_handler(int sig);
 #endif

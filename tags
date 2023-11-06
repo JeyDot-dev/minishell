@@ -105,8 +105,10 @@ add_token	src/utils/token_struct_utils.c	/^int	add_token(char *token, int is_met
 args	inc/minishell.h	/^	char			**args;$/;"	m	struct:s_cmds
 builtin_cmd	src/exec_builtins.c	/^int	builtin_cmd(char **args, char ***env)$/;"	f
 check_export_arg	src/builtin/export.c	/^int	check_export_arg(char *arg)$/;"	f
+check_in_out	src/parsing/parse_tokens.c	/^t_tokens	*check_in_out(t_io *io, t_tokens *tokens, t_cmds **cmds)$/;"	f
 check_post_meta	src/parsing/tokenization_utils.c	/^int	check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign)$/;"	f
 check_post_meta_long	src/parsing/tokenization_utils.c	/^int	check_post_meta_long(char *cmd_line, int i, char sign)$/;"	f
+close_pipes	src/utils/pipe_utils.c	/^void	close_pipes(t_cmds *cmd)$/;"	f
 cmd_line	inc/minishell.h	/^	char		*cmd_line;$/;"	m	struct:s_shell
 cmd_loop	src/main.c	/^int	cmd_loop(t_shell *shell)$/;"	f
 cmds	inc/minishell.h	/^	t_cmds		*cmds;$/;"	m	struct:s_shell
@@ -114,7 +116,7 @@ content	libft/inc/libft.h	/^	void			*content;$/;"	m	struct:s_list
 count_pipes	src/utils/parse_tokens_utils.c	/^int	count_pipes(t_tokens *tokens)$/;"	f
 count_strings	src/utils/count_strings.c	/^int	count_strings(char **matrix)$/;"	f
 create_cmds_struct	src/parsing/parse_tokens.c	/^int	create_cmds_struct(int pipes, t_cmds **cmds)$/;"	f
-create_new_empty_cmd	src/parsing/parse_tokens.c	/^t_cmds	create_new_empty_cmd(void)$/;"	f
+create_new_empty_cmd	src/parsing/parse_tokens.c	/^t_cmds	*create_new_empty_cmd(void)$/;"	f
 ctalloc	libft/src/ft_itoa.c	/^int	ctalloc(int n, long int ct)$/;"	f
 debug	inc/minishell.h	/^	int			debug;$/;"	m	struct:s_shell
 delete_tokens	src/utils/token_struct_utils.c	/^void	delete_tokens(t_tokens *token_list)$/;"	f
@@ -221,6 +223,7 @@ getvar	src/utils/getvar.c	/^char	*getvar(char **env, char *var)$/;"	f
 getvar_data	src/utils/getvar.c	/^char	*getvar_data(char **env, char *var)$/;"	f
 getvar_index	src/utils/getvar.c	/^int	getvar_index(char **env, char *var)$/;"	f
 getvar_strncmp	src/utils/getvar.c	/^int	getvar_strncmp(char *s1, char *s2)$/;"	f
+in	inc/minishell.h	/^	char	*in;$/;"	m	struct:s_io
 init_cmd_struct	src/parsing/parse_tokens.c	/^t_cmds	*init_cmd_struct(int pipes)$/;"	f
 init_env	src/init_env.c	/^void	init_env(char **av, char **envp, char ***env)$/;"	f
 init_minishell	src/main.c	/^int	init_minishell(int ac, char **av, char **envp, t_shell **shell)$/;"	f
@@ -236,15 +239,19 @@ next	inc/minishell.h	/^	struct s_tokens	*next;$/;"	m	struct:s_tokens	typeref:str
 next	libft/inc/libft.h	/^	struct s_list	*next;$/;"	m	struct:s_list	typeref:struct:s_list::s_list
 nf	libft/src/ft_printf.c	/^int	nf(char *str, int fd)$/;"	f
 only_spaces	src/utils/only_spaces.c	/^int	only_spaces(char *str)$/;"	f
+open_in_out	src/parsing/parse_tokens.c	/^int	open_in_out(t_tokens *tokens, t_io *io, **cmds)$/;"	f
+out	inc/minishell.h	/^	char	*out;$/;"	m	struct:s_io
 parse_tokens	src/parsing/parse_tokens.c	/^int	parse_tokens(t_tokens *tokens, t_shell *shell)$/;"	f
 pipes	inc/minishell.h	/^	int				pipes[2];$/;"	m	struct:s_cmds
 populate	libft/src/ft_itoa.c	/^void	populate(char *s, int neg, long int nb, int toalloc)$/;"	f
+prev_pipe	inc/minishell.h	/^	int		prev_pipe;$/;"	m	struct:s_io
 print_tokens	src/parsing/tokenization_utils.c	/^void	print_tokens(t_tokens *tokens)$/;"	f
 printvar	src/utils/env_utils.c	/^void	printvar(char **env, char *var)$/;"	f
 prompt	src/prompt.c	/^char	*prompt(void)$/;"	f
 remove_from_env	src/builtin/unset.c	/^void	remove_from_env(char ***env, char *var)$/;"	f
 run	inc/minishell.h	/^	int				run;$/;"	m	struct:s_cmds
 s_cmds	inc/minishell.h	/^typedef struct s_cmds$/;"	s
+s_io	inc/minishell.h	/^typedef struct s_io$/;"	s
 s_list	libft/inc/libft.h	/^typedef struct s_list$/;"	s
 s_shell	inc/minishell.h	/^typedef struct s_shell$/;"	s
 s_tokens	inc/minishell.h	/^typedef struct s_tokens$/;"	s
@@ -259,6 +266,7 @@ super_unset	src/utils/export_unset_utils.c	/^void	super_unset(char ***env, char 
 t_cmds	inc/minishell.h	/^}				t_cmds;$/;"	t	typeref:struct:s_cmds
 t_list	libft/inc/libft.h	/^}					t_list;$/;"	t	typeref:struct:s_list
 t_shell	inc/minishell.h	/^}				t_shell;$/;"	t	typeref:struct:s_shell
+t_struct	inc/minishell.h	/^}			t_struct;$/;"	t	typeref:struct:s_io
 t_tokens	inc/minishell.h	/^}				t_tokens;$/;"	t	typeref:struct:s_tokens
 token	inc/minishell.h	/^	char			*token;$/;"	m	struct:s_tokens
 tokenizer	src/parsing/tokenizer.c	/^int	tokenizer(t_tokens **tokens, t_shell *shell)$/;"	f
