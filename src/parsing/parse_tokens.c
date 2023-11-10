@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/06 16:12:56 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:03:03 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,36 +67,87 @@ int	open_in_out(t_tokens *tokens, t_io *io, **cmds)
 		close_pipes(*cmds);
 	}
 }
-t_tokens	*check_in_out(t_io *io, t_tokens *tokens, t_cmds **cmds)
+int	replace_fd(int default_fd, int old_fd, int new_fd)
 {
-	else if (token->is_meta == CHR || token->is_meta == CHRR)
-	else if (token->is_meta == CHL || token->is_meta == CHLL)
+	//TODO: error if new_fd == -1 (open failed)
+	if (old_fd == default_fd)
+		close(old_fd);
+	return (new_fd);
 }
-int	set_cmd(t_tokens *tokens, t_cmds **cmds)
+int	open_out(t_tokens *tokens, t_cmds **cmds)
+{
+	if (access(token->next->token, F_OK))
+		open(token->next->token, O_CREAT, 0644);
+	if (access(token->next->token, W_OK))
+	{
+		perror(token->next->token);
+		g_status = errno;
+	}
+	else if (token->is_meta == CHR)
+		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(token->next->token, O_WRONLY));
+	else if (token->is_meta == CHRR)
+		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(token->next->token, O_WRONLY | O_APPEND));
+	return (0);
+}
+int	open_in(t_tokens *tokens, t_cmds **cmds)
+{
+	if (access(token->next->token, R_OK))
+	{
+		perror(token->next->token);
+		g_status = errno;
+	}
+	else if (token->is_meta == CHL)
+		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(token->next->token, O_RDONLY));
+	else if (token->is_meta == CHLL)
+		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(token->next->token, O_RDONLY));
+	return (0);
+}
+void	open_in_out(t_tokens **tokens, t_cmds **cmds)
+{
+	//TODO: add HERE DOC
+	if ((*cmds)->run == 1)
+		return ;
+	else if ((*tokens)->is_meta == CHR || (*tokens)->is_meta == CHRR)
+		(*cmds)->run = open_out(*tokens, cmds);
+	else if ((*tokens)->is_meta == CHL || (*tokens)->is_meta == CHLL)
+		(*cmds)->run = open_in(*tokens, cmds);
+	*tokens = (*tokens)->next->next;
+}
+
+int	set_cmd(t_tokens **tokens, char ***args)
+{
+	while (*tokens && !(*tokens)->is_meta)
+	{
+		add_to_matrix(args, (*tokens)->token);
+		*tokens = (*tokens)->next;
+	}
+}
+
 int	set_in_out(t_cmds **cmds, t_tokens *tokens)
 {
-	t_cmds	*tmp_cmds;
-	t_io	io;
+	t_cmds		*tmp_cmds;
+	t_tokens	*tokens_tmp;
+	tmp_cmds	*cmds;
 
-	io.in = NULL;
-	io.out = NULL;
-	io.prev_pipe = -1;
 	tmp_cmds = *cmds;
+	token_tmp = tokens;
 	while (tmp_cmds)
 	{
-		if (tokens->is_meta == PIPE || (tmp_cmds && !tokens))
+		if (tokens_tmp->is_meta == PIPE || (tmp_cmds && !tokens_tmp))
 		{
-			io = open_in_out(io, previous_pipe, &tmp_cmds);
+//			io = open_in_out(io, previous_pipe, &tmp_cmds);
 			tmp_cmds = tmp_cmds->next;
+			tokens_tmp = tokens_tmp->next;
 		}
-		else if (tokens->is_meta)
-			tokens = check_in_out(&io, tmp_in_out, tokens);
-		else if (tokens)
-			tokens = set_cmd(tokens, cmds);
+		else if (tokens_tmp && tokens_tmp->is_meta)
+			open_in_out(&tmp_cmds, &tokens_tmp);
+		else if (tokens_tmp)
+			set_cmd(&tokens_tmp, &(*cmds)->args);
 	}
 	//if -1 -> default_in/out (stdin/stdout) if 2nd pipe or more STDIN = pipe[0] of previous
 	//if -2 -> set (*cmds)->run to 1 and go next
 }
+
 int	create_cmds_struct(int pipes, t_cmds **cmds)
 {
 	*cmds = init_cmd_struct(pipes);

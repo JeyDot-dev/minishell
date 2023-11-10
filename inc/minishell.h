@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/06 15:13:24 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:04:02 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_io
 	char	*in;
 	char	*out;
 	int		prev_pipe;
-}			t_struct;
+}				t_io;
 //-----------------MAIN FUNCTIONS---------------------------
 char	*prompt(void);
 void	update_history(t_shell *shell);
