@@ -107,14 +107,13 @@ builtin_cmd	src/exec_builtins.c	/^int	builtin_cmd(char **args, char ***env)$/;"	
 check_export_arg	src/builtin/export.c	/^int	check_export_arg(char *arg)$/;"	f
 check_post_meta	src/parsing/tokenization_utils.c	/^int	check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign)$/;"	f
 check_post_meta_long	src/parsing/tokenization_utils.c	/^int	check_post_meta_long(char *cmd_line, int i, char sign)$/;"	f
-close_pipes	src/utils/pipe_utils.c	/^void	close_pipes(t_cmds *cmd)$/;"	f
+close_pipe	src/utils/pipes_utils.c	/^void	close_pipe(t_cmds *cmd)$/;"	f
 cmd_line	inc/minishell.h	/^	char		*cmd_line;$/;"	m	struct:s_shell
 cmd_loop	src/main.c	/^int	cmd_loop(t_shell *shell)$/;"	f
 cmds	inc/minishell.h	/^	t_cmds		*cmds;$/;"	m	struct:s_shell
 content	libft/inc/libft.h	/^	void			*content;$/;"	m	struct:s_list
 count_pipes	src/utils/parse_tokens_utils.c	/^int	count_pipes(t_tokens *tokens)$/;"	f
 count_strings	src/utils/count_strings.c	/^int	count_strings(char **matrix)$/;"	f
-create_cmds_struct	src/parsing/parse_tokens.c	/^int	create_cmds_struct(int pipes, t_cmds **cmds)$/;"	f
 create_new_empty_cmd	src/parsing/parse_tokens.c	/^t_cmds	*create_new_empty_cmd(void)$/;"	f
 ctalloc	libft/src/ft_itoa.c	/^int	ctalloc(int n, long int ct)$/;"	f
 debug	inc/minishell.h	/^	int			debug;$/;"	m	struct:s_shell
@@ -239,12 +238,11 @@ next	libft/inc/libft.h	/^	struct s_list	*next;$/;"	m	struct:s_list	typeref:struc
 nf	libft/src/ft_printf.c	/^int	nf(char *str, int fd)$/;"	f
 only_spaces	src/utils/only_spaces.c	/^int	only_spaces(char *str)$/;"	f
 open_in	src/parsing/parse_tokens.c	/^int	open_in(t_tokens *tokens, t_cmds **cmds)$/;"	f
-open_in_out	src/parsing/parse_tokens.c	/^int	open_in_out(t_tokens *tokens, t_io *io, **cmds)$/;"	f
 open_in_out	src/parsing/parse_tokens.c	/^void	open_in_out(t_tokens **tokens, t_cmds **cmds)$/;"	f
 open_out	src/parsing/parse_tokens.c	/^int	open_out(t_tokens *tokens, t_cmds **cmds)$/;"	f
 out	inc/minishell.h	/^	char	*out;$/;"	m	struct:s_io
 parse_tokens	src/parsing/parse_tokens.c	/^int	parse_tokens(t_tokens *tokens, t_shell *shell)$/;"	f
-pipes	inc/minishell.h	/^	int				pipes[2];$/;"	m	struct:s_cmds
+pipe	inc/minishell.h	/^	int				pipe[2];$/;"	m	struct:s_cmds
 populate	libft/src/ft_itoa.c	/^void	populate(char *s, int neg, long int nb, int toalloc)$/;"	f
 prev_pipe	inc/minishell.h	/^	int		prev_pipe;$/;"	m	struct:s_io
 print_tokens	src/parsing/tokenization_utils.c	/^void	print_tokens(t_tokens *tokens)$/;"	f
@@ -258,8 +256,8 @@ s_io	inc/minishell.h	/^typedef struct s_io$/;"	s
 s_list	libft/inc/libft.h	/^typedef struct s_list$/;"	s
 s_shell	inc/minishell.h	/^typedef struct s_shell$/;"	s
 s_tokens	inc/minishell.h	/^typedef struct s_tokens$/;"	s
-set_cmd	src/parsing/parse_tokens.c	/^int	set_cmd(t_tokens **tokens, char ***args)$/;"	f
-set_in_out	src/parsing/parse_tokens.c	/^int	set_in_out(t_cmds **cmds, t_tokens *tokens)$/;"	f
+set_cmd	src/parsing/parse_tokens.c	/^void	set_cmd(t_tokens **tokens, char ***args)$/;"	f
+set_in_out	src/parsing/parse_tokens.c	/^void	set_in_out(t_cmds **cmds, t_tokens *tokens)$/;"	f
 signal_handler	src/signal_handler.c	/^void	signal_handler(int sig)$/;"	f
 skip_dollar	src/parsing/var_expansion.c	/^int	skip_dollar(char *str, int i, int mode)$/;"	f
 str_arr	src/utils/fprint_debug.c	/^void	str_arr(int fd, char **strarr, char *str, int mode)$/;"	f

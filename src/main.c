@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/17 15:17:37 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:44:21 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -19,9 +19,9 @@ int	init_minishell(int ac, char **av, char **envp, t_shell **shell)
 	*shell = malloc(sizeof(t_shell));
 	if (!shell)
 		return (1);
-	if (ac > 1 && ft_strncmp(av[1], "-d", 1) == 0)
+	if (ac > 1 && ft_strncmp(av[1], "-d", 3) == 0)
 		(*shell)->debug = 1;
-	else if (ac > 1 && ft_strncmp(av[1], "-v", 1) == 0)
+	else if (ac > 1 && ft_strncmp(av[1], "-v", 3) == 0)
 		(*shell)->debug = 2;
 	else
 		(*shell)->debug = 0;
@@ -49,8 +49,8 @@ int	cmd_loop(t_shell *shell)
 	if (!token_status && shell->tokens)
 	{
 		g_status = 0;
-		delete_tokens(shell->tokens);
-		shell->tokens = NULL;
+//		delete_tokens(shell->tokens);
+//		shell->tokens = NULL;
 //		parse_tokens(shell->tokens
 	}
 	return (0);
@@ -67,10 +67,18 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (shell->tokens)
 		{
+			parse_tokens(shell->tokens, shell);
+			ft_fprintf(2, "TEST\n");
+			delete_tokens(shell->tokens);
+			shell->tokens = NULL;
+			// FREE CMDS_STRUCT HERE
+			fprint_list_cmds(2, *shell, "post_parse_tokens");
+			free(shell->cmds);
+			shell->cmds = NULL;
 			//tmp_err = builtin_cmd(shell->tokens, &(shell->env));
 			//if (tmp_err != 777)
 //			g_status = tmp_err;
-							//!!!!!!!!!!!!!!!!FREE TOKENS
+							//!!!!!!!!!!!!!!!!FREE TOKENS AND cmds and set cmds to NULL!!!!!!!!!!!!!!!!!!!!
 		}
 	}
 	exit(0);

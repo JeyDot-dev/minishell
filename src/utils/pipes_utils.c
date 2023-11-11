@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_utils.c                                       :+:      :+:    :+:   */
+/*   pipes_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:57:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/06 14:59:41 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/11 14:41:22 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_pipes(t_cmds *cmd)
+void	close_pipe(t_cmds *cmd)
 {
 	close(cmd->pipe[0]);
 	close(cmd->pipe[1]);

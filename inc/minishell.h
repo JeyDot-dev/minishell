@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/10 15:04:02 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/11 14:41:58 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 extern int	g_status;
 typedef struct s_cmds
 {
-	int				pipes[2];
+	int				pipe[2];
 	int				fd_out;
 	int				fd_in;
 	int				run;
@@ -153,7 +153,9 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str);
 void	fprint_shell(int fd, t_shell *shell, char *str);
 void	print_tokens(t_tokens *tokens);
 //--------------------PARSING FUNCTIONS-------------------------------
+//		v	function used to parse the tokens into a list of commands.
+int		parse_tokens(t_tokens *tokens, t_shell *shell);
 int		count_pipes(t_tokens *tokens);
-void	close_pipes(t_cmds *cmd);
+void	close_pipe(t_cmds *cmd);
 void	signal_handler(int sig);
 #endif
