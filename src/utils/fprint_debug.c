@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 15:19:47 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/13 15:58:17 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:37:22 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -58,13 +58,12 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str)
 	if (shell.debug == 0)
 		return ;
 	tmp = shell.cmds;
-	ft_fprintf(fd, "---DEBUG t_cmds list : %s---\n", str);
+	ft_fprintf(fd, RED"---DEBUG t_cmds list : %s---\n", str);
 	i = 0;
 	while (tmp)
 	{
 		ft_fprintf(fd, RED"--cmd %i\n", i);
 		fprint_struct_cmds(fd, *tmp, shell.debug);
-		ft_fprintf(fd, "post fprint_struct_cmds\n");
 		tmp = tmp->next;
 		i++;
 	}

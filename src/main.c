@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/13 16:00:44 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:31:17 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -43,7 +43,6 @@ int	cmd_loop(t_shell *shell)
 	if (!shell->cmd_line)
 		exit(1);
 	token_status = tokenizer(&(shell->tokens), shell);
-	fprint_shell(2, shell, "cmd_loop");
 	if (shell->cmd_line)
 		update_history(shell);
 	if (!token_status && shell->tokens)
@@ -71,7 +70,6 @@ int	main(int ac, char **av, char **envp)
 			delete_tokens(shell->tokens);
 			shell->tokens = NULL;
 			// FREE CMDS_STRUCT HERE
-			fprint_list_cmds(2, *shell, "post_parse_tokens");
 			free(shell->cmds);
 			shell->cmds = NULL;
 			//tmp_err = builtin_cmd(shell->tokens, &(shell->env));

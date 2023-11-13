@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/13 16:00:02 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:35:23 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_cmds	*init_cmd_struct(int pipes)
 int	replace_fd(int default_fd, int old_fd, int new_fd)
 {
 	//TODO: error if new_fd == -1 (open failed)
-	if (old_fd == default_fd)
+	if (old_fd != default_fd)
 		close(old_fd);
 	return (new_fd);
 }
@@ -126,7 +126,6 @@ void	set_in_out(t_cmds **cmds, t_tokens *tokens)
 	{
 		if (tokens_tmp && (tokens_tmp->is_meta == PIPE || (tmp_cmds && !tokens_tmp)))
 		{
-			ft_fprintf(2, "PIPE\n");
 			if (tmp_cmds->fd_out == 1 && tmp_cmds->next)
 			{
 				tmp_cmds->fd_out = tmp_cmds->next->pipe[1];
@@ -137,7 +136,7 @@ void	set_in_out(t_cmds **cmds, t_tokens *tokens)
 		}
 		else if (tokens_tmp && tokens_tmp->is_meta)
 		{
-			open_in_out(&tokens, &tmp_cmds);
+			open_in_out(&tokens_tmp, &tmp_cmds);
 		}
 		else if (tokens_tmp)
 		{
@@ -164,7 +163,7 @@ int	parse_tokens(t_tokens *tokens, t_shell *shell)
 {
 	shell->cmds = init_cmd_struct(count_pipes(tokens));
 	set_in_out(&shell->cmds, tokens);
-	ft_fprintf(2, "cmds: %d\n", count_cmds(shell->cmds));
+	fprint_list_cmds(2, *shell, "parsed_tokens");
 	//				find cmd and arguments if no cmd/arg > close fd and set error
 	return (0);
 }
