@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/11 16:03:20 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:00:02 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	set_in_out(t_cmds **cmds, t_tokens *tokens)
 	{
 		if (tokens_tmp && (tokens_tmp->is_meta == PIPE || (tmp_cmds && !tokens_tmp)))
 		{
+			ft_fprintf(2, "PIPE\n");
 			if (tmp_cmds->fd_out == 1 && tmp_cmds->next)
 			{
 				tmp_cmds->fd_out = tmp_cmds->next->pipe[1];
@@ -147,10 +148,23 @@ void	set_in_out(t_cmds **cmds, t_tokens *tokens)
 	}
 }
 
+int	count_cmds(t_cmds *cmds)
+{
+	int	i;
+
+	i = 0;
+	while (cmds)
+	{
+		i++;
+		cmds = cmds->next;
+	}
+	return (i);
+}
 int	parse_tokens(t_tokens *tokens, t_shell *shell)
 {
 	shell->cmds = init_cmd_struct(count_pipes(tokens));
 	set_in_out(&shell->cmds, tokens);
+	ft_fprintf(2, "cmds: %d\n", count_cmds(shell->cmds));
 	//				find cmd and arguments if no cmd/arg > close fd and set error
 	return (0);
 }

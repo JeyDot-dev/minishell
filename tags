@@ -112,6 +112,7 @@ cmd_line	inc/minishell.h	/^	char		*cmd_line;$/;"	m	struct:s_shell
 cmd_loop	src/main.c	/^int	cmd_loop(t_shell *shell)$/;"	f
 cmds	inc/minishell.h	/^	t_cmds		*cmds;$/;"	m	struct:s_shell
 content	libft/inc/libft.h	/^	void			*content;$/;"	m	struct:s_list
+count_cmds	src/parsing/parse_tokens.c	/^int	count_cmds(t_cmds *cmds)$/;"	f
 count_pipes	src/utils/parse_tokens_utils.c	/^int	count_pipes(t_tokens *tokens)$/;"	f
 count_strings	src/utils/count_strings.c	/^int	count_strings(char **matrix)$/;"	f
 create_new_empty_cmd	src/parsing/parse_tokens.c	/^t_cmds	*create_new_empty_cmd(void)$/;"	f

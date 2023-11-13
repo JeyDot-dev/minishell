@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/11 15:44:21 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:00:44 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -68,7 +68,6 @@ int	main(int ac, char **av, char **envp)
 		if (shell->tokens)
 		{
 			parse_tokens(shell->tokens, shell);
-			ft_fprintf(2, "TEST\n");
 			delete_tokens(shell->tokens);
 			shell->tokens = NULL;
 			// FREE CMDS_STRUCT HERE
