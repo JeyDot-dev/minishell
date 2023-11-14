@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/11 14:41:58 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:27:48 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_shell
 	char		*last_cmd_line;
 	t_tokens	*tokens;
 	t_cmds		*cmds;
+	int			last_cmd_status;
 	int			debug;
 }				t_shell;
 typedef struct s_io
@@ -77,7 +78,7 @@ int		is_meta(const int c);
 //		v	check if character is potential string (c != 32 || is_meta(c) || \0)
 int		is_string(const int c);
 //		v	expand all variables in string (and creates a new one expanded)
-char	*expand_string(char *str, char **env);
+char	*expand_string(char *str, t_shell *shell);
 //		 __|finds end of string and returns index
 //		v  |checks for quotes and output error if needed
 int		find_end_of_token(char *cmd_line, int i, int mode);

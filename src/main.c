@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/13 16:31:17 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:37:56 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -39,6 +39,7 @@ int	cmd_loop(t_shell *shell)
 {
 	int	token_status;
 
+	shell->last_cmd_status = g_status;
 	shell->cmd_line = prompt();
 	if (!shell->cmd_line)
 		exit(1);
@@ -52,6 +53,7 @@ int	cmd_loop(t_shell *shell)
 //		shell->tokens = NULL;
 //		parse_tokens(shell->tokens
 	}
+	ft_fprintf(2, "last_cmd_status: %d\n", shell->last_cmd_status);
 	return (0);
 }
 

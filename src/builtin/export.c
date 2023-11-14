@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 18:38:48 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:33:37 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -42,7 +42,7 @@ int	update_env(char ***env, char *new_var)
 {
 	char	**tmp;
 
-	tmp = calloc(2, sizeof(char *));
+	tmp = ft_calloc(2, sizeof(char *));
 	if (!tmp)
 		return (1);
 	tmp[0] = extract_var_name(new_var);

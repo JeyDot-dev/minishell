@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/13 16:35:23 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:04:48 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,7 @@ void	set_cmd(t_tokens **tokens, char ***args)
 		*tokens = (*tokens)->next;
 	}
 }
-
-void	set_in_out(t_cmds **cmds, t_tokens *tokens)
+void	parsinator(t_cmds **cmds, t_tokens *tokens)
 {
 	t_cmds		*tmp_cmds;
 	t_tokens	*tokens_tmp;
@@ -135,34 +134,18 @@ void	set_in_out(t_cmds **cmds, t_tokens *tokens)
 			tokens_tmp = tokens_tmp->next;
 		}
 		else if (tokens_tmp && tokens_tmp->is_meta)
-		{
 			open_in_out(&tokens_tmp, &tmp_cmds);
-		}
 		else if (tokens_tmp)
-		{
 			set_cmd(&tokens_tmp, &(tmp_cmds)->args);
-		}
 		else if (!tokens_tmp)
 			tmp_cmds = NULL;
 	}
 }
 
-int	count_cmds(t_cmds *cmds)
-{
-	int	i;
-
-	i = 0;
-	while (cmds)
-	{
-		i++;
-		cmds = cmds->next;
-	}
-	return (i);
-}
 int	parse_tokens(t_tokens *tokens, t_shell *shell)
 {
 	shell->cmds = init_cmd_struct(count_pipes(tokens));
-	set_in_out(&shell->cmds, tokens);
+	parsinator(&shell->cmds, tokens);
 	fprint_list_cmds(2, *shell, "parsed_tokens");
 	//				find cmd and arguments if no cmd/arg > close fd and set error
 	return (0);

@@ -6,12 +6,12 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:00:22 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/17 14:27:01 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:28:57 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
-int	get_string(char *cmd_line, char **buffer, int i, char **env)
+int	get_string(char *cmd_line, char **buffer, int i, t_shell *shell)
 {
 	int	start[2];
 
@@ -31,13 +31,13 @@ int	get_string(char *cmd_line, char **buffer, int i, char **env)
 		return (i);
 	*buffer = ft_strndup(&(cmd_line[start[0]]), i - start[0]);
 	if (start[1] == 0 || start[1] == 1)
-		*buffer = expand_string(*buffer, env);
+		*buffer = expand_string(*buffer, shell);
 	if (start[1])
 		i++;
 	return (i);
 }
 
-int	str_token(t_tokens **tokens, char *cmd_line, int i, char **env)
+int	str_token(t_tokens **tokens, char *cmd_line, int i, t_shell *shell)
 {
 	char	*new_str;
 	char	*buffer;
@@ -46,7 +46,7 @@ int	str_token(t_tokens **tokens, char *cmd_line, int i, char **env)
 	while (is_string(cmd_line[i]))
 	{
 		buffer = NULL;
-		i = get_string(cmd_line, &buffer, i, env);
+		i = get_string(cmd_line, &buffer, i, shell);
 		if (i >= 0)
 			new_str = free_join(new_str, buffer);
 	}
@@ -96,7 +96,7 @@ int	tokenizer(t_tokens **tokens, t_shell *shell)
 		if (is_meta(shell->cmd_line[i]))
 			i = meta_token(tokens, shell->cmd_line, i);
 		else if (shell->cmd_line[i])
-			i = str_token(tokens, shell->cmd_line, i, shell->env);
+			i = str_token(tokens, shell->cmd_line, i, shell);
 		if (i == -1)
 		{
 			ft_fprintf(2, "TESSTT\n");
