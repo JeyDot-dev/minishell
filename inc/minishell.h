@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 13:43:32 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:21:52 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # define BLK "\e[0;30m"
 # define RED "\e[0;31m"
 # define GRN "\e[0;32m"
@@ -58,6 +60,7 @@ typedef struct s_shell
 	char		*last_cmd_line;
 	t_tokens	*tokens;
 	t_cmds		*cmds;
+	int			child_pid;
 	int			last_cmd_status;
 	int			debug;
 }				t_shell;
@@ -96,6 +99,7 @@ int		ft_pwd(void);
 int		ft_cd(char ***env, char **args);
 int		ft_export(char ***env, char **args);
 int		ft_unset(char ***env, char **var);
+int		ft_exit(t_cmds *cmds, t_shell *shell);
 //-----------------ENV MANIPULATION FUNCTIONS-------------
 //		v	function to unset with a char* instead of char**.
 void	super_unset(char ***env, char *new_var);
@@ -127,6 +131,9 @@ int		count_strings(char **matrix);
 //--------------------OTHER USEFUL FUNCTIONS---------------------------
 //		v	function used to free a matrix and its content.
 void	free_matrix(char **env);
+void	free_cmds(t_cmds *cmds);
+void	free_shell(t_shell *shell);
+void	free_tokens(t_tokens *tokens);
 //		v	frees the struct s_token
 void	delete_tokens(t_tokens *tokens_struct);
 //		v	function used to add a char* to a matrix.
@@ -162,5 +169,5 @@ int		is_builtin(char *cmd);
 int		parse_tokens(t_tokens *tokens, t_shell *shell);
 int		count_pipes(t_tokens *tokens);
 void	close_pipe(t_cmds *cmd);
-void	signal_handler(int sig);
+void	signal_handler(int sig, siginfo_t *info, void *ucontext);
 #endif

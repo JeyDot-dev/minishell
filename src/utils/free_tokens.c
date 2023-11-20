@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   free_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 15:13:25 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 16:17:35 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/11/20 19:21:10 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/11/20 19:21:38 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-char	*prompt(void)
+void	free_tokens(t_tokens *tokens)
 {
-	char	pwd[PATH_MAX];
-	char	*prompt;
-	char	*tmp;
-	char	*cmd_line;
+	t_tokens	*tmp;
 
-	getcwd(pwd, sizeof(pwd));
-	prompt = ft_strjoin("\e[0;36m", pwd);
-	tmp = ft_strjoin("\e[0;35mminishell ", prompt);
-	ft_memdel(prompt);
-	if (g_status)
-		prompt = ft_strjoin(tmp, "\e[0;31m $\e[0;37m ");
-	else
-		prompt = ft_strjoin(tmp, "\e[0;33m $\e[0;37m ");
-	ft_memdel(tmp);
-	cmd_line = readline(prompt);
-	ft_memdel(prompt);
-	return (cmd_line);
+	while (tokens)
+	{
+		tmp = tokens;
+		tokens = tokens->next;
+		free(tmp->token);
+		free(tmp);
+	}
 }

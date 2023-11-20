@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 15:13:25 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 16:17:35 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/11/20 19:10:38 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/11/20 19:19:29 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-char	*prompt(void)
+int	ft_exit(t_cmds *cmds, t_shell *shell)
 {
-	char	pwd[PATH_MAX];
-	char	*prompt;
-	char	*tmp;
-	char	*cmd_line;
+	long long int	nb;
 
-	getcwd(pwd, sizeof(pwd));
-	prompt = ft_strjoin("\e[0;36m", pwd);
-	tmp = ft_strjoin("\e[0;35mminishell ", prompt);
-	ft_memdel(prompt);
-	if (g_status)
-		prompt = ft_strjoin(tmp, "\e[0;31m $\e[0;37m ");
-	else
-		prompt = ft_strjoin(tmp, "\e[0;33m $\e[0;37m ");
-	ft_memdel(tmp);
-	cmd_line = readline(prompt);
-	ft_memdel(prompt);
-	return (cmd_line);
+	nb = 0;
+	if (cmds->args[1] && cmds->args[2])
+	{
+		ft_fprintf(2, "minishell: exit: too many arguments\n");
+		return (2);
+	}
+	else if (cmds->args[1])
+	{
+		nb = ft_atoi2(cmds->args[1]);
+		if (nb == 2147483648)
+		{
+			ft_fprintf(2, "minishell: exit: %s: numeric argument required\n", cmds->args[1]);
+			free_shell(shell);
+			exit(2);
+		}
+	}
+	free_shell(shell);
+	exit(nb);
 }

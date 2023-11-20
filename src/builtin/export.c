@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/14 15:33:37 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:02:42 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -63,7 +63,7 @@ int	ft_export(char ***env, char **args)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (!args || !*args)
 		ft_env(*env);
 	while (args[++i])

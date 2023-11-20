@@ -6,13 +6,23 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/14 15:37:56 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:33:39 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
 int	g_status;
 
+int	init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig)
+{
+	struct sigaction	sa;
+
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
+	sa.sa_sigaction = signal_handler;
+	if (sigaction(sig, &sa, NULL) == -1)
+		return (1);
+	return (0);
+}
 int	init_minishell(int ac, char **av, char **envp, t_shell **shell)
 {
 	g_status = 0;
@@ -29,7 +39,8 @@ int	init_minishell(int ac, char **av, char **envp, t_shell **shell)
 	(*shell)->cmd_line = NULL;
 	(*shell)->last_cmd_line = NULL;
 	init_env(av, envp, &((*shell)->env));
-	signal(SIGINT, signal_handler);
+	if (init_sigint(signal_handler, SIGINT))
+		return (1);
 	signal(SIGQUIT, SIG_IGN);
 	fprint_shell(2, *shell, "init_minishell");
 	return (0);
@@ -53,14 +64,12 @@ int	cmd_loop(t_shell *shell)
 //		shell->tokens = NULL;
 //		parse_tokens(shell->tokens
 	}
-	ft_fprintf(2, "last_cmd_status: %d\n", shell->last_cmd_status);
 	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;
-//	int		tmp_err;
 
 	if (init_minishell(ac, av, envp, &shell) || g_status)
 		exit(1);
@@ -71,8 +80,9 @@ int	main(int ac, char **av, char **envp)
 			parse_tokens(shell->tokens, shell);
 			delete_tokens(shell->tokens);
 			shell->tokens = NULL;
-			// FREE CMDS_STRUCT HERE
-			free(shell->cmds);
+			execute(shell);
+			if (shell->cmds)
+				free_cmds(shell->cmds);
 			shell->cmds = NULL;
 			//tmp_err = builtin_cmd(shell->tokens, &(shell->env));
 			//if (tmp_err != 777)

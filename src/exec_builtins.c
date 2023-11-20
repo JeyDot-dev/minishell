@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:15:48 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 11:41:00 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:01:34 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,18 @@ int	is_builtin(char *cmd)
 int	builtin_cmd(char **args, char ***env)
 {
 	if (!ft_strncmp(*args, "pwd", 4))
-		return (ft_pwd());
+		exit (ft_pwd());
 	else if (!ft_strncmp(*args, "cd", 3))
-		return (ft_cd(env, args + 1));
+		exit (ft_cd(env, args));
 	else if (!ft_strncmp(*args, "env", 4))
-		return (ft_env(*env));
+		exit (ft_env(*env));
 	else if (!ft_strncmp(*args, "export", 7))
-		return (ft_export(env, args + 1));
+		exit (ft_export(env, args));
 	else if (!ft_strncmp(*args, "unset", 6))
-		return (ft_unset(env, args + 1));
+		exit (ft_unset(env, args));
 	else if (!ft_strncmp(*args, "echo", 5))
-		return (ft_echo(args));
+		exit (ft_echo(args));
 	else if (!ft_strncmp(*args, "exit", 5))
 		exit(0);
-	return (777);
+	exit (777);
 }

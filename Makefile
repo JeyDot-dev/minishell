@@ -17,13 +17,13 @@ LIB_D		:=	libft/
 INC			:=	inc/ libft/inc/
 
 #---------------Add .c / .h here \/--------------
-BUILTIN		:=	env.c	export.c	unset.c	echo.c	pwd.c	cd.c
+BUILTIN		:=	env.c	export.c	unset.c	echo.c	pwd.c	cd.c	exit.c
 UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\
 				getvar.c	extract_var_data.c	extract_var_name.c		\
 				add_to_matrix.c	free_join.c	count_strings.c	only_spaces.c\
 				fprint_debug.c	fprint_matrix.c	is_meta.c	is_string.c\
 				token_struct_utils.c	parse_tokens_utils.c	fatal_error.c\
-				pipes_utils.c
+				pipes_utils.c	free_shell.c free_cmds.c	free_tokens.c
 PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c
 
 SRC			:=	main.c	exec_builtins.c	init_env.c	prompt.c	signal_handler.c	\

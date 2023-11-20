@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   free_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 15:13:25 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 16:17:35 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/11/20 19:03:15 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/11/20 19:10:07 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-char	*prompt(void)
+void	free_shell(t_shell *shell)
 {
-	char	pwd[PATH_MAX];
-	char	*prompt;
-	char	*tmp;
-	char	*cmd_line;
-
-	getcwd(pwd, sizeof(pwd));
-	prompt = ft_strjoin("\e[0;36m", pwd);
-	tmp = ft_strjoin("\e[0;35mminishell ", prompt);
-	ft_memdel(prompt);
-	if (g_status)
-		prompt = ft_strjoin(tmp, "\e[0;31m $\e[0;37m ");
-	else
-		prompt = ft_strjoin(tmp, "\e[0;33m $\e[0;37m ");
-	ft_memdel(tmp);
-	cmd_line = readline(prompt);
-	ft_memdel(prompt);
-	return (cmd_line);
+	if (shell->env)
+		free_matrix(shell->env);
+	if (shell->cmds)
+		free_cmds(shell->cmds);
+	if (shell->tokens)
+		free_tokens(shell->tokens);
+	if (shell->cmd_line)
+		free(shell->cmd_line);
+	if (shell->last_cmd_line)
+		free(shell->last_cmd_line);
+	free(shell);
 }

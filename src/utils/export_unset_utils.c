@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 17:28:57 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 19:15:07 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:30:56 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 
 void	super_unset(char ***env, char *new_var)
 {
-	char	*tmp[2];
+	char	*tmp[3];
 
-	tmp[0] = new_var;
-	tmp[1] = NULL;
+	tmp[0] = "unset";
+	tmp[1] = new_var;
+	tmp[2] = NULL;
 	ft_export(env, tmp);
 }
 
 void	super_export(char ***env, char *new_var)
 {
-	char	*tmp[2];
+	char	*tmp[3];
 
-	tmp[0] = new_var;
-	tmp[1] = NULL;
+	tmp[0] = "export";
+	tmp[1] = new_var;
+	tmp[2] = NULL;
 	ft_export(env, tmp);
 }
 

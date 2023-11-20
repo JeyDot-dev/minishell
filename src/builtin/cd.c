@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 19:14:02 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:02:00 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	ft_cd(char ***env, char **args)
 	char	*tmp;
 	char	*old_pwd;
 
+	args += 1;
 	if (!*args || (**args == '~' && (*args)[1] == 0))
 		tmp = getvar_data(*env, "HOME");
 	else

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 18:00:28 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 18:40:10 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 19:00:27 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -39,6 +39,8 @@ void	remove_from_env(char ***env, char *var)
 
 int	ft_unset(char ***env, char **var)
 {
+	if (*var)
+		var += 1;
 	if (!*var)
 		return (1);
 	while (*var)

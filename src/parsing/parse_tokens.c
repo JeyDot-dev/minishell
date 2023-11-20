@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 14:08:42 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 15:51:52 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_cmds	*init_cmd_struct(int pipes)
 	}
 	return(new_head);
 }
+
 int	replace_fd(int default_fd, int old_fd, int new_fd)
 {
 	//TODO: error if new_fd == -1 (open failed)
@@ -68,6 +69,7 @@ int	replace_fd(int default_fd, int old_fd, int new_fd)
 		close(old_fd);
 	return (new_fd);
 }
+
 int	open_out(t_tokens *tokens, t_cmds **cmds)
 {
 	if (access(tokens->next->token, F_OK))
@@ -83,6 +85,7 @@ int	open_out(t_tokens *tokens, t_cmds **cmds)
 		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(tokens->next->token, O_WRONLY | O_APPEND));
 	return (0);
 }
+
 int	open_in(t_tokens *tokens, t_cmds **cmds)
 {
 	if (access(tokens->next->token, R_OK))
@@ -96,6 +99,7 @@ int	open_in(t_tokens *tokens, t_cmds **cmds)
 		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(tokens->next->token, O_RDONLY));
 	return (0);
 }
+
 void	open_in_out(t_tokens **tokens, t_cmds **cmds)
 {
 	//TODO: add HERE DOC
@@ -116,6 +120,7 @@ void	set_cmd(t_tokens **tokens, char ***args)
 		*tokens = (*tokens)->next;
 	}
 }
+
 void	set_stdout_to_pipe(t_cmds *cmds)
 {
 	if (cmds->fd_out == 1 && cmds->next)
@@ -124,6 +129,7 @@ void	set_stdout_to_pipe(t_cmds *cmds)
 		cmds->next->fd_in = cmds->next->pipe[0];
 	}
 }
+
 char	*try_paths(char *cmd, t_shell shell)
 {
 	char	*tmp[2];
@@ -149,6 +155,7 @@ char	*try_paths(char *cmd, t_shell shell)
 	free_matrix(path_split);
 	return (tmp[1]);
 }
+
 int	set_path_cmd(t_cmds *cmds, t_shell *shell)
 {
 	if (!cmds->args)
@@ -167,6 +174,7 @@ int	set_path_cmd(t_cmds *cmds, t_shell *shell)
 	}
 	return (0);
 }
+
 void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)
 {
 	t_cmds		*tmp_cmds;
@@ -179,7 +187,6 @@ void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)
 		if ((tokens_tmp && tokens_tmp->is_meta == PIPE) || (tmp_cmds && !tokens_tmp))
 		{
 			tmp_cmds->is_builtin = set_path_cmd(tmp_cmds, shell);
-			ft_fprintf(2, "next cmd\n");
 			set_stdout_to_pipe(tmp_cmds);
 			tmp_cmds = tmp_cmds->next;
 			if (tokens_tmp)
