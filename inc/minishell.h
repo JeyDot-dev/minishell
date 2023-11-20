@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/14 15:27:48 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:43:32 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_cmds
 	int				fd_out;
 	int				fd_in;
 	int				run;
+	int				is_builtin;
+	char			*path_cmd;
 	char			**args;
 	struct s_cmds	*next;
 }				t_cmds;
@@ -67,6 +69,7 @@ typedef struct s_io
 }				t_io;
 //-----------------MAIN FUNCTIONS---------------------------
 char	*prompt(void);
+int		execute(t_shell *shell);
 void	update_history(t_shell *shell);
 //		v	splits command line into usable tokens and expands variables
 int		tokenizer(t_tokens **tokens, t_shell *shell);
@@ -154,6 +157,7 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str);
 void	fprint_shell(int fd, t_shell *shell, char *str);
 void	print_tokens(t_tokens *tokens);
 //--------------------PARSING FUNCTIONS-------------------------------
+int		is_builtin(char *cmd);
 //		v	function used to parse the tokens into a list of commands.
 int		parse_tokens(t_tokens *tokens, t_shell *shell);
 int		count_pipes(t_tokens *tokens);

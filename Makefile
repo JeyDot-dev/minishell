@@ -27,7 +27,7 @@ UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\
 PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c
 
 SRC			:=	main.c	exec_builtins.c	init_env.c	prompt.c	signal_handler.c	\
-				update_history.c
+				update_history.c	execute.c
 
 LIB			:=	ft readline
 #FRAMEWORK	:=	OpenGL	AppKit

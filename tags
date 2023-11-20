@@ -225,6 +225,8 @@ in	inc/minishell.h	/^	char	*in;$/;"	m	struct:s_io
 init_cmd_struct	src/parsing/parse_tokens.c	/^t_cmds	*init_cmd_struct(int pipes)$/;"	f
 init_env	src/init_env.c	/^void	init_env(char **av, char **envp, char ***env)$/;"	f
 init_minishell	src/main.c	/^int	init_minishell(int ac, char **av, char **envp, t_shell **shell)$/;"	f
+is_builtin	inc/minishell.h	/^	int				is_builtin;$/;"	m	struct:s_cmds
+is_builtin	src/exec_builtins.c	/^int	is_builtin(char *cmd)$/;"	f
 is_meta	inc/minishell.h	/^	int				is_meta;$/;"	m	struct:s_tokens
 is_meta	src/utils/is_meta.c	/^int	is_meta(const int c)$/;"	f
 is_string	src/utils/is_string.c	/^int	is_string(const int c)$/;"	f
@@ -243,7 +245,8 @@ open_in_out	src/parsing/parse_tokens.c	/^void	open_in_out(t_tokens **tokens, t_c
 open_out	src/parsing/parse_tokens.c	/^int	open_out(t_tokens *tokens, t_cmds **cmds)$/;"	f
 out	inc/minishell.h	/^	char	*out;$/;"	m	struct:s_io
 parse_tokens	src/parsing/parse_tokens.c	/^int	parse_tokens(t_tokens *tokens, t_shell *shell)$/;"	f
-parsinator	src/parsing/parse_tokens.c	/^void	parsinator(t_cmds **cmds, t_tokens *tokens)$/;"	f
+parsinator	src/parsing/parse_tokens.c	/^void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)$/;"	f
+path_cmd	inc/minishell.h	/^	char			*path_cmd;$/;"	m	struct:s_cmds
 pipe	inc/minishell.h	/^	int				pipe[2];$/;"	m	struct:s_cmds
 populate	libft/src/ft_itoa.c	/^void	populate(char *s, int neg, long int nb, int toalloc)$/;"	f
 prev_pipe	inc/minishell.h	/^	int		prev_pipe;$/;"	m	struct:s_io
@@ -259,6 +262,8 @@ s_list	libft/inc/libft.h	/^typedef struct s_list$/;"	s
 s_shell	inc/minishell.h	/^typedef struct s_shell$/;"	s
 s_tokens	inc/minishell.h	/^typedef struct s_tokens$/;"	s
 set_cmd	src/parsing/parse_tokens.c	/^void	set_cmd(t_tokens **tokens, char ***args)$/;"	f
+set_path_cmd	src/parsing/parse_tokens.c	/^int	set_path_cmd(t_cmds *cmds, t_shell *shell)$/;"	f
+set_stdout_to_pipe	src/parsing/parse_tokens.c	/^void	set_stdout_to_pipe(t_cmds *cmds)$/;"	f
 signal_handler	src/signal_handler.c	/^void	signal_handler(int sig)$/;"	f
 skip_dollar	src/parsing/var_expansion.c	/^int	skip_dollar(char *str, int i, int mode)$/;"	f
 str_arr	src/utils/fprint_debug.c	/^void	str_arr(int fd, char **strarr, char *str, int mode)$/;"	f
@@ -274,6 +279,7 @@ t_tokens	inc/minishell.h	/^}				t_tokens;$/;"	t	typeref:struct:s_tokens
 token	inc/minishell.h	/^	char			*token;$/;"	m	struct:s_tokens
 tokenizer	src/parsing/tokenizer.c	/^int	tokenizer(t_tokens **tokens, t_shell *shell)$/;"	f
 tokens	inc/minishell.h	/^	t_tokens	*tokens;$/;"	m	struct:s_shell
+try_paths	src/parsing/parse_tokens.c	/^char	*try_paths(char *cmd, t_shell shell)$/;"	f
 update_env	src/builtin/export.c	/^int	update_env(char ***env, char *new_var)$/;"	f
 update_env_cd	src/builtin/cd.c	/^void	update_env_cd(char ***env, char *old_pwd)$/;"	f
 update_history	src/update_history.c	/^void	update_history(t_shell *shell)$/;"	f

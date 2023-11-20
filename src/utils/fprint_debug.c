@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 15:19:47 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/13 16:37:22 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/20 13:42:44 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -34,8 +34,9 @@ void	fprint_struct_cmds(int fd, t_cmds cmds, int mode)
 		cmds.pipe[0], cmds.pipe[1]);
 	ft_fprintf(fd, "fd_out : %i\n", cmds.fd_out);
 	ft_fprintf(fd, "fd_in : %i\n", cmds.fd_in);
+	ft_fprintf(fd, "run : %i\n", cmds.run);
+	ft_fprintf(fd, "is_builtin : %i\n", cmds.is_builtin);
 	str_arr(fd, cmds.args, "args", mode);
-
 	if (cmds.next)
 		ft_fprintf(fd, "next : %p\n"WHT, cmds.next);
 	else
