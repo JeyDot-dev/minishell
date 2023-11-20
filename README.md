@@ -11,8 +11,7 @@ Minishell is a simple shell implementation with the following features:
 - Implements history functionality similar to bash, excluding duplicates and empty commands.
 
 ### To-Do List:
-1. Organize tokens into a structured format.
-2. Implement external command execution (execve).
-3. Add support for pipes and redirections.
-4. Update specific environment variables (SHLVL, _=).
-5. Address and fix minor bugs, including those related to history and handling empty input.
+1. update SHLVL
+2. HEREDOC
+3. ERRNO
+4. Final bug hunt
