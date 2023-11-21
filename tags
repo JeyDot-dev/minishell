@@ -109,7 +109,7 @@ check_length	libft/src/ft_atoi.c	/^int check_length(const char *str)$/;"	f
 check_post_meta	src/parsing/tokenization_utils.c	/^int	check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign)$/;"	f
 check_post_meta_long	src/parsing/tokenization_utils.c	/^int	check_post_meta_long(char *cmd_line, int i, char sign)$/;"	f
 child_pid	inc/minishell.h	/^	int			child_pid;$/;"	m	struct:s_shell
-close_fds	src/execute.c	/^void	close_fds(int fd1, int fd2)$/;"	f
+close_fds	src/utils/close_fds.c	/^void	close_fds(int fd1, int fd2)$/;"	f
 close_pipe	src/utils/pipes_utils.c	/^void	close_pipe(t_cmds *cmd)$/;"	f
 cmd_line	inc/minishell.h	/^	char		*cmd_line;$/;"	m	struct:s_shell
 cmd_loop	src/main.c	/^int	cmd_loop(t_shell *shell)$/;"	f

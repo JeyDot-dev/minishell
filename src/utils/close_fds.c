@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmds.c                                        :+:      :+:    :+:   */
+/*   close_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 19:04:58 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 15:14:58 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/11/21 15:11:41 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/11/21 15:14:22 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmds(t_cmds *cmds)
+void	close_fds(int fd1, int fd2)
 {
-	t_cmds	*tmp;
+	int fd[2];
+	int	i;
 
-	while (cmds)
+	i = 0;
+	fd[0] = fd1;
+	fd[1] = fd2;
+	while (i < 2)
 	{
-		tmp = cmds;
-		cmds = cmds->next;
-		free_matrix(tmp->args);
-		close_pipe(tmp);
-		close_fds(tmp->fd_in, tmp->fd_out);
-		free(tmp->path_cmd);
-		free(tmp);
+		if (fd[i] > 2)
+			close(fd[i]);
+		i++;
 	}
 }

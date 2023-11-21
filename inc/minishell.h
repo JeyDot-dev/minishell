@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 19:21:52 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:14:13 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void	free_matrix(char **env);
 void	free_cmds(t_cmds *cmds);
 void	free_shell(t_shell *shell);
 void	free_tokens(t_tokens *tokens);
+void	close_fds(int fd1, int fd2);
+void	close_pipe(t_cmds *cmd);
 //		v	frees the struct s_token
 void	delete_tokens(t_tokens *tokens_struct);
 //		v	function used to add a char* to a matrix.
@@ -168,6 +170,5 @@ int		is_builtin(char *cmd);
 //		v	function used to parse the tokens into a list of commands.
 int		parse_tokens(t_tokens *tokens, t_shell *shell);
 int		count_pipes(t_tokens *tokens);
-void	close_pipe(t_cmds *cmd);
 void	signal_handler(int sig, siginfo_t *info, void *ucontext);
 #endif
