@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 15:51:52 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:57:56 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_cmds	*init_cmd_struct(int pipes)
 
 int	replace_fd(int default_fd, int old_fd, int new_fd)
 {
-	//TODO: error if new_fd == -1 (open failed)
 	if (old_fd != default_fd)
 		close(old_fd);
 	return (new_fd);
@@ -83,12 +82,59 @@ int	open_out(t_tokens *tokens, t_cmds **cmds)
 		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(tokens->next->token, O_WRONLY));
 	else if (tokens->is_meta == CHRR)
 		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(tokens->next->token, O_WRONLY | O_APPEND));
+	if (g_status == SIGINT)
+		replace_fd(1, (*cmds)->fd_out, -2);
+	if ((*cmds)->fd_out < 0)
+	{
+		if ((*cmds)->fd_out == -1)
+			perror(tokens->next->token);
+		return (1);
+	}
 	return (0);
+}
+
+int	not_eof(int hd_pipe[2], char *delimiter)
+{
+	ft_fprintf(1, "\n         warning: here-doc delimited by end-of-file(CTRL-D), \
+wanted `%s'... but ok babyy let's go\n", delimiter);
+	close(hd_pipe[1]);
+	return (hd_pipe[0]);
+}
+void	write_to_pipe(int fd, char **user_input)
+{
+	write(fd, *user_input, ft_strlen(*user_input));
+	write(fd, "\n", 1);
+	*user_input = ft_memdel(*user_input);
+}
+int	here_doc(char *delimiter)
+{
+	int		hd_pipe[2];
+	char	*user_input;
+
+	if (pipe(hd_pipe))
+		fatal_error("pipe() failed.");
+	if (init_sigint(signal_troll, SIGINT))
+		fatal_error("init_sigint() failed.");
+	while(g_status != SIGINT)
+	{
+		user_input = readline(HDOC_PROMPT);
+		if (!user_input)
+			return (not_eof(hd_pipe, delimiter));
+		if (!ft_strncmp(user_input, delimiter, ft_strlen(delimiter) + 1))
+			break ;
+		else if (user_input)
+			write_to_pipe(hd_pipe[1], &user_input);
+	}
+	if (init_sigint(signal_handler, SIGINT))
+		fatal_error("init_sigint() failed.");
+	close(hd_pipe[1]);
+	ft_memdel(user_input);
+	return (hd_pipe[0]);
 }
 
 int	open_in(t_tokens *tokens, t_cmds **cmds)
 {
-	if (access(tokens->next->token, R_OK))
+	if (tokens->is_meta == CHL && access(tokens->next->token, R_OK))
 	{
 		perror(tokens->next->token);
 		g_status = errno;
@@ -96,13 +142,20 @@ int	open_in(t_tokens *tokens, t_cmds **cmds)
 	else if (tokens->is_meta == CHL)
 		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(tokens->next->token, O_RDONLY));
 	else if (tokens->is_meta == CHLL)
-		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(tokens->next->token, O_RDONLY));
+		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, here_doc(tokens->next->token));
+	if (g_status == SIGINT)
+		return (1);
+	if ((*cmds)->fd_in < 0)
+	{
+		if ((*cmds)->fd_in == -1)
+			perror(tokens->next->token);
+		return (1);
+	}
 	return (0);
 }
 
 void	open_in_out(t_tokens **tokens, t_cmds **cmds)
 {
-	//TODO: add HERE DOC
 	if ((*cmds)->run == 1)
 		return ;
 	else if ((*tokens)->is_meta == CHR || (*tokens)->is_meta == CHRR)
@@ -139,6 +192,8 @@ char	*try_paths(char *cmd, t_shell shell)
 	i = 0;
 	tmp[0] = NULL;
 	tmp[1] = NULL;
+	if (!access(cmd, X_OK))
+		return (cmd);
 	path_split = ft_split(getvar_data(shell.env, "PATH"), ':');
 	while (path_split[i])
 	{
@@ -198,6 +253,8 @@ void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)
 			set_cmd(&tokens_tmp, &(tmp_cmds)->args);
 		else if (!tokens_tmp)
 			tmp_cmds = NULL;
+		if (g_status == SIGINT)
+			break ;
 	}
 }
 
@@ -205,6 +262,12 @@ int	parse_tokens(t_tokens *tokens, t_shell *shell)
 {
 	shell->cmds = init_cmd_struct(count_pipes(tokens));
 	parsinator(&shell->cmds, tokens, shell);
+	if (g_status == SIGINT)
+	{
+		fprint_list_cmds(2, *shell, "parsed_tokens");
+		free_cmds(shell->cmds);
+		shell->cmds = NULL;
+	}
 	fprint_list_cmds(2, *shell, "parsed_tokens");
 	//				find cmd and arguments if no cmd/arg > close fd and set error
 	return (0);

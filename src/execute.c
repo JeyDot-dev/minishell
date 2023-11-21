@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 15:14:30 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:44:02 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	execute(t_shell *shell)
 
 	tmp = shell->cmds;
 	g_status = special_builtins(tmp, shell);
-	ft_printf("pid: %d\n", getpid());
 //	signal(SIGQUIT, SIG_DFL);
 	child = fork();
 	if (child < 0)
@@ -74,6 +73,5 @@ int	execute(t_shell *shell)
 	}
 	waitpid(child, &g_status, 0);
 	fprint_list_cmds(2, *shell, "post_execute");
-	ft_fprintf(2, "POST EXECUTE\n");
 	return (0);
 }

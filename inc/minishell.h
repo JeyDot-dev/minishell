@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 15:14:13 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:37:42 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define CHR	3
 # define CHRR	4
 # define PIPE	5
+# define HDOC_PROMPT GRN"h"YEL"e"BLU"r"RED"e"GRN"d"YEL"o"BLU"c"RED"> "WHT
 // ^  [< = 1] [<< = 2] [> = 3] [>> = 4] [| = 5]
 extern int	g_status;
 typedef struct s_cmds
@@ -171,4 +172,6 @@ int		is_builtin(char *cmd);
 int		parse_tokens(t_tokens *tokens, t_shell *shell);
 int		count_pipes(t_tokens *tokens);
 void	signal_handler(int sig, siginfo_t *info, void *ucontext);
+void	signal_troll(int sig, siginfo_t *info, void *ucontext);
+int		init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig);
 #endif
