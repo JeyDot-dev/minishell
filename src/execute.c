@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 19:44:02 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:07:23 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ void	exec_child(t_cmds cmd, t_shell *shell)
 	exit(127);
 }
 
+int	exit_status(int status)
+{
+	if (WIFEXITED(status))
+		g_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_status = WTERMSIG(status) + 128;
+	exit (g_status);
+}
 int	execute(t_shell *shell)
 {
 	t_cmds	*tmp;
@@ -48,7 +56,6 @@ int	execute(t_shell *shell)
 
 	tmp = shell->cmds;
 	g_status = special_builtins(tmp, shell);
-//	signal(SIGQUIT, SIG_DFL);
 	child = fork();
 	if (child < 0)
 		fatal_error("fork() failed.");
@@ -63,15 +70,13 @@ int	execute(t_shell *shell)
 				exit(g_status);
 			else if (!child)
 				exec_child(*tmp, shell);
-			close(tmp->pipe[1]);
-			close(tmp->pipe[0]);
+			close_pipe(tmp);
 			close_fds(tmp->fd_out, tmp->fd_in);
 			tmp = tmp->next;
 		}
-		waitpid(-1, &g_status, 0);
-		exit(0);
+		waitpid(child, &g_status, 0);
+		exit_status(g_status);
 	}
-	waitpid(child, &g_status, 0);
-	fprint_list_cmds(2, *shell, "post_execute");
-	return (0);
+	wait(&g_status);
+	return (g_status);
 }

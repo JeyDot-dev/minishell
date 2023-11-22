@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:05:48 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 20:22:02 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:43:59 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -27,7 +27,7 @@ void	signal_troll(int sig, siginfo_t *info, void *ucontext)
 
 void	signal_handler(int sig, siginfo_t *info, void *ucontext)
 {
-//	(void)ucontext;
+	(void)ucontext;
 	if (sig != SIGINT)
 		return ;
 	g_status = sig;

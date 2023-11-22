@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 19:57:56 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:06:14 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	open_in(t_tokens *tokens, t_cmds **cmds)
 	if (tokens->is_meta == CHL && access(tokens->next->token, R_OK))
 	{
 		perror(tokens->next->token);
-		g_status = errno;
+		g_status = 1;
 	}
 	else if (tokens->is_meta == CHL)
 		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(tokens->next->token, O_RDONLY));
@@ -268,7 +268,8 @@ int	parse_tokens(t_tokens *tokens, t_shell *shell)
 		free_cmds(shell->cmds);
 		shell->cmds = NULL;
 	}
-	fprint_list_cmds(2, *shell, "parsed_tokens");
+	else
+		fprint_list_cmds(2, *shell, "parsed_tokens");
 	//				find cmd and arguments if no cmd/arg > close fd and set error
 	return (0);
 }

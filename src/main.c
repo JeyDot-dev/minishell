@@ -6,12 +6,25 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 19:36:38 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:13:37 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
 int	g_status;
+
+int	set_exit_status(int status)
+{
+	if (WIFEXITED(status))
+		g_status = WEXITSTATUS(status);
+//	else if (WIFSIGNALED(status))
+//	{
+//		ft_fprintf(2, "WIFSIGNALED, g_status: %d\n", g_status);
+//		g_status = WTERMSIG(status) + 128;
+//	}
+	ft_fprintf(2, "g_status: %d\n", g_status);
+	return (g_status);
+}
 
 int	init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig)
 {
@@ -73,6 +86,7 @@ int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;
 
+	//TODO FIX ERRNO OF SIGINT IN HEREDOC
 	if (init_minishell(ac, av, envp, &shell) || g_status)
 		exit(1);
 	while (!cmd_loop(shell))
@@ -84,7 +98,7 @@ int	main(int ac, char **av, char **envp)
 			shell->tokens = NULL;
 			if (shell->cmds)
 			{
-				execute(shell);
+				g_status = set_exit_status(execute(shell));
 				free_cmds(shell->cmds);
 			}
 			shell->cmds = NULL;
