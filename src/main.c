@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/22 18:13:37 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:29:01 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -22,7 +22,6 @@ int	set_exit_status(int status)
 //		ft_fprintf(2, "WIFSIGNALED, g_status: %d\n", g_status);
 //		g_status = WTERMSIG(status) + 128;
 //	}
-	ft_fprintf(2, "g_status: %d\n", g_status);
 	return (g_status);
 }
 
@@ -72,6 +71,8 @@ int	cmd_loop(t_shell *shell)
 	token_status = tokenizer(&(shell->tokens), shell);
 	if (shell->cmd_line)
 		update_history(shell);
+	if(WIFSIGNALED(g_status))
+		g_status = WTERMSIG(g_status) + 128;
 	if (!token_status && shell->tokens)
 	{
 		g_status = 0;
@@ -81,7 +82,20 @@ int	cmd_loop(t_shell *shell)
 	}
 	return (0);
 }
-
+void	parse_and_execute(t_shell *shell)
+{
+	parse_tokens(shell->tokens, shell);
+	delete_tokens(shell->tokens);
+	shell->tokens = NULL;
+	if(WIFSIGNALED(g_status))
+		g_status = WTERMSIG(g_status) + 128;
+	if (shell->cmds)
+	{
+		g_status = set_exit_status(execute(shell));
+		free_cmds(shell->cmds);
+	}
+	shell->cmds = NULL;
+}
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;
@@ -92,21 +106,7 @@ int	main(int ac, char **av, char **envp)
 	while (!cmd_loop(shell))
 	{
 		if (shell->tokens)
-		{
-			parse_tokens(shell->tokens, shell);
-			delete_tokens(shell->tokens);
-			shell->tokens = NULL;
-			if (shell->cmds)
-			{
-				g_status = set_exit_status(execute(shell));
-				free_cmds(shell->cmds);
-			}
-			shell->cmds = NULL;
-			//tmp_err = builtin_cmd(shell->tokens, &(shell->env));
-			//if (tmp_err != 777)
-//			g_status = tmp_err;
-							//!!!!!!!!!!!!!!!!FREE TOKENS AND cmds and set cmds to NULL!!!!!!!!!!!!!!!!!!!!
-		}
+			parse_and_execute(shell);
 	}
 	exit(0);
 }

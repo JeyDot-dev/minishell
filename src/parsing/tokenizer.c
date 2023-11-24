@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:00:22 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/14 15:28:57 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:31:14 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -99,7 +99,6 @@ int	tokenizer(t_tokens **tokens, t_shell *shell)
 			i = str_token(tokens, shell->cmd_line, i, shell);
 		if (i == -1)
 		{
-			ft_fprintf(2, "TESSTT\n");
 			delete_tokens(*tokens);
 			*tokens = NULL;
 			g_status = 2;

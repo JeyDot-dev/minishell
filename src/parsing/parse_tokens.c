@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/22 17:06:14 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:29:17 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	open_out(t_tokens *tokens, t_cmds **cmds)
 		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(tokens->next->token, O_WRONLY));
 	else if (tokens->is_meta == CHRR)
 		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(tokens->next->token, O_WRONLY | O_APPEND));
-	if (g_status == SIGINT)
-		replace_fd(1, (*cmds)->fd_out, -2);
+//	if (g_status == SIGINT)
+//		replace_fd(1, (*cmds)->fd_out, -2);
 	if ((*cmds)->fd_out < 0)
 	{
 		if ((*cmds)->fd_out == -1)

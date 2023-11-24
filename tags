@@ -259,6 +259,7 @@ open_in	src/parsing/parse_tokens.c	/^int	open_in(t_tokens *tokens, t_cmds **cmds
 open_in_out	src/parsing/parse_tokens.c	/^void	open_in_out(t_tokens **tokens, t_cmds **cmds)$/;"	f
 open_out	src/parsing/parse_tokens.c	/^int	open_out(t_tokens *tokens, t_cmds **cmds)$/;"	f
 out	inc/minishell.h	/^	char	*out;$/;"	m	struct:s_io
+parse_and_execute	src/main.c	/^void	parse_and_execute(t_shell *shell)$/;"	f
 parse_tokens	src/parsing/parse_tokens.c	/^int	parse_tokens(t_tokens *tokens, t_shell *shell)$/;"	f
 parsinator	src/parsing/parse_tokens.c	/^void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)$/;"	f
 path_cmd	inc/minishell.h	/^	char			*path_cmd;$/;"	m	struct:s_cmds
