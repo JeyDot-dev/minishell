@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fprint_matrix.c                                    :+:      :+:    :+:   */
+/*   fatal_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/01 15:55:57 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/11 16:01:08 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/10/28 14:38:55 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/11/22 17:49:33 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-void	fprint_matrix(int fd, char **matrix)
+void	fatal_error(char *str)
 {
-	if (!matrix)
-		ft_putstr_fd("NULL\n", fd);
-	while (matrix && *matrix)
-	{
-		ft_fprintf(fd, "\t|\"%s\"\n", *matrix);
-//		ft_putstr_fd(*matrix, fd);
-		matrix++;
-	}
+	ft_putstr_fd("Fatal error : ", 2);
+	ft_putendl_fd(str, 2);
+	exit(-1);
 }

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fprint_matrix.c                                    :+:      :+:    :+:   */
+/*   free_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/01 15:55:57 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/11 16:01:08 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/11/20 19:21:10 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/11/20 19:21:38 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-void	fprint_matrix(int fd, char **matrix)
+void	free_tokens(t_tokens *tokens)
 {
-	if (!matrix)
-		ft_putstr_fd("NULL\n", fd);
-	while (matrix && *matrix)
+	t_tokens	*tmp;
+
+	while (tokens)
 	{
-		ft_fprintf(fd, "\t|\"%s\"\n", *matrix);
-//		ft_putstr_fd(*matrix, fd);
-		matrix++;
+		tmp = tokens;
+		tokens = tokens->next;
+		free(tmp->token);
+		free(tmp);
 	}
 }

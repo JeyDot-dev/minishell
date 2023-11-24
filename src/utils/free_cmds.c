@@ -1,42 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_unset_utils.c                               :+:      :+:    :+:   */
+/*   free_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/10 17:28:57 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 19:30:56 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/11/20 19:04:58 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/11/24 21:28:05 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	super_unset(char ***env, char *new_var)
+void	free_args(char **args)
 {
-	char	*tmp[3];
+	int	i;
 
-	tmp[0] = "unset";
-	tmp[1] = new_var;
-	tmp[2] = NULL;
-	ft_export(env, tmp);
+	i = 0;
+	if (!args)
+		return ;
+	while (args[i])
+	{
+		if (ft_strncmp(args[i], "minishell", 10) &&
+			ft_strncmp(args[i], "./minishell", 12))
+		{
+			free(args[i]);
+		}
+		i++;
+	}
+	free(args);
 }
-
-void	super_export(char ***env, char *new_var)
+void	free_cmds(t_cmds *cmds)
 {
-	char	*tmp[3];
+	t_cmds	*tmp;
 
-	tmp[0] = "export";
-	tmp[1] = new_var;
-	tmp[2] = NULL;
-	ft_export(env, tmp);
-}
-
-void	super_double_export(char ***env, char *s1, char *s2)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(s1, s2);
-	super_export(env, tmp);
-	free(tmp);
+	while (cmds)
+	{
+		tmp = cmds;
+		cmds = cmds->next;
+		free_args(tmp->args);
+		close_pipe(tmp);
+		close_fds(tmp->fd_in, tmp->fd_out);
+		free(tmp->path_cmd);
+		free(tmp);
+	}
 }

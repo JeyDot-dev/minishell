@@ -53,3 +53,4 @@ dkms.conf
 *.swp
 libft/*.a
 minishell
+tags

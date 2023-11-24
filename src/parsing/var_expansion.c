@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 18:02:59 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 18:35:29 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:29:26 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -27,7 +27,7 @@ int	skip_dollar(char *str, int i, int mode)
 	return (i);
 }
 
-int	expand_var(char *str, char **var, int i, char **env)
+int	expand_var(char *str, char **var, int i, t_shell *shell)
 {
 	int		start;
 	char	*buffer;
@@ -38,14 +38,14 @@ int	expand_var(char *str, char **var, int i, char **env)
 	if (!str[i])
 		*var = ft_strdup("$");
 	else if (str[i] == '?')
-		*var = ft_itoa(g_status);
+		*var = ft_itoa(shell->last_cmd_status);
 	if (str[i] == '?')
 		i++;
 	else
 	{
 		i = skip_dollar(str, i, 1);
 		buffer = ft_strndup(&str[start], i - start + 1);
-		new_var = extract_var_data(getvar(env, buffer));
+		new_var = extract_var_data(getvar(shell->env, buffer));
 		ft_memdel(buffer);
 		if (new_var)
 			*var = ft_strdup(new_var);
@@ -54,7 +54,7 @@ int	expand_var(char *str, char **var, int i, char **env)
 	return (i);
 }
 
-char	*expand_string(char *str, char **env)
+char	*expand_string(char *str, t_shell *shell)
 {
 	char	*new_s;
 	char	*var;
@@ -69,7 +69,7 @@ char	*expand_string(char *str, char **env)
 	{
 		if (str[start] == '$')
 		{
-			start = expand_var(str, &var, end, env);
+			start = expand_var(str, &var, end, shell);
 			end = start;
 			new_s = free_join(new_s, var);
 		}

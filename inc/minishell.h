@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/17 14:39:05 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:01:30 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # define BLK "\e[0;30m"
 # define RED "\e[0;31m"
 # define GRN "\e[0;32m"
@@ -26,14 +28,22 @@
 # define MAG "\e[0;35m"
 # define CYN "\e[0;36m"
 # define WHT "\e[0;37m"
-# define PIPE 124
-
+# define CHL	1
+# define CHLL	2
+# define CHR	3
+# define CHRR	4
+# define PIPE	5
+# define HDOC_PROMPT GRN"h"YEL"e"BLU"r"RED"e"GRN"d"YEL"o"BLU"c"RED"> "WHT
+// ^  [< = 1] [<< = 2] [> = 3] [>> = 4] [| = 5]
 extern int	g_status;
 typedef struct s_cmds
 {
-	int				pipes[2];
+	int				pipe[2];
 	int				fd_out;
 	int				fd_in;
+	int				run;
+	int				is_builtin;
+	char			*path_cmd;
 	char			**args;
 	struct s_cmds	*next;
 }				t_cmds;
@@ -51,10 +61,19 @@ typedef struct s_shell
 	char		*last_cmd_line;
 	t_tokens	*tokens;
 	t_cmds		*cmds;
+	int			child_pid;
+	int			last_cmd_status;
 	int			debug;
 }				t_shell;
+typedef struct s_io
+{
+	char	*in;
+	char	*out;
+	int		prev_pipe;
+}				t_io;
 //-----------------MAIN FUNCTIONS---------------------------
 char	*prompt(void);
+int		execute(t_shell *shell);
 void	update_history(t_shell *shell);
 //		v	splits command line into usable tokens and expands variables
 int		tokenizer(t_tokens **tokens, t_shell *shell);
@@ -66,7 +85,7 @@ int		is_meta(const int c);
 //		v	check if character is potential string (c != 32 || is_meta(c) || \0)
 int		is_string(const int c);
 //		v	expand all variables in string (and creates a new one expanded)
-char	*expand_string(char *str, char **env);
+char	*expand_string(char *str, t_shell *shell);
 //		 __|finds end of string and returns index
 //		v  |checks for quotes and output error if needed
 int		find_end_of_token(char *cmd_line, int i, int mode);
@@ -81,9 +100,10 @@ int		ft_pwd(void);
 int		ft_cd(char ***env, char **args);
 int		ft_export(char ***env, char **args);
 int		ft_unset(char ***env, char **var);
+int		ft_exit(t_cmds *cmds, t_shell *shell);
 //-----------------ENV MANIPULATION FUNCTIONS-------------
 //		v	function to unset with a char* instead of char**.
-void	super_unset(char ***env, char *new_var);
+void	super_unset(char ***env, char *var);
 //		v	function to export with a char* instead of char**.
 void	super_export(char ***env, char *new_var);
 //		 __|function to export two str* concatenated
@@ -112,6 +132,11 @@ int		count_strings(char **matrix);
 //--------------------OTHER USEFUL FUNCTIONS---------------------------
 //		v	function used to free a matrix and its content.
 void	free_matrix(char **env);
+void	free_cmds(t_cmds *cmds);
+void	free_shell(t_shell *shell);
+void	free_tokens(t_tokens *tokens);
+void	close_fds(int fd1, int fd2);
+void	close_pipe(t_cmds *cmd);
 //		v	frees the struct s_token
 void	delete_tokens(t_tokens *tokens_struct);
 //		v	function used to add a char* to a matrix.
@@ -129,6 +154,7 @@ char	*free_join(char *str, char *buffer);
 //		v	returns 1 if there are only spaces in the string else returns 0
 int		only_spaces(char *str);
 void	fprint_matrix(int fd, char **matrix);
+void	fatal_error(char *to_print);
 //--------------------DEBUG FUNCTIONS---------------------------------
 //		 __|debug function to print a single t_cmds struct
 //		v  |(has different modes depending on debug mode)
@@ -141,5 +167,11 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str);
 void	fprint_shell(int fd, t_shell *shell, char *str);
 void	print_tokens(t_tokens *tokens);
 //--------------------PARSING FUNCTIONS-------------------------------
-void	signal_handler(int sig);
+int		is_builtin(char *cmd);
+//		v	function used to parse the tokens into a list of commands.
+int		parse_tokens(t_tokens *tokens, t_shell *shell);
+int		count_pipes(t_tokens *tokens);
+void	signal_handler(int sig, siginfo_t *info, void *ucontext);
+void	signal_troll(int sig, siginfo_t *info, void *ucontext);
+int		init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig);
 #endif

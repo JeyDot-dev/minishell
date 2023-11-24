@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fprint_matrix.c                                    :+:      :+:    :+:   */
+/*   parse_tokens_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/01 15:55:57 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/11 16:01:08 by jsousa-a         ###   ########.fr       */
+/*   Created: 2023/10/28 13:23:47 by jsousa-a          #+#    #+#             */
+/*   Updated: 2023/10/28 13:34:43 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
-void	fprint_matrix(int fd, char **matrix)
+int	count_pipes(t_tokens *tokens)
 {
-	if (!matrix)
-		ft_putstr_fd("NULL\n", fd);
-	while (matrix && *matrix)
+	int	ct;
+
+	ct = 0;
+	while (tokens)
 	{
-		ft_fprintf(fd, "\t|\"%s\"\n", *matrix);
-//		ft_putstr_fd(*matrix, fd);
-		matrix++;
+		if (tokens->is_meta == PIPE)
+			ct++;
+		tokens = tokens->next;
 	}
+	return (ct);
 }

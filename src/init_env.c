@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:29:02 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 18:19:18 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:28:35 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -38,6 +38,7 @@ void	update_shlvl(char *shlvl, char ***env)
 
 	new_lvl = ft_atoi(shlvl) + 1;
 	itoa = ft_itoa(new_lvl);
+	super_unset(env, "SHLVL");
 	super_double_export(env, "SHLVL=", itoa);
 	free(itoa);
 }
@@ -67,5 +68,6 @@ void	init_env(char **av, char **envp, char ***env)
 		export_underscore_var(env, *av);
 	if (getvar(*env, "PATH") == NULL)
 		super_export(env, "PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/bin");
-	super_export(env, "SUPER_SECRET_VAR=YouWishYouKnew");
+	if (getvar(*env, "SUPER_SECRET_VAR") == NULL)
+		super_export(env, "SUPER_SECRET_VAR=YouWishYouKnew");
 }

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:02:06 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/01 17:36:11 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:46:01 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -55,7 +55,7 @@ int	ft_isparam(char c, va_list arg, int fd)
 	{
 		ft_putstr_fd("0x", fd);
 		return (f(ft_itoa_base(va_arg(arg, unsigned long long int),
-					HEX) + 2, fd));
+					HEX), fd) + 2);
 	}
 	else
 		return (0);
