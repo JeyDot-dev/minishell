@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/24 20:18:50 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:29:03 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,5 @@ int	execute(t_shell *shell)
 		exit_status(g_status);
 	}
 	wait(&g_status);
-	ft_fprintf(2, "WAITED\n");
 	return (g_status);
 }

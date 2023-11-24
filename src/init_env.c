@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:29:02 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/24 18:58:18 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:28:35 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -38,7 +38,6 @@ void	update_shlvl(char *shlvl, char ***env)
 
 	new_lvl = ft_atoi(shlvl) + 1;
 	itoa = ft_itoa(new_lvl);
-	ft_fprintf(2, "SHLVL: %s\n", itoa);
 	super_unset(env, "SHLVL");
 	super_double_export(env, "SHLVL=", itoa);
 	free(itoa);
