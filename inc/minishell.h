@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 19:37:42 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:01:30 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		ft_unset(char ***env, char **var);
 int		ft_exit(t_cmds *cmds, t_shell *shell);
 //-----------------ENV MANIPULATION FUNCTIONS-------------
 //		v	function to unset with a char* instead of char**.
-void	super_unset(char ***env, char *new_var);
+void	super_unset(char ***env, char *var);
 //		v	function to export with a char* instead of char**.
 void	super_export(char ***env, char *new_var);
 //		 __|function to export two str* concatenated

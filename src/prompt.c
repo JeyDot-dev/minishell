@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 15:13:25 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/22 16:46:05 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:49:10 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -29,6 +29,6 @@ char	*prompt(void)
 	ft_memdel(tmp);
 	rl_on_new_line();
 	cmd_line = readline(prompt);
-	ft_memdel(prompt);
+	prompt = ft_memdel(prompt);
 	return (cmd_line);
 }

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 19:02:42 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:26:18 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -40,21 +40,15 @@ int	check_export_arg(char *arg)
 
 int	update_env(char ***env, char *new_var)
 {
-	char	**tmp;
+	char	*tmp[3];
 
-	tmp = ft_calloc(2, sizeof(char *));
-	if (!tmp)
+	tmp[1] = extract_var_name(new_var);
+	if (!tmp[1])
 		return (1);
-	tmp[0] = extract_var_name(new_var);
-	if (!tmp[0])
-	{
-		free(tmp);
-		return (1);
-	}
-	tmp[1] = NULL;
+	tmp[0] = "unset";
+	tmp[2] = NULL;
 	ft_unset(env, tmp);
-	free(tmp[0]);
-	free(tmp);
+	free(tmp[1]);
 	add_to_matrix(env, new_var);
 	return (0);
 }

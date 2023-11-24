@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/24 17:29:01 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:00:04 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -31,6 +31,8 @@ int	init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig)
 
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	sa.sa_sigaction = signal_handler;
+	sigemptyset(&sa.sa_mask);
+	sigaddset(&sa.sa_mask, SIGINT);
 	if (sigaction(sig, &sa, NULL) == -1)
 		return (1);
 	return (0);
@@ -44,7 +46,7 @@ int	init_minishell(int ac, char **av, char **envp, t_shell **shell)
 	if (ac > 1 && ft_strncmp(av[1], "-d", 3) == 0)
 		(*shell)->debug = 1;
 	else if (ac > 1 && ft_strncmp(av[1], "-v", 3) == 0)
-		(*shell)->debug = 2;
+		(*shell)->debug = 3;
 	else
 		(*shell)->debug = 0;
 	(*shell)->tokens = NULL;
@@ -67,8 +69,12 @@ int	cmd_loop(t_shell *shell)
 		exit (1);
 	shell->cmd_line = prompt();
 	if (!shell->cmd_line)
-		exit(1);
+	{
+//		free_shell(shell);
+		exit(0);
+	}
 	token_status = tokenizer(&(shell->tokens), shell);
+	fprint_shell(2, shell, "cmd_loop");
 	if (shell->cmd_line)
 		update_history(shell);
 	if(WIFSIGNALED(g_status))
@@ -100,7 +106,15 @@ int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;
 
-	//TODO FIX ERRNO OF SIGINT IN HEREDOC
+	if (ac > 2 ||
+		(ac == 2 &&
+		(ft_strncmp(av[1], "-d", 3) != 0 && ft_strncmp(av[1], "-v", 3) != 0)))
+	{
+		ft_fprintf(2, "minishell: %s: invalid option. Try -d or -v\n", av[1]);
+		exit(1);
+	}
+	shell = NULL;
+	ft_fprintf(2, "EOF: %d\n", EOF);
 	if (init_minishell(ac, av, envp, &shell) || g_status)
 		exit(1);
 	while (!cmd_loop(shell))

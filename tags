@@ -142,6 +142,7 @@ fprint_matrix	src/utils/fprint_matrix.c	/^void	fprint_matrix(int fd, char **matr
 fprint_shell	src/utils/fprint_debug.c	/^void	fprint_shell(int fd, t_shell *shell, char *str)$/;"	f
 fprint_str	src/utils/fprint_debug.c	/^void	fprint_str(int fd, char *var, char *str)$/;"	f
 fprint_struct_cmds	src/utils/fprint_debug.c	/^void	fprint_struct_cmds(int fd, t_cmds cmds, int mode)$/;"	f
+free_args	src/utils/free_cmds.c	/^void	free_args(char **args)$/;"	f
 free_cmds	src/utils/free_cmds.c	/^void	free_cmds(t_cmds *cmds)$/;"	f
 free_join	src/utils/free_join.c	/^char	*free_join(char *str, char *buffer)$/;"	f
 free_matrix	src/utils/env_utils.c	/^void	free_matrix(char **matrix)$/;"	f

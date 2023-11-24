@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/24 17:29:17 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 19:50:17 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	open_out(t_tokens *tokens, t_cmds **cmds)
 
 int	not_eof(int hd_pipe[2], char *delimiter)
 {
-	ft_fprintf(1, "\n         warning: here-doc delimited by end-of-file(CTRL-D), \
+	ft_fprintf(2, "\n         warning: here-doc delimited by end-of-file(CTRL-D), \
 wanted `%s'... but ok babyy let's go\n", delimiter);
 	close(hd_pipe[1]);
 	return (hd_pipe[0]);
@@ -128,7 +128,8 @@ int	here_doc(char *delimiter)
 	if (init_sigint(signal_handler, SIGINT))
 		fatal_error("init_sigint() failed.");
 	close(hd_pipe[1]);
-	ft_memdel(user_input);
+	if (user_input)
+		ft_memdel(user_input);
 	return (hd_pipe[0]);
 }
 

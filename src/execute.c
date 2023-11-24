@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/22 18:07:23 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/24 20:18:50 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,11 @@ void	exec_child(t_cmds cmd, t_shell *shell)
 		fatal_error("dup2() failed.");
 	if (dup2(cmd.fd_out, STDOUT_FILENO) == -1)
 		fatal_error("dup2() failed.");
-	close_fds(cmd.fd_out, cmd.fd_in);
 	if (cmd.is_builtin)
-	{
 		exit(builtin_cmd(cmd.args, &shell->env));
-	}
-	else
-		execve(cmd.path_cmd, cmd.args, shell->env);
-	exit(127);
+	else if (execve(cmd.path_cmd, cmd.args, shell->env) == -1)
+			exit(127);
+	exit(0);
 }
 
 int	exit_status(int status)
@@ -64,19 +61,19 @@ int	execute(t_shell *shell)
 		while (tmp)
 		{
 			child = fork();
-			if (child < 0)
-				fatal_error("fork() failed.");
 			if (tmp->run == 1 && child == 0)
 				exit(g_status);
 			else if (!child)
 				exec_child(*tmp, shell);
-			close_pipe(tmp);
-			close_fds(tmp->fd_out, tmp->fd_in);
+			//close_fds(tmp->fd_out, tmp->fd_in);
+			close_fds(tmp->fd_out, 0);
 			tmp = tmp->next;
 		}
-		waitpid(child, &g_status, 0);
+		wait(&g_status);
+//		waitpid(child, &g_status, 0);
 		exit_status(g_status);
 	}
 	wait(&g_status);
+	ft_fprintf(2, "WAITED\n");
 	return (g_status);
 }
