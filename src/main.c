@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/24 21:30:53 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/25 09:55:02 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -102,7 +102,7 @@ void	parse_and_execute(t_shell *shell)
 	}
 	shell->cmds = NULL;
 }
-//TODO: export without args | fix minor prompt error after ctrl+d with heredoc | Hunt for bugs then try to evaluate the project
+//TODO: fix minor prompt error after ctrl+d with heredoc | Hunt for bugs then try to evaluate the project
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;

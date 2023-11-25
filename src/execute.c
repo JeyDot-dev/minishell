@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/24 21:29:03 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/25 11:16:28 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	execute(t_shell *shell)
 		while (tmp)
 		{
 			child = fork();
+			if (child)
+				ft_fprintf(2,"child postfork: %d\n", child);
 			if (tmp->run == 1 && child == 0)
 				exit(g_status);
 			else if (!child)
@@ -69,6 +71,7 @@ int	execute(t_shell *shell)
 			close_fds(tmp->fd_out, 0);
 			tmp = tmp->next;
 		}
+//		waitpid(child, &g_status, 1);
 		wait(&g_status);
 //		waitpid(child, &g_status, 0);
 		exit_status(g_status);
