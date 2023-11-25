@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/24 19:50:17 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/25 10:38:06 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ char	*try_paths(char *cmd, t_shell shell)
 	tmp[0] = NULL;
 	tmp[1] = NULL;
 	if (!access(cmd, X_OK))
-		return (cmd);
+		return (ft_strdup(cmd));
 	path_split = ft_split(getvar_data(shell.env, "PATH"), ':');
 	while (path_split[i])
 	{
