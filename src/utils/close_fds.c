@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:11:41 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/21 15:14:22 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/25 20:16:08 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	close_fds(int fd1, int fd2)
 	fd[1] = fd2;
 	while (i < 2)
 	{
-		if (fd[i] > 2)
+		if (fd[i] != STDIN_FILENO && fd[i] != STDOUT_FILENO)
+		{
 			close(fd[i]);
+		}
 		i++;
 	}
 }

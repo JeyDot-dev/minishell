@@ -10,10 +10,10 @@ ARFLAGS	Makefile	/^ARFLAGS     :=	-r -c -s$/;"	m
 ARFLAGS	libft/Makefile	/^ARFLAGS		:=	-r -c -s$/;"	m
 BLACK	libft/inc/libft.h	26;"	d
 BLK	Makefile	/^BLK	= \\033[30m$/;"	m
-BLK	inc/minishell.h	23;"	d
+BLK	inc/minishell.h	26;"	d
 BLK	libft/Makefile	/^BLK	= \\033[30m$/;"	m
 BLU	Makefile	/^BLU	= \\033[34m$/;"	m
-BLU	inc/minishell.h	27;"	d
+BLU	inc/minishell.h	30;"	d
 BLU	libft/Makefile	/^BLU	= \\033[34m$/;"	m
 BLUE	libft/inc/libft.h	30;"	d
 BRN	Makefile	/^BRN	= \\033[33m$/;"	m
@@ -26,16 +26,16 @@ CC	Makefile	/^CC			:=	gcc$/;"	m
 CC	libft/Makefile	/^CC			:=	gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS		:=	-Wextra -Werror -Wall$/;"	m
 CFLAGS	libft/Makefile	/^CFLAGS		:=	-Wextra -Werror -Wall$/;"	m
-CHL	inc/minishell.h	31;"	d
-CHLL	inc/minishell.h	32;"	d
-CHR	inc/minishell.h	33;"	d
-CHRR	inc/minishell.h	34;"	d
+CHL	inc/minishell.h	34;"	d
+CHLL	inc/minishell.h	35;"	d
+CHR	inc/minishell.h	36;"	d
+CHRR	inc/minishell.h	37;"	d
 COLOR_RESET	libft/inc/libft.h	34;"	d
 CPPFLAGS	Makefile	/^CPPFLAGS    :=	-MMD -MP $(addprefix -I,$(INC))$/;"	m
 CPPFLAGS	libft/Makefile	/^CPPFLAGS	:=	-MMD -MP $(addprefix -I,$(INC))$/;"	m
 CYAN	libft/inc/libft.h	32;"	d
 CYN	Makefile	/^CYN	= \\033[36m$/;"	m
-CYN	inc/minishell.h	29;"	d
+CYN	inc/minishell.h	32;"	d
 CYN	libft/Makefile	/^CYN	= \\033[36m$/;"	m
 DEC	libft/inc/libft.h	37;"	d
 DEPS	Makefile	/^DEPS        :=	$(OBJ:.o=.d)$/;"	m
@@ -47,9 +47,9 @@ FRAMEWORK	libft/Makefile	/^FRAMEWORK	:=$/;"	m
 GET_NEXT_LINE_H	libft/inc/get_next_line.h	14;"	d
 GREEN	libft/inc/libft.h	28;"	d
 GRN	Makefile	/^GRN	= \\033[32m$/;"	m
-GRN	inc/minishell.h	25;"	d
+GRN	inc/minishell.h	28;"	d
 GRN	libft/Makefile	/^GRN	= \\033[32m$/;"	m
-HDOC_PROMPT	inc/minishell.h	36;"	d
+HDOC_PROMPT	inc/minishell.h	39;"	d
 HEX	libft/inc/libft.h	35;"	d
 HEX_C	libft/inc/libft.h	36;"	d
 INC	Makefile	/^INC			:=	inc\/ libft\/inc\/$/;"	m
@@ -69,7 +69,7 @@ LIB	libft/Makefile	/^LIB			:=$/;"	m
 LIBFT_H	libft/inc/libft.h	14;"	d
 LIB_D	Makefile	/^LIB_D		:=	libft\/$/;"	m
 LIB_D	libft/Makefile	/^LIB_D		:=$/;"	m
-MAG	inc/minishell.h	28;"	d
+MAG	inc/minishell.h	31;"	d
 MAGENTA	libft/inc/libft.h	31;"	d
 MINISHELL_H	inc/minishell.h	14;"	d
 NAME	Makefile	/^NAME		:=	minishell$/;"	m
@@ -77,11 +77,11 @@ NAME	libft/Makefile	/^NAME		:=	libft.a$/;"	m
 OBJ	Makefile	/^OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)$/;"	m
 OBJ	libft/Makefile	/^OBJ			:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)$/;"	m
 PARSING	Makefile	/^PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c$/;"	m
-PIPE	inc/minishell.h	35;"	d
+PIPE	inc/minishell.h	38;"	d
 PUR	Makefile	/^PUR	= \\033[35m$/;"	m
 PUR	libft/Makefile	/^PUR	= \\033[35m$/;"	m
 RED	Makefile	/^RED	= \\033[31m$/;"	m
-RED	inc/minishell.h	24;"	d
+RED	inc/minishell.h	27;"	d
 RED	libft/Makefile	/^RED	= \\033[31m$/;"	m
 RED	libft/inc/libft.h	27;"	d
 RM	Makefile	/^RM			:=	rm -rf$/;"	m
@@ -98,8 +98,8 @@ UNAME_S	Makefile	/^UNAME_S 	:= $(shell uname -s)$/;"	m
 UNAME_S	libft/Makefile	/^UNAME_S		:= $(shell uname -s)$/;"	m
 UTILS	Makefile	/^UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\\$/;"	m
 WHITE	libft/inc/libft.h	33;"	d
-WHT	inc/minishell.h	30;"	d
-YEL	inc/minishell.h	26;"	d
+WHT	inc/minishell.h	33;"	d
+YEL	inc/minishell.h	29;"	d
 YELLOW	libft/inc/libft.h	29;"	d
 add_to_matrix	src/utils/add_to_matrix.c	/^int	add_to_matrix(char ***env, char *new_var)$/;"	f
 add_token	src/utils/token_struct_utils.c	/^int	add_token(char *token, int is_meta, t_tokens **token_list)$/;"	f
@@ -112,6 +112,7 @@ check_post_meta_long	src/parsing/tokenization_utils.c	/^int	check_post_meta_long
 child_pid	inc/minishell.h	/^	int			child_pid;$/;"	m	struct:s_shell
 close_fds	src/utils/close_fds.c	/^void	close_fds(int fd1, int fd2)$/;"	f
 close_pipe	src/utils/pipes_utils.c	/^void	close_pipe(t_cmds *cmd)$/;"	f
+close_pipes	src/execute.c	/^void	close_pipes(t_cmds *cmd)$/;"	f
 cmd_line	inc/minishell.h	/^	char		*cmd_line;$/;"	m	struct:s_shell
 cmd_loop	src/main.c	/^int	cmd_loop(t_shell *shell)$/;"	f
 cmds	inc/minishell.h	/^	t_cmds		*cmds;$/;"	m	struct:s_shell
@@ -233,6 +234,7 @@ getvar	src/utils/getvar.c	/^char	*getvar(char **env, char *var)$/;"	f
 getvar_data	src/utils/getvar.c	/^char	*getvar_data(char **env, char *var)$/;"	f
 getvar_index	src/utils/getvar.c	/^int	getvar_index(char **env, char *var)$/;"	f
 getvar_strncmp	src/utils/getvar.c	/^int	getvar_strncmp(char *s1, char *s2)$/;"	f
+handle_sigchild	src/execute.c	/^void	handle_sigchild(int sig)$/;"	f
 here_doc	src/parsing/parse_tokens.c	/^int	here_doc(char *delimiter)$/;"	f
 in	inc/minishell.h	/^	char	*in;$/;"	m	struct:s_io
 init_cmd_struct	src/parsing/parse_tokens.c	/^t_cmds	*init_cmd_struct(int pipes)$/;"	f

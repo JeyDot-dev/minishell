@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/24 19:01:30 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:38:28 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
+# include <unistd.h>
+# include <fcntl.h>
 # define BLK "\e[0;30m"
 # define RED "\e[0;31m"
 # define GRN "\e[0;32m"

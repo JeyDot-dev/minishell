@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/25 10:38:06 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/25 20:32:03 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_cmds	*init_cmd_struct(int pipes)
 
 int	replace_fd(int default_fd, int old_fd, int new_fd)
 {
-	if (old_fd != default_fd)
+	if (old_fd != default_fd && old_fd != new_fd)
 		close(old_fd);
 	return (new_fd);
 }
@@ -98,6 +98,8 @@ int	not_eof(int hd_pipe[2], char *delimiter)
 	ft_fprintf(2, "\n         warning: here-doc delimited by end-of-file(CTRL-D), \
 wanted `%s'... but ok babyy let's go\n", delimiter);
 	close(hd_pipe[1]);
+	if (init_sigint(signal_handler, SIGINT))
+		fatal_error("init_sigint() failed.");
 	return (hd_pipe[0]);
 }
 void	write_to_pipe(int fd, char **user_input)
@@ -135,15 +137,21 @@ int	here_doc(char *delimiter)
 
 int	open_in(t_tokens *tokens, t_cmds **cmds)
 {
-	if (tokens->is_meta == CHL && access(tokens->next->token, R_OK))
-	{
-		perror(tokens->next->token);
-		g_status = 1;
-	}
-	else if (tokens->is_meta == CHL)
+//	if (tokens->is_meta == CHL && access(tokens->next->token, R_OK))
+//	{
+//		perror(tokens->next->token);
+//		g_status = 1;
+//	}
+	if (tokens->is_meta == CHL)
 		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(tokens->next->token, O_RDONLY));
 	else if (tokens->is_meta == CHLL)
+	{
 		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, here_doc(tokens->next->token));
+		close_pipe(*cmds);
+		if (pipe((*cmds)->pipe))
+			fatal_error("pipe() failed.");
+		(*cmds)->pipe[0] = (*cmds)->fd_in;
+	}
 	if (g_status == SIGINT)
 		return (1);
 	if ((*cmds)->fd_in < 0)
@@ -177,11 +185,21 @@ void	set_cmd(t_tokens **tokens, char ***args)
 
 void	set_stdout_to_pipe(t_cmds *cmds)
 {
+	if (cmds->run == 1)
+	{
+		close_pipe(cmds);
+		if(cmds->fd_in != STDIN_FILENO)
+			close(cmds->fd_in);
+		if(cmds->fd_out != STDOUT_FILENO)
+			close(cmds->fd_out);
+	}
 	if (cmds->fd_out == 1 && cmds->next)
 	{
 		cmds->fd_out = cmds->next->pipe[1];
 		cmds->next->fd_in = cmds->next->pipe[0];
 	}
+	else if (cmds->next)
+		close(cmds->next->pipe[1]);
 }
 
 char	*try_paths(char *cmd, t_shell shell)

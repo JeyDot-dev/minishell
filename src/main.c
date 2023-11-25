@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/25 09:55:02 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/25 20:32:24 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -17,11 +17,10 @@ int	set_exit_status(int status)
 {
 	if (WIFEXITED(status))
 		g_status = WEXITSTATUS(status);
-//	else if (WIFSIGNALED(status))
-//	{
-//		ft_fprintf(2, "WIFSIGNALED, g_status: %d\n", g_status);
-//		g_status = WTERMSIG(status) + 128;
-//	}
+	else if (WIFSIGNALED(status))
+	{
+		g_status = WTERMSIG(status) + 128;
+	}
 	return (g_status);
 }
 
@@ -97,7 +96,8 @@ void	parse_and_execute(t_shell *shell)
 		g_status = WTERMSIG(g_status) + 128;
 	if (shell->cmds)
 	{
-		g_status = set_exit_status(execute(shell));
+		if (!g_status)
+			g_status = set_exit_status(execute(shell));
 		free_cmds(shell->cmds);
 	}
 	shell->cmds = NULL;
