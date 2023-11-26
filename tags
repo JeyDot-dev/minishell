@@ -105,7 +105,7 @@ add_to_matrix	src/utils/add_to_matrix.c	/^int	add_to_matrix(char ***env, char *n
 add_token	src/utils/token_struct_utils.c	/^int	add_token(char *token, int is_meta, t_tokens **token_list)$/;"	f
 args	inc/minishell.h	/^	char			**args;$/;"	m	struct:s_cmds
 builtin_cmd	src/exec_builtins.c	/^int	builtin_cmd(char **args, char ***env)$/;"	f
-check_export_arg	src/builtin/export.c	/^int	check_export_arg(char *arg)$/;"	f
+check_env_arg	src/utils/check_env_arg.c	/^int	check_env_arg(char *arg)$/;"	f
 check_length	libft/src/ft_atoi.c	/^int check_length(const char *str)$/;"	f
 check_post_meta	src/parsing/tokenization_utils.c	/^int	check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign)$/;"	f
 check_post_meta_long	src/parsing/tokenization_utils.c	/^int	check_post_meta_long(char *cmd_line, int i, char sign)$/;"	f
@@ -130,6 +130,7 @@ exit_shell	src/builtin/exit.c	/^void	exit_shell(t_shell *shell, int n)$/;"	f
 exit_status	src/execute.c	/^int	exit_status(int status)$/;"	f
 expand_string	src/parsing/var_expansion.c	/^char	*expand_string(char *str, t_shell *shell)$/;"	f
 expand_var	src/parsing/var_expansion.c	/^int	expand_var(char *str, char **var, int i, t_shell *shell)$/;"	f
+expand_var_extension	src/parsing/var_expansion.c	/^int expand_var_extension(char **var, int i)$/;"	f
 export_underscore_var	src/init_env.c	/^void	export_underscore_var(char ***env, char *av)$/;"	f
 extract_var_data	src/utils/extract_var_data.c	/^char	*extract_var_data(char *str)$/;"	f
 extract_var_name	src/utils/extract_var_name.c	/^char	*extract_var_name(char *str)$/;"	f
@@ -147,6 +148,7 @@ fprint_struct_cmds	src/utils/fprint_debug.c	/^void	fprint_struct_cmds(int fd, t_
 free_cmds	src/utils/free_cmds.c	/^void	free_cmds(t_cmds *cmds)$/;"	f
 free_join	src/utils/free_join.c	/^char	*free_join(char *str, char *buffer)$/;"	f
 free_matrix	src/utils/env_utils.c	/^void	free_matrix(char **matrix)$/;"	f
+free_old_return_new	src/parsing/var_expansion.c	/^char	*free_old_return_new(char *str, char *new_s)$/;"	f
 free_return_minone	src/utils/free_return.c	/^int	free_return_minone(char *to_free, char *to_write)$/;"	f
 free_return_null	src/utils/free_return.c	/^void	*free_return_null(char *to_free, char *to_write)$/;"	f
 free_shell	src/utils/free_shell.c	/^void	free_shell(t_shell *shell)$/;"	f
@@ -251,8 +253,9 @@ is_string	src/utils/is_string.c	/^int	is_string(const int c)$/;"	f
 last_cmd_line	inc/minishell.h	/^	char		*last_cmd_line;$/;"	m	struct:s_shell
 last_cmd_status	inc/minishell.h	/^	int			last_cmd_status;$/;"	m	struct:s_shell
 main	src/main.c	/^int	main(int ac, char **av, char **envp)$/;"	f
+make_func_shorter	src/parsing/var_expansion.c	/^int		make_func_shorter(char **old, char *new, int ret)$/;"	f
 meta_token	src/parsing/tokenizer.c	/^int	meta_token(t_tokens **tokens, char *cmd_line, int i)$/;"	f
-mini_isalpha	src/builtin/export.c	/^int	mini_isalpha(int c)$/;"	f
+mini_isalpha	src/utils/check_env_arg.c	/^int	mini_isalpha(int c)$/;"	f
 next	inc/minishell.h	/^	struct s_cmds	*next;$/;"	m	struct:s_cmds	typeref:struct:s_cmds::s_cmds
 next	inc/minishell.h	/^	struct s_tokens	*next;$/;"	m	struct:s_tokens	typeref:struct:s_tokens::s_tokens
 next	libft/inc/libft.h	/^	struct s_list	*next;$/;"	m	struct:s_list	typeref:struct:s_list::s_list

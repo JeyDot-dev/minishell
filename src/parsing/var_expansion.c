@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 18:02:59 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 11:54:14 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:22:51 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -26,7 +26,11 @@ int	skip_dollar(char *str, int i, int mode)
 	}
 	return (i);
 }
-
+int expand_var_extension(char **var, int i)
+{
+	*var = ft_strdup("$");
+	return (i);
+}
 int	expand_var(char *str, char **var, int i, t_shell *shell)
 {
 	int		start;
@@ -36,7 +40,7 @@ int	expand_var(char *str, char **var, int i, t_shell *shell)
 	i = skip_dollar(str, i, 0);
 	start = i;
 	if (!str[i])
-		*var = ft_strdup("$");
+		return (expand_var_extension(var, i));
 	else if (str[i] == '?')
 		*var = ft_itoa(shell->last_cmd_status);
 	if (str[i] == '?')
@@ -49,11 +53,21 @@ int	expand_var(char *str, char **var, int i, t_shell *shell)
 		ft_memdel(buffer);
 		if (new_var)
 			*var = ft_strdup(new_var);
-//		ft_memdel(new_var);
 	}
 	return (i);
 }
 
+char	*free_old_return_new(char *str, char *new_s)
+{
+	free(str);
+	return (new_s);
+}
+int		make_func_shorter(char **old, char *new, int ret)
+{
+	*old = free_join(*old, new);
+	return (ret);
+
+}
 char	*expand_string(char *str, t_shell *shell)
 {
 	char	*new_s;
@@ -72,14 +86,11 @@ char	*expand_string(char *str, t_shell *shell)
 		if (str[start] == '$')
 		{
 			start = expand_var(str, &var, end, shell);
-			end = start;
-			new_s = free_join(new_s, var);
+			end = make_func_shorter(&new_s, var, start);
 		}
 		while (str[end] && str[end] != '$')
 			end++;
-		new_s = free_join(new_s, ft_strndup(&str[start], end - start));
-		start = end;
+		start = make_func_shorter(&new_s, ft_strndup(&str[start], end - start), end);
 	}
-	free(str);
-	return (new_s);
+	return (free_old_return_new(str, new_s));
 }

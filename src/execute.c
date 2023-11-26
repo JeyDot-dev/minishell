@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 10:48:22 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:16:09 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,13 @@ int		special_builtins(t_cmds *cmds, t_shell *shell)
 		return (ft_export(&shell->env, cmds->args));
 	if (!ft_strncmp(cmds->args[0], "unset", 6) && cmds->next == NULL)
 		return (ft_unset(&shell->env, cmds->args));
-	return (g_status);
+	if (!ft_strncmp(cmds->args[0], "env", 4) && cmds->next == NULL)
+		return (ft_env(shell->env));
+	if (!ft_strncmp(cmds->args[0], "echo", 5) && cmds->next == NULL)
+		return (ft_echo(cmds->args));
+	if (!ft_strncmp(cmds->args[0], "pwd", 4) && cmds->next == NULL)
+		return (ft_pwd());
+	return (127);
 }
 
 void	close_pipes(t_cmds *cmd)
@@ -69,6 +75,7 @@ void	close_pipes(t_cmds *cmd)
 }
 void	exec_child(t_cmds cmd, t_shell *shell)
 {
+	ft_fprintf(2, "child: %d\n", getpid());
 	if (cmd.next)
 		close_pipes(&cmd);
 	//if (cmd.next)
@@ -106,6 +113,8 @@ int	execute(t_shell *shell)
 	signal(SIGCHLD, handle_sigchild);
 	tmp = shell->cmds;
 	g_status = special_builtins(tmp, shell);
+	if (g_status != 127)
+		tmp = tmp->next;
 /*	child = fork();
 //	while (1);
 	if (child < 0)
@@ -140,7 +149,8 @@ int	execute(t_shell *shell)
 //		waitpid(child, &g_status, 0);
 		exit_status(g_status);
 	}*/
-	waitpid(child, &g_status, 0);
+	if (child)
+		waitpid(child, &g_status, 0);
 //	while (i < 100000000)
 //		i++;
 	//wait(&g_status);

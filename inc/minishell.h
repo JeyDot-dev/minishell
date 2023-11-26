@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 13:45:50 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:21:53 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ char	*free_join(char *str, char *buffer);
 int		only_spaces(char *str);
 void	fprint_matrix(int fd, char **matrix);
 void	fatal_error(char *to_print);
+int		check_env_arg(char *arg);
 //--------------------DEBUG FUNCTIONS---------------------------------
 //		 __|debug function to print a single t_cmds struct
 //		v  |(has different modes depending on debug mode)

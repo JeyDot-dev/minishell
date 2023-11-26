@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 13:53:47 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:46:46 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -102,7 +102,7 @@ void	parse_and_execute(t_shell *shell)
 	}
 	shell->cmds = NULL;
 }
-//TODO: FIX code 141 instead of 0 | Hunt for bugs then try to evaluate the project
+//TODO: FIX code 141 instead of 0 | fix '$' crash | Hunt for bugs then try to evaluate the project
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;

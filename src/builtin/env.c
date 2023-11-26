@@ -6,7 +6,7 @@
 /*   By: gipaul <test42@student.42.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:52:01 by gipaul            #+#    #+#             */
-/*   Updated: 2023/10/01 18:40:31 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:27:10 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_env(char **env)
 {
+	if (!env)
+		return (1);
 	while (env && *env)
 	{
 		ft_putendl_fd(*env, 1);

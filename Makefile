@@ -24,7 +24,7 @@ UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\
 				fprint_debug.c	fprint_matrix.c	is_meta.c	is_string.c\
 				token_struct_utils.c	parse_tokens_utils.c	fatal_error.c\
 				pipes_utils.c	free_shell.c free_cmds.c	free_tokens.c\
-				close_fds.c
+				close_fds.c	check_env_arg.c
 PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c
 
 SRC			:=	main.c	exec_builtins.c	init_env.c	prompt.c	signal_handler.c	\
