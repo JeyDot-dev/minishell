@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/25 15:38:28 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:45:50 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		ft_pwd(void);
 int		ft_cd(char ***env, char **args);
 int		ft_export(char ***env, char **args);
 int		ft_unset(char ***env, char **var);
-int		ft_exit(t_cmds *cmds, t_shell *shell);
+void	ft_exit(t_cmds *cmds, t_shell *shell);
 //-----------------ENV MANIPULATION FUNCTIONS-------------
 //		v	function to unset with a char* instead of char**.
 void	super_unset(char ***env, char *var);

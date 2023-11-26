@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 10:48:27 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:53:47 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -69,8 +69,8 @@ int	cmd_loop(t_shell *shell)
 	shell->cmd_line = prompt();
 	if (!shell->cmd_line)
 	{
-//		free_shell(shell);
-		exit(0);
+		ft_putchar_fd('\n', 2);
+		ft_exit(NULL, shell);
 	}
 	token_status = tokenizer(&(shell->tokens), shell);
 	fprint_shell(2, shell, "cmd_loop");
@@ -102,7 +102,7 @@ void	parse_and_execute(t_shell *shell)
 	}
 	shell->cmds = NULL;
 }
-//TODO: fix minor prompt error after ctrl+d with heredoc | Hunt for bugs then try to evaluate the project
+//TODO: FIX code 141 instead of 0 | Hunt for bugs then try to evaluate the project
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;
