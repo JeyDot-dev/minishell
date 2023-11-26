@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/25 20:32:24 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 10:48:27 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -92,12 +92,12 @@ void	parse_and_execute(t_shell *shell)
 	parse_tokens(shell->tokens, shell);
 	delete_tokens(shell->tokens);
 	shell->tokens = NULL;
-	if(WIFSIGNALED(g_status))
+	if (WIFSIGNALED(g_status))
 		g_status = WTERMSIG(g_status) + 128;
 	if (shell->cmds)
 	{
-		if (!g_status)
-			g_status = set_exit_status(execute(shell));
+		//g_status = set_exit_status(execute(shell));
+		g_status = execute(shell);
 		free_cmds(shell->cmds);
 	}
 	shell->cmds = NULL;

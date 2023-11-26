@@ -6,18 +6,28 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/25 20:30:40 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 10:48:22 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	exit_status(int status)
+{
+	if (WIFEXITED(status))
+		g_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_status = WTERMSIG(status) + 128;
+	return (g_status);
+}
 
 void	handle_sigchild(int sig)
 {
 	(void)sig;
 	while (waitpid(-1, &g_status, 0) > 0)
 	{
-		//ft_fprintf(2,"THE CHILD HAS DIED!!!\n");
+		g_status = exit_status(g_status);
+	//	ft_fprintf(2,"THE CHILD HAS DIED!!! g_status: %d\n", g_status);
 	//	if (WIFEXITED(g_status))
 		//	g_status = WEXITSTATUS(g_status);
 		//else if (WIFSIGNALED(g_status))
@@ -26,6 +36,8 @@ void	handle_sigchild(int sig)
 }
 int		special_builtins(t_cmds *cmds, t_shell *shell)
 {
+	if (cmds->run == 1)
+		return (1);
 	if (!ft_strncmp(cmds->args[0], "exit", 5) && cmds->next == NULL)
 		ft_exit(cmds, shell);
 	if (!ft_strncmp(cmds->args[0], "cd", 3) && cmds->next == NULL)
@@ -83,22 +95,14 @@ void	exec_child(t_cmds cmd, t_shell *shell)
 	exit(0);
 }
 
-int	exit_status(int status)
-{
-	if (WIFEXITED(status))
-		g_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		g_status = WTERMSIG(status) + 128;
-	exit (g_status);
-}
 int	execute(t_shell *shell)
 {
 	t_cmds	*tmp;
 	pid_t	child;
-	int	i;
+	//int	i;
 //	struct stat *fstat_struct;
 
-	i = 0;
+//	i = 0;
 	signal(SIGCHLD, handle_sigchild);
 	tmp = shell->cmds;
 	g_status = special_builtins(tmp, shell);
@@ -115,7 +119,7 @@ int	execute(t_shell *shell)
 //			if (child)
 //				ft_fprintf(2,"child postfork: %d\n", child);
 			if (tmp->run == 1 && child == 0)
-				exit(g_status);
+				exit(1);
 			else if (!child)
 				exec_child(*tmp, shell);
 			close(tmp->pipe[1]);
@@ -137,8 +141,8 @@ int	execute(t_shell *shell)
 		exit_status(g_status);
 	}*/
 	waitpid(child, &g_status, 0);
-	while (i < 100000000)
-		i++;
+//	while (i < 100000000)
+//		i++;
 	//wait(&g_status);
-	return (g_status);
+	return (exit_status(g_status));
 }

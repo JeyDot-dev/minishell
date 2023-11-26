@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/25 20:32:03 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 10:55:31 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	open_out(t_tokens *tokens, t_cmds **cmds)
 		open(tokens->next->token, O_CREAT, 0644);
 	if (access(tokens->next->token, W_OK))
 	{
-		perror(tokens->next->token);
+		//perror(tokens->next->token);
 		g_status = errno;
 	}
 	else if (tokens->is_meta == CHR)
@@ -102,13 +102,14 @@ wanted `%s'... but ok babyy let's go\n", delimiter);
 		fatal_error("init_sigint() failed.");
 	return (hd_pipe[0]);
 }
-void	write_to_pipe(int fd, char **user_input)
+void	write_to_pipe(int fd, char **user_input, t_shell *shell)
 {
+	*user_input = expand_string(*user_input, shell);
 	write(fd, *user_input, ft_strlen(*user_input));
 	write(fd, "\n", 1);
 	*user_input = ft_memdel(*user_input);
 }
-int	here_doc(char *delimiter)
+int	here_doc(char *delimiter, t_shell *shell)
 {
 	int		hd_pipe[2];
 	char	*user_input;
@@ -125,7 +126,7 @@ int	here_doc(char *delimiter)
 		if (!ft_strncmp(user_input, delimiter, ft_strlen(delimiter) + 1))
 			break ;
 		else if (user_input)
-			write_to_pipe(hd_pipe[1], &user_input);
+			write_to_pipe(hd_pipe[1], &user_input, shell);
 	}
 	if (init_sigint(signal_handler, SIGINT))
 		fatal_error("init_sigint() failed.");
@@ -135,7 +136,7 @@ int	here_doc(char *delimiter)
 	return (hd_pipe[0]);
 }
 
-int	open_in(t_tokens *tokens, t_cmds **cmds)
+int	open_in(t_tokens *tokens, t_cmds **cmds, t_shell *shell)
 {
 //	if (tokens->is_meta == CHL && access(tokens->next->token, R_OK))
 //	{
@@ -146,7 +147,7 @@ int	open_in(t_tokens *tokens, t_cmds **cmds)
 		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(tokens->next->token, O_RDONLY));
 	else if (tokens->is_meta == CHLL)
 	{
-		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, here_doc(tokens->next->token));
+		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, here_doc(tokens->next->token, shell));
 		close_pipe(*cmds);
 		if (pipe((*cmds)->pipe))
 			fatal_error("pipe() failed.");
@@ -158,30 +159,23 @@ int	open_in(t_tokens *tokens, t_cmds **cmds)
 	{
 		if ((*cmds)->fd_in == -1)
 			perror(tokens->next->token);
+		g_status = 1;
 		return (1);
 	}
 	return (0);
 }
 
-void	open_in_out(t_tokens **tokens, t_cmds **cmds)
+void	open_in_out(t_tokens **tokens, t_cmds **cmds, t_shell *shell)
 {
 	if ((*cmds)->run == 1)
 		return ;
 	else if ((*tokens)->is_meta == CHR || (*tokens)->is_meta == CHRR)
 		(*cmds)->run = open_out(*tokens, cmds);
 	else if ((*tokens)->is_meta == CHL || (*tokens)->is_meta == CHLL)
-		(*cmds)->run = open_in(*tokens, cmds);
+		(*cmds)->run = open_in(*tokens, cmds, shell);
 	*tokens = (*tokens)->next->next;
 }
 
-void	set_cmd(t_tokens **tokens, char ***args)
-{
-	while (*tokens && !(*tokens)->is_meta)
-	{
-		add_to_matrix(args, (*tokens)->token);
-		*tokens = (*tokens)->next;
-	}
-}
 
 void	set_stdout_to_pipe(t_cmds *cmds)
 {
@@ -243,12 +237,25 @@ int	set_path_cmd(t_cmds *cmds, t_shell *shell)
 	if (!cmds->path_cmd || access(cmds->path_cmd, X_OK))
 	{
 		ft_fprintf(2, "minishell: %s: command not found\n", cmds->args[0]);
-		g_status = 127;
+		g_status = 1;
 		cmds->run = 1;
 	}
 	return (0);
 }
 
+void	set_cmd(t_tokens **tokens, t_cmds *cmds, t_shell *shell)
+{
+	char ***args;
+
+	args = &cmds->args;
+	while (*tokens && !(*tokens)->is_meta)
+	{
+		add_to_matrix(args, (*tokens)->token);
+		*tokens = (*tokens)->next;
+	}
+	if (!cmds->path_cmd)
+		cmds->is_builtin = set_path_cmd(cmds, shell);
+}
 void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)
 {
 	t_cmds		*tmp_cmds;
@@ -260,18 +267,19 @@ void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)
 	{
 		if ((tokens_tmp && tokens_tmp->is_meta == PIPE) || (tmp_cmds && !tokens_tmp))
 		{
-			tmp_cmds->is_builtin = set_path_cmd(tmp_cmds, shell);
 			set_stdout_to_pipe(tmp_cmds);
 			tmp_cmds = tmp_cmds->next;
 			if (tokens_tmp)
 				tokens_tmp = tokens_tmp->next;
 		}
-		else if (tokens_tmp && tokens_tmp->is_meta)
-			open_in_out(&tokens_tmp, &tmp_cmds);
-		else if (tokens_tmp)
-			set_cmd(&tokens_tmp, &(tmp_cmds)->args);
 		else if (!tokens_tmp)
 			tmp_cmds = NULL;
+		else if (tmp_cmds->run)
+			tokens_tmp = tokens_tmp->next;
+		else if (tokens_tmp->is_meta)
+			open_in_out(&tokens_tmp, &tmp_cmds, shell);
+		else
+			set_cmd(&tokens_tmp, tmp_cmds, shell);
 		if (g_status == SIGINT)
 			break ;
 	}

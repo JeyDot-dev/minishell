@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 18:02:59 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/14 15:29:26 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 11:54:14 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -44,12 +44,12 @@ int	expand_var(char *str, char **var, int i, t_shell *shell)
 	else
 	{
 		i = skip_dollar(str, i, 1);
-		buffer = ft_strndup(&str[start], i - start + 1);
-		new_var = extract_var_data(getvar(shell->env, buffer));
+		buffer = ft_strndup(&str[start], i - start);
+		new_var = getvar_data(shell->env, buffer);
 		ft_memdel(buffer);
 		if (new_var)
 			*var = ft_strdup(new_var);
-		ft_memdel(new_var);
+//		ft_memdel(new_var);
 	}
 	return (i);
 }
@@ -62,11 +62,13 @@ char	*expand_string(char *str, t_shell *shell)
 	int		end;
 
 	new_s = NULL;
-	var = NULL;
 	start = 0;
 	end = 0;
+	if (!str)
+		return (NULL);
 	while (str[start])
 	{
+		var = NULL;
 		if (str[start] == '$')
 		{
 			start = expand_var(str, &var, end, shell);
