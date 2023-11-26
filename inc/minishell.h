@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 17:22:27 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:55:22 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,10 +181,14 @@ void	fprint_shell(int fd, t_shell *shell, char *str);
 void	print_tokens(t_tokens *tokens);
 //--------------------PARSING FUNCTIONS-------------------------------
 
+t_cmds	*init_cmd_struct(int pipes);
 int		is_builtin(char *cmd);
 //		v	function used to parse the tokens into a list of commands.
 int		parse_tokens(t_tokens *tokens, t_shell *shell);
 int		count_pipes(t_tokens *tokens);
+int		here_doc(char *delimiter, t_shell *shell);
+void	open_io(t_tokens **tokens, t_cmds **cmds, t_shell *shell);
+void	set_fd_to_pipe(t_cmds *cmd);
 //--------------------SIGNALS FUNCTIONS-------------------------------
 //		v	function to handle SIGINT signal.
 void	signal_handler(int sig, siginfo_t *info, void *ucontext);

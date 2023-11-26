@@ -27,10 +27,10 @@ UTILS		:=	free_return.c	export_unset_utils.c	env_utils.c		\
 				close_fds.c	check_env_arg.c
 
 PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c expand_var.c\
-				expand_string.c
+				expand_string.c	init_cmd_struct.c open_io.c	set_fd_to_pipe.c
 
 SRC			:=	main.c	exec_builtins.c	init_env.c	prompt.c	signal_handler.c	\
-				update_history.c	execute.c
+				update_history.c	execute.c	heredoc.c
 
 LIB			:=	ft readline
 #FRAMEWORK	:=	OpenGL	AppKit

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:11:41 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/25 20:16:08 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:04:58 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_fds(int fd1, int fd2)
 {
-	int fd[2];
+	int	fd[2];
 	int	i;
 
 	i = 0;

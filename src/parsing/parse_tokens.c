@@ -6,187 +6,10 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 17:32:15 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:55:59 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
-/*
-{
-	int				pipes[2];
-	int				fd_out;
-	int				fd_in;
-	int				run;
-	char			**args;
-	struct s_cmds	*next;
-*/
-t_cmds	*create_new_empty_cmd(void)
-{
-	t_cmds	*new;
-
-	new = malloc(sizeof(t_cmds));
-	if (!new)
-		fatal_error("malloc error while initiating cmd struct.");
-	if (pipe(new->pipe))
-		fatal_error("pipe() failed.");
-	new->fd_out = 1;
-	new->fd_in = 0;
-	new->run = 0;
-	new->is_builtin = 0;
-	new->args = NULL;
-	new->next = NULL;
-	new->path_cmd = NULL;
-	return (new);
-}
-
-t_cmds	*init_cmd_struct(int pipes)
-{
-	t_cmds	*new;
-	t_cmds	*previous;
-	t_cmds	*new_head;
-	int		first;
-
-	first = 1;
-	while (pipes >= 0)
-	{
-		new = create_new_empty_cmd();
-		if (first)
-			new_head = new;
-		else
-			previous->next = new;
-		previous = new;
-		first = 0;
-		pipes--;
-	}
-	return (new_head);
-}
-
-int	replace_fd(int default_fd, int old_fd, int new_fd)
-{
-	if (old_fd != default_fd && old_fd != new_fd)
-		close(old_fd);
-	return (new_fd);
-}
-
-int	open_out(t_tokens *tokens, t_cmds **cmds)
-{
-	if (access(tokens->next->token, F_OK))
-		open(tokens->next->token, O_CREAT, 0644);
-	if (access(tokens->next->token, W_OK))
-	{
-		g_status = errno;
-	}
-	else if (tokens->is_meta == CHR)
-		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out,
-				open(tokens->next->token, O_WRONLY));
-	else if (tokens->is_meta == CHRR)
-		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(tokens->next->token, O_WRONLY | O_APPEND));
-	if ((*cmds)->fd_out < 0)
-	{
-		if ((*cmds)->fd_out == -1)
-			perror(tokens->next->token);
-		return (1);
-	}
-	return (0);
-}
-
-int	not_eof(int hd_pipe[2], char *delimiter)
-{
-	ft_fprintf(2, "\n         warning: here-doc delimited by end-of-file(CTRL-D), \
-wanted `%s'... but ok babyy let's go\n", delimiter);
-	close(hd_pipe[1]);
-	if (init_sigint(signal_handler, SIGINT))
-		fatal_error("init_sigint() failed.");
-	return (hd_pipe[0]);
-}
-void	write_to_pipe(int fd, char **user_input, t_shell *shell)
-{
-	*user_input = expand_string(*user_input, shell);
-	write(fd, *user_input, ft_strlen(*user_input));
-	write(fd, "\n", 1);
-	*user_input = ft_memdel(*user_input);
-}
-int	here_doc(char *delimiter, t_shell *shell)
-{
-	int		hd_pipe[2];
-	char	*user_input;
-
-	if (pipe(hd_pipe))
-		fatal_error("pipe() failed.");
-	if (init_sigint(signal_troll, SIGINT))
-		fatal_error("init_sigint() failed.");
-	while(g_status != SIGINT)
-	{
-		user_input = readline(HDOC_PROMPT);
-		if (!user_input)
-			return (not_eof(hd_pipe, delimiter));
-		if (!ft_strncmp(user_input, delimiter, ft_strlen(delimiter) + 1))
-			break ;
-		else if (user_input)
-			write_to_pipe(hd_pipe[1], &user_input, shell);
-	}
-	if (init_sigint(signal_handler, SIGINT))
-		fatal_error("init_sigint() failed.");
-	close(hd_pipe[1]);
-	if (user_input)
-		ft_memdel(user_input);
-	return (hd_pipe[0]);
-}
-
-int	open_in(t_tokens *tokens, t_cmds **cmds, t_shell *shell)
-{
-	if (tokens->is_meta == CHL)
-		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(tokens->next->token, O_RDONLY));
-	else if (tokens->is_meta == CHLL)
-	{
-		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, here_doc(tokens->next->token, shell));
-		close_pipe(*cmds);
-		if (pipe((*cmds)->pipe))
-			fatal_error("pipe() failed.");
-		(*cmds)->pipe[0] = (*cmds)->fd_in;
-	}
-	if (g_status == SIGINT)
-		return (1);
-	if ((*cmds)->fd_in < 0)
-	{
-		if ((*cmds)->fd_in == -1)
-			perror(tokens->next->token);
-		g_status = 1;
-		return (1);
-	}
-	return (0);
-}
-
-void	open_in_out(t_tokens **tokens, t_cmds **cmds, t_shell *shell)
-{
-	if ((*cmds)->run == 1)
-		return ;
-	else if ((*tokens)->is_meta == CHR || (*tokens)->is_meta == CHRR)
-		(*cmds)->run = open_out(*tokens, cmds);
-	else if ((*tokens)->is_meta == CHL || (*tokens)->is_meta == CHLL)
-		(*cmds)->run = open_in(*tokens, cmds, shell);
-	*tokens = (*tokens)->next->next;
-}
-
-
-void	set_stdout_to_pipe(t_cmds *cmds)
-{
-	if (cmds->run == 1)
-	{
-		close_pipe(cmds);
-		if(cmds->fd_in != STDIN_FILENO)
-			close(cmds->fd_in);
-		if(cmds->fd_out != STDOUT_FILENO)
-			close(cmds->fd_out);
-	}
-	if (cmds->fd_out == 1 && cmds->next)
-	{
-		cmds->fd_out = cmds->next->pipe[1];
-		cmds->next->fd_in = cmds->next->pipe[0];
-	}
-	else if (cmds->next)
-		close(cmds->next->pipe[1]);
-}
 
 char	*try_paths(char *cmd, t_shell shell)
 {
@@ -237,7 +60,7 @@ int	set_path_cmd(t_cmds *cmds, t_shell *shell)
 
 void	set_cmd(t_tokens **tokens, t_cmds *cmds, t_shell *shell)
 {
-	char ***args;
+	char	***args;
 
 	args = &cmds->args;
 	while (*tokens && !(*tokens)->is_meta)
@@ -248,6 +71,7 @@ void	set_cmd(t_tokens **tokens, t_cmds *cmds, t_shell *shell)
 	if (!cmds->path_cmd)
 		cmds->is_builtin = set_path_cmd(cmds, shell);
 }
+
 void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)
 {
 	t_cmds		*tmp_cmds;
@@ -255,11 +79,12 @@ void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)
 
 	tmp_cmds = *cmds;
 	tokens_tmp = tokens;
-	while (tmp_cmds)
+	while (g_status != SIGINT && tmp_cmds)
 	{
-		if ((tokens_tmp && tokens_tmp->is_meta == PIPE) || (tmp_cmds && !tokens_tmp))
+		if ((tokens_tmp && tokens_tmp->is_meta == PIPE) || (
+				tmp_cmds && !tokens_tmp))
 		{
-			set_stdout_to_pipe(tmp_cmds);
+			set_fd_to_pipe(tmp_cmds);
 			tmp_cmds = tmp_cmds->next;
 			if (tokens_tmp)
 				tokens_tmp = tokens_tmp->next;
@@ -269,11 +94,9 @@ void	parsinator(t_cmds **cmds, t_tokens *tokens, t_shell *shell)
 		else if (tmp_cmds->run)
 			tokens_tmp = tokens_tmp->next;
 		else if (tokens_tmp->is_meta)
-			open_in_out(&tokens_tmp, &tmp_cmds, shell);
+			open_io(&tokens_tmp, &tmp_cmds, shell);
 		else
 			set_cmd(&tokens_tmp, tmp_cmds, shell);
-		if (g_status == SIGINT)
-			break ;
 	}
 }
 

@@ -6,12 +6,12 @@
 /*   By: jsousa-a <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:08:19 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 15:45:31 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:05:46 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
-int check_length(const char *str)
+
+int	check_length(const char *str)
 {
 	int	i;
 
@@ -24,6 +24,7 @@ int check_length(const char *str)
 		return (0);
 	return (i);
 }
+
 long long int	ft_atoi2(const char *str)
 {
 	long long int	nb;
@@ -39,6 +40,7 @@ long long int	ft_atoi2(const char *str)
 		return (2147483648);
 	return (nb);
 }
+
 long long int	ft_atoi(const char *str)
 {
 	long long int	nb;

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/25 10:48:21 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:56:52 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ft_cd(char ***env, char **args)
 	else
 	{
 		ft_fprintf(2, "cd: %s: %s\n", tmp, strerror(errno));
-//		perror("cd");
 		return (-1);
 	}
 	return (0);

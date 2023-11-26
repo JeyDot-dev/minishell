@@ -6,13 +6,12 @@
 /*   By: jsousa-a <jsousa-a@student.42lausan>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 16:25:18 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/17 14:10:46 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:03:37 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
-t_tokens *find_last(t_tokens *list)
+t_tokens	*find_last(t_tokens *list)
 {
 	t_tokens	*tmp;
 
@@ -24,7 +23,7 @@ t_tokens *find_last(t_tokens *list)
 
 int	add_token(char *token, int is_meta, t_tokens **token_list)
 {
-	t_tokens 	*tmp;
+	t_tokens	*tmp;
 	t_tokens	*new;
 
 	new = malloc(sizeof(t_tokens));
@@ -49,7 +48,7 @@ void	delete_tokens(t_tokens *token_list)
 
 	if (!token_list)
 		return ;
-	while(token_list)
+	while (token_list)
 	{
 		tmp = token_list;
 		if (tmp->token)

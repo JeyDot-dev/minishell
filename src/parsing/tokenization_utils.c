@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:43:15 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/10/17 14:35:23 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:49:52 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -31,6 +31,7 @@ int	check_post_meta_long(char *cmd_line, int i, char sign)
 	}
 	return (42);
 }
+
 void	print_tokens(t_tokens *tokens)
 {
 	while (tokens)

@@ -106,7 +106,7 @@ add_token	src/utils/token_struct_utils.c	/^int	add_token(char *token, int is_met
 args	inc/minishell.h	/^	char			**args;$/;"	m	struct:s_cmds
 builtin_cmd	src/exec_builtins.c	/^int	builtin_cmd(char **args, char ***env)$/;"	f
 check_env_arg	src/utils/check_env_arg.c	/^int	check_env_arg(char *arg)$/;"	f
-check_length	libft/src/ft_atoi.c	/^int check_length(const char *str)$/;"	f
+check_length	libft/src/ft_atoi.c	/^int	check_length(const char *str)$/;"	f
 check_post_meta	src/parsing/tokenization_utils.c	/^int	check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign)$/;"	f
 check_post_meta_long	src/parsing/tokenization_utils.c	/^int	check_post_meta_long(char *cmd_line, int i, char sign)$/;"	f
 child_pid	inc/minishell.h	/^	int			child_pid;$/;"	m	struct:s_shell
@@ -119,7 +119,7 @@ cmds	inc/minishell.h	/^	t_cmds		*cmds;$/;"	m	struct:s_shell
 content	libft/inc/libft.h	/^	void			*content;$/;"	m	struct:s_list
 count_pipes	src/utils/parse_tokens_utils.c	/^int	count_pipes(t_tokens *tokens)$/;"	f
 count_strings	src/utils/count_strings.c	/^int	count_strings(char **matrix)$/;"	f
-create_new_empty_cmd	src/parsing/parse_tokens.c	/^t_cmds	*create_new_empty_cmd(void)$/;"	f
+create_new_empty_cmd	src/parsing/init_cmd_struct.c	/^t_cmds	*create_new_empty_cmd(void)$/;"	f
 ctalloc	libft/src/ft_itoa.c	/^int	ctalloc(int n, long int ct)$/;"	f
 debug	inc/minishell.h	/^	int			debug;$/;"	m	struct:s_shell
 delete_tokens	src/utils/token_struct_utils.c	/^void	delete_tokens(t_tokens *token_list)$/;"	f
@@ -139,7 +139,7 @@ fatal_error	src/utils/fatal_error.c	/^void	fatal_error(char *str)$/;"	f
 fd_in	inc/minishell.h	/^	int				fd_in;$/;"	m	struct:s_cmds
 fd_out	inc/minishell.h	/^	int				fd_out;$/;"	m	struct:s_cmds
 find_end_of_token	src/parsing/tokenization_utils.c	/^int	find_end_of_token(char *cmd_line, int i, int mode)$/;"	f
-find_last	src/utils/token_struct_utils.c	/^t_tokens *find_last(t_tokens *list)$/;"	f
+find_last	src/utils/token_struct_utils.c	/^t_tokens	*find_last(t_tokens *list)$/;"	f
 fprint_list_cmds	src/utils/fprint_debug.c	/^void	fprint_list_cmds(int fd, t_shell shell, char *str)$/;"	f
 fprint_matrix	src/utils/fprint_matrix.c	/^void	fprint_matrix(int fd, char **matrix)$/;"	f
 fprint_shell	src/utils/fprint_debug.c	/^void	fprint_shell(int fd, t_shell *shell, char *str)$/;"	f
@@ -239,9 +239,9 @@ getvar_data	src/utils/getvar.c	/^char	*getvar_data(char **env, char *var)$/;"	f
 getvar_index	src/utils/getvar.c	/^int	getvar_index(char **env, char *var)$/;"	f
 getvar_strncmp	src/utils/getvar.c	/^int	getvar_strncmp(char *s1, char *s2)$/;"	f
 handle_sigchild	src/signal_handler.c	/^void	handle_sigchild(int sig)$/;"	f
-here_doc	src/parsing/parse_tokens.c	/^int	here_doc(char *delimiter, t_shell *shell)$/;"	f
+here_doc	src/heredoc.c	/^int	here_doc(char *delimiter, t_shell *shell)$/;"	f
 in	inc/minishell.h	/^	char	*in;$/;"	m	struct:s_io
-init_cmd_struct	src/parsing/parse_tokens.c	/^t_cmds	*init_cmd_struct(int pipes)$/;"	f
+init_cmd_struct	src/parsing/init_cmd_struct.c	/^t_cmds	*init_cmd_struct(int pipes)$/;"	f
 init_env	src/init_env.c	/^void	init_env(char **av, char **envp, char ***env)$/;"	f
 init_minishell	src/main.c	/^int	init_minishell(int ac, char **av, char **envp, t_shell **shell)$/;"	f
 init_sigint	src/signal_handler.c	/^int	init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig)$/;"	f
@@ -260,11 +260,11 @@ next	inc/minishell.h	/^	struct s_cmds	*next;$/;"	m	struct:s_cmds	typeref:struct:
 next	inc/minishell.h	/^	struct s_tokens	*next;$/;"	m	struct:s_tokens	typeref:struct:s_tokens::s_tokens
 next	libft/inc/libft.h	/^	struct s_list	*next;$/;"	m	struct:s_list	typeref:struct:s_list::s_list
 nf	libft/src/ft_printf.c	/^int	nf(char *str, int fd)$/;"	f
-not_eof	src/parsing/parse_tokens.c	/^int	not_eof(int hd_pipe[2], char *delimiter)$/;"	f
+not_eof	src/heredoc.c	/^int	not_eof(int hd_pipe[2], char *delimiter)$/;"	f
 only_spaces	src/utils/only_spaces.c	/^int	only_spaces(char *str)$/;"	f
-open_in	src/parsing/parse_tokens.c	/^int	open_in(t_tokens *tokens, t_cmds **cmds, t_shell *shell)$/;"	f
-open_in_out	src/parsing/parse_tokens.c	/^void	open_in_out(t_tokens **tokens, t_cmds **cmds, t_shell *shell)$/;"	f
-open_out	src/parsing/parse_tokens.c	/^int	open_out(t_tokens *tokens, t_cmds **cmds)$/;"	f
+open_in	src/parsing/open_io.c	/^int	open_in(t_tokens *tokens, t_cmds **cmds, t_shell *shell)$/;"	f
+open_io	src/parsing/open_io.c	/^void	open_io(t_tokens **tokens, t_cmds **cmds, t_shell *shell)$/;"	f
+open_out	src/parsing/open_io.c	/^int	open_out(t_tokens *tokens, t_cmds **cmds)$/;"	f
 out	inc/minishell.h	/^	char	*out;$/;"	m	struct:s_io
 parse_and_execute	src/main.c	/^void	parse_and_execute(t_shell *shell)$/;"	f
 parse_tokens	src/parsing/parse_tokens.c	/^int	parse_tokens(t_tokens *tokens, t_shell *shell)$/;"	f
@@ -277,7 +277,7 @@ print_tokens	src/parsing/tokenization_utils.c	/^void	print_tokens(t_tokens *toke
 printvar	src/utils/env_utils.c	/^void	printvar(char **env, char *var)$/;"	f
 prompt	src/prompt.c	/^char	*prompt(void)$/;"	f
 remove_from_env	src/builtin/unset.c	/^void	remove_from_env(char ***env, char *var)$/;"	f
-replace_fd	src/parsing/parse_tokens.c	/^int	replace_fd(int default_fd, int old_fd, int new_fd)$/;"	f
+replace_fd	src/parsing/open_io.c	/^int	replace_fd(int default_fd, int old_fd, int new_fd)$/;"	f
 run	inc/minishell.h	/^	int				run;$/;"	m	struct:s_cmds
 s_cmds	inc/minishell.h	/^typedef struct s_cmds$/;"	s
 s_io	inc/minishell.h	/^typedef struct s_io$/;"	s
@@ -285,8 +285,8 @@ s_list	libft/inc/libft.h	/^typedef struct s_list$/;"	s
 s_shell	inc/minishell.h	/^typedef struct s_shell$/;"	s
 s_tokens	inc/minishell.h	/^typedef struct s_tokens$/;"	s
 set_cmd	src/parsing/parse_tokens.c	/^void	set_cmd(t_tokens **tokens, t_cmds *cmds, t_shell *shell)$/;"	f
+set_fd_to_pipe	src/parsing/set_fd_to_pipe.c	/^void	set_fd_to_pipe(t_cmds *cmds)$/;"	f
 set_path_cmd	src/parsing/parse_tokens.c	/^int	set_path_cmd(t_cmds *cmds, t_shell *shell)$/;"	f
-set_stdout_to_pipe	src/parsing/parse_tokens.c	/^void	set_stdout_to_pipe(t_cmds *cmds)$/;"	f
 signal_handler	src/signal_handler.c	/^void	signal_handler(int sig, siginfo_t *info, void *ucontext)$/;"	f
 signal_troll	src/signal_handler.c	/^void	signal_troll(int sig, siginfo_t *info, void *ucontext)$/;"	f
 skip_dollar	src/parsing/expand_var.c	/^int	skip_dollar(char *str, int i, int mode)$/;"	f
@@ -309,4 +309,4 @@ update_env	src/builtin/export.c	/^int	update_env(char ***env, char *new_var)$/;"
 update_env_cd	src/builtin/cd.c	/^void	update_env_cd(char ***env, char *old_pwd)$/;"	f
 update_history	src/update_history.c	/^void	update_history(t_shell *shell)$/;"	f
 update_shlvl	src/init_env.c	/^void	update_shlvl(char *shlvl, char ***env)$/;"	f
-write_to_pipe	src/parsing/parse_tokens.c	/^void	write_to_pipe(int fd, char **user_input, t_shell *shell)$/;"	f
+write_to_pipe	src/heredoc.c	/^void	write_to_pipe(int fd, char **user_input, t_shell *shell)$/;"	f
