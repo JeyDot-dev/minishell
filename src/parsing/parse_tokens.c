@@ -6,12 +6,11 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 10:55:31 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:32:15 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// if no cmd/arg found, t_status = 0, if no such file or dire, t_status = 1
 /*
 {
 	int				pipes[2];
@@ -51,7 +50,7 @@ t_cmds	*init_cmd_struct(int pipes)
 	while (pipes >= 0)
 	{
 		new = create_new_empty_cmd();
-		if (first) 
+		if (first)
 			new_head = new;
 		else
 			previous->next = new;
@@ -59,7 +58,7 @@ t_cmds	*init_cmd_struct(int pipes)
 		first = 0;
 		pipes--;
 	}
-	return(new_head);
+	return (new_head);
 }
 
 int	replace_fd(int default_fd, int old_fd, int new_fd)
@@ -75,15 +74,13 @@ int	open_out(t_tokens *tokens, t_cmds **cmds)
 		open(tokens->next->token, O_CREAT, 0644);
 	if (access(tokens->next->token, W_OK))
 	{
-		//perror(tokens->next->token);
 		g_status = errno;
 	}
 	else if (tokens->is_meta == CHR)
-		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(tokens->next->token, O_WRONLY));
+		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out,
+				open(tokens->next->token, O_WRONLY));
 	else if (tokens->is_meta == CHRR)
 		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, open(tokens->next->token, O_WRONLY | O_APPEND));
-//	if (g_status == SIGINT)
-//		replace_fd(1, (*cmds)->fd_out, -2);
 	if ((*cmds)->fd_out < 0)
 	{
 		if ((*cmds)->fd_out == -1)
@@ -138,11 +135,6 @@ int	here_doc(char *delimiter, t_shell *shell)
 
 int	open_in(t_tokens *tokens, t_cmds **cmds, t_shell *shell)
 {
-//	if (tokens->is_meta == CHL && access(tokens->next->token, R_OK))
-//	{
-//		perror(tokens->next->token);
-//		g_status = 1;
-//	}
 	if (tokens->is_meta == CHL)
 		(*cmds)->fd_in = replace_fd(0, (*cmds)->fd_in, open(tokens->next->token, O_RDONLY));
 	else if (tokens->is_meta == CHLL)
@@ -297,6 +289,5 @@ int	parse_tokens(t_tokens *tokens, t_shell *shell)
 	}
 	else
 		fprint_list_cmds(2, *shell, "parsed_tokens");
-	//				find cmd and arguments if no cmd/arg > close fd and set error
 	return (0);
 }
