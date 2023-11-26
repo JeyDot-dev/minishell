@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 15:16:09 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:35:15 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ int	exit_status(int status)
 	if (WIFEXITED(status))
 		g_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
+	{
 		g_status = WTERMSIG(status) + 128;
+		if (g_status == 141)
+			g_status = 0;
+	}
 	return (g_status);
 }
 
@@ -27,7 +31,6 @@ void	handle_sigchild(int sig)
 	while (waitpid(-1, &g_status, 0) > 0)
 	{
 		g_status = exit_status(g_status);
-	//	ft_fprintf(2,"THE CHILD HAS DIED!!! g_status: %d\n", g_status);
 	//	if (WIFEXITED(g_status))
 		//	g_status = WEXITSTATUS(g_status);
 		//else if (WIFSIGNALED(g_status))
@@ -75,7 +78,6 @@ void	close_pipes(t_cmds *cmd)
 }
 void	exec_child(t_cmds cmd, t_shell *shell)
 {
-	ft_fprintf(2, "child: %d\n", getpid());
 	if (cmd.next)
 		close_pipes(&cmd);
 	//if (cmd.next)
@@ -126,7 +128,6 @@ int	execute(t_shell *shell)
 			//fstat_struct = NULL;
 			child = fork();
 //			if (child)
-//				ft_fprintf(2,"child postfork: %d\n", child);
 			if (tmp->run == 1 && child == 0)
 				exit(1);
 			else if (!child)
