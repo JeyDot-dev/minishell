@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 18:02:59 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 17:12:46 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:28:23 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -41,7 +41,7 @@ int	expand_var(char *str, char **var, int i, t_shell *shell)
 
 	i = skip_dollar(str, i, 0);
 	start = i;
-	if (!str[i])
+	if (!str[i] || str[i] == 32)
 		return (expand_var_extension(var, i));
 	else if (str[i] == '?')
 		*var = ft_itoa(shell->last_cmd_status);

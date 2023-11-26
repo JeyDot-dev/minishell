@@ -252,6 +252,7 @@ is_meta	src/utils/is_meta.c	/^int	is_meta(const int c)$/;"	f
 is_string	src/utils/is_string.c	/^int	is_string(const int c)$/;"	f
 last_cmd_line	inc/minishell.h	/^	char		*last_cmd_line;$/;"	m	struct:s_shell
 last_cmd_status	inc/minishell.h	/^	int			last_cmd_status;$/;"	m	struct:s_shell
+main	minishell_tester/test_files/loop.c	/^int	main(int argc, char const *argv[])$/;"	f
 main	src/main.c	/^int	main(int ac, char **av, char **envp)$/;"	f
 make_func_shorter	src/parsing/expand_string.c	/^int	make_func_shorter(char **old, char *new, int ret)$/;"	f
 meta_token	src/parsing/tokenizer.c	/^int	meta_token(t_tokens **tokens, char *cmd_line, int i)$/;"	f
