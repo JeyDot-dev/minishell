@@ -76,7 +76,7 @@ NAME	Makefile	/^NAME		:=	minishell$/;"	m
 NAME	libft/Makefile	/^NAME		:=	libft.a$/;"	m
 OBJ	Makefile	/^OBJ 		:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)$/;"	m
 OBJ	libft/Makefile	/^OBJ			:=	$(SRC:$(SRC_D)%.c=$(BUILD_D)%.o)$/;"	m
-PARSING	Makefile	/^PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c var_expansion.c$/;"	m
+PARSING	Makefile	/^PARSING		:=	parse_tokens.c	tokenizer.c	tokenization_utils.c expand_var.c\\$/;"	m
 PIPE	inc/minishell.h	38;"	d
 PUR	Makefile	/^PUR	= \\033[35m$/;"	m
 PUR	libft/Makefile	/^PUR	= \\033[35m$/;"	m
@@ -128,9 +128,9 @@ exec_child	src/execute.c	/^void	exec_child(t_cmds cmd, t_shell *shell)$/;"	f
 execute	src/execute.c	/^int	execute(t_shell *shell)$/;"	f
 exit_shell	src/builtin/exit.c	/^void	exit_shell(t_shell *shell, int n)$/;"	f
 exit_status	src/execute.c	/^int	exit_status(int status)$/;"	f
-expand_string	src/parsing/var_expansion.c	/^char	*expand_string(char *str, t_shell *shell)$/;"	f
-expand_var	src/parsing/var_expansion.c	/^int	expand_var(char *str, char **var, int i, t_shell *shell)$/;"	f
-expand_var_extension	src/parsing/var_expansion.c	/^int expand_var_extension(char **var, int i)$/;"	f
+expand_string	src/parsing/expand_string.c	/^char	*expand_string(char *str, t_shell *shell)$/;"	f
+expand_var	src/parsing/expand_var.c	/^int	expand_var(char *str, char **var, int i, t_shell *shell)$/;"	f
+expand_var_extension	src/parsing/expand_var.c	/^int	expand_var_extension(char **var, int i)$/;"	f
 export_underscore_var	src/init_env.c	/^void	export_underscore_var(char ***env, char *av)$/;"	f
 extract_var_data	src/utils/extract_var_data.c	/^char	*extract_var_data(char *str)$/;"	f
 extract_var_name	src/utils/extract_var_name.c	/^char	*extract_var_name(char *str)$/;"	f
@@ -148,7 +148,7 @@ fprint_struct_cmds	src/utils/fprint_debug.c	/^void	fprint_struct_cmds(int fd, t_
 free_cmds	src/utils/free_cmds.c	/^void	free_cmds(t_cmds *cmds)$/;"	f
 free_join	src/utils/free_join.c	/^char	*free_join(char *str, char *buffer)$/;"	f
 free_matrix	src/utils/env_utils.c	/^void	free_matrix(char **matrix)$/;"	f
-free_old_return_new	src/parsing/var_expansion.c	/^char	*free_old_return_new(char *str, char *new_s)$/;"	f
+free_old_return_new	src/parsing/expand_string.c	/^char	*free_old_return_new(char *str, char *new_s)$/;"	f
 free_return_minone	src/utils/free_return.c	/^int	free_return_minone(char *to_free, char *to_write)$/;"	f
 free_return_null	src/utils/free_return.c	/^void	*free_return_null(char *to_free, char *to_write)$/;"	f
 free_shell	src/utils/free_shell.c	/^void	free_shell(t_shell *shell)$/;"	f
@@ -238,13 +238,13 @@ getvar	src/utils/getvar.c	/^char	*getvar(char **env, char *var)$/;"	f
 getvar_data	src/utils/getvar.c	/^char	*getvar_data(char **env, char *var)$/;"	f
 getvar_index	src/utils/getvar.c	/^int	getvar_index(char **env, char *var)$/;"	f
 getvar_strncmp	src/utils/getvar.c	/^int	getvar_strncmp(char *s1, char *s2)$/;"	f
-handle_sigchild	src/execute.c	/^void	handle_sigchild(int sig)$/;"	f
+handle_sigchild	src/signal_handler.c	/^void	handle_sigchild(int sig)$/;"	f
 here_doc	src/parsing/parse_tokens.c	/^int	here_doc(char *delimiter, t_shell *shell)$/;"	f
 in	inc/minishell.h	/^	char	*in;$/;"	m	struct:s_io
 init_cmd_struct	src/parsing/parse_tokens.c	/^t_cmds	*init_cmd_struct(int pipes)$/;"	f
 init_env	src/init_env.c	/^void	init_env(char **av, char **envp, char ***env)$/;"	f
 init_minishell	src/main.c	/^int	init_minishell(int ac, char **av, char **envp, t_shell **shell)$/;"	f
-init_sigint	src/main.c	/^int	init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig)$/;"	f
+init_sigint	src/signal_handler.c	/^int	init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig)$/;"	f
 is_builtin	inc/minishell.h	/^	int				is_builtin;$/;"	m	struct:s_cmds
 is_builtin	src/exec_builtins.c	/^int	is_builtin(char *cmd)$/;"	f
 is_meta	inc/minishell.h	/^	int				is_meta;$/;"	m	struct:s_tokens
@@ -253,7 +253,7 @@ is_string	src/utils/is_string.c	/^int	is_string(const int c)$/;"	f
 last_cmd_line	inc/minishell.h	/^	char		*last_cmd_line;$/;"	m	struct:s_shell
 last_cmd_status	inc/minishell.h	/^	int			last_cmd_status;$/;"	m	struct:s_shell
 main	src/main.c	/^int	main(int ac, char **av, char **envp)$/;"	f
-make_func_shorter	src/parsing/var_expansion.c	/^int		make_func_shorter(char **old, char *new, int ret)$/;"	f
+make_func_shorter	src/parsing/expand_string.c	/^int	make_func_shorter(char **old, char *new, int ret)$/;"	f
 meta_token	src/parsing/tokenizer.c	/^int	meta_token(t_tokens **tokens, char *cmd_line, int i)$/;"	f
 mini_isalpha	src/utils/check_env_arg.c	/^int	mini_isalpha(int c)$/;"	f
 next	inc/minishell.h	/^	struct s_cmds	*next;$/;"	m	struct:s_cmds	typeref:struct:s_cmds::s_cmds
@@ -285,13 +285,12 @@ s_list	libft/inc/libft.h	/^typedef struct s_list$/;"	s
 s_shell	inc/minishell.h	/^typedef struct s_shell$/;"	s
 s_tokens	inc/minishell.h	/^typedef struct s_tokens$/;"	s
 set_cmd	src/parsing/parse_tokens.c	/^void	set_cmd(t_tokens **tokens, t_cmds *cmds, t_shell *shell)$/;"	f
-set_exit_status	src/main.c	/^int	set_exit_status(int status)$/;"	f
 set_path_cmd	src/parsing/parse_tokens.c	/^int	set_path_cmd(t_cmds *cmds, t_shell *shell)$/;"	f
 set_stdout_to_pipe	src/parsing/parse_tokens.c	/^void	set_stdout_to_pipe(t_cmds *cmds)$/;"	f
 signal_handler	src/signal_handler.c	/^void	signal_handler(int sig, siginfo_t *info, void *ucontext)$/;"	f
 signal_troll	src/signal_handler.c	/^void	signal_troll(int sig, siginfo_t *info, void *ucontext)$/;"	f
-skip_dollar	src/parsing/var_expansion.c	/^int	skip_dollar(char *str, int i, int mode)$/;"	f
-special_builtins	src/execute.c	/^int		special_builtins(t_cmds *cmds, t_shell *shell)$/;"	f
+skip_dollar	src/parsing/expand_var.c	/^int	skip_dollar(char *str, int i, int mode)$/;"	f
+special_builtins	src/exec_builtins.c	/^int	special_builtins(t_cmds *cmds, t_shell *shell)$/;"	f
 str_arr	src/utils/fprint_debug.c	/^void	str_arr(int fd, char **strarr, char *str, int mode)$/;"	f
 str_token	src/parsing/tokenizer.c	/^int	str_token(t_tokens **tokens, char *cmd_line, int i, t_shell *shell)$/;"	f
 super_double_export	src/utils/export_unset_utils.c	/^void	super_double_export(char ***env, char *s1, char *s2)$/;"	f

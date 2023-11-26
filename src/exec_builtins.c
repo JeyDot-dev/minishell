@@ -6,11 +6,32 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:15:48 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/20 19:01:34 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:01:01 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	special_builtins(t_cmds *cmds, t_shell *shell)
+{
+	if (cmds->run == 1)
+		return (1);
+	if (!ft_strncmp(cmds->args[0], "exit", 5) && cmds->next == NULL)
+		ft_exit(cmds, shell);
+	if (!ft_strncmp(cmds->args[0], "cd", 3) && cmds->next == NULL)
+		return (ft_cd(&shell->env, cmds->args));
+	if (!ft_strncmp(cmds->args[0], "export", 7) && cmds->next == NULL)
+		return (ft_export(&shell->env, cmds->args));
+	if (!ft_strncmp(cmds->args[0], "unset", 6) && cmds->next == NULL)
+		return (ft_unset(&shell->env, cmds->args));
+	if (!ft_strncmp(cmds->args[0], "env", 4) && cmds->next == NULL)
+		return (ft_env(shell->env));
+	if (!ft_strncmp(cmds->args[0], "echo", 5) && cmds->next == NULL)
+		return (ft_echo(cmds->args));
+	if (!ft_strncmp(cmds->args[0], "pwd", 4) && cmds->next == NULL)
+		return (ft_pwd());
+	return (127);
+}
 
 int	is_builtin(char *cmd)
 {

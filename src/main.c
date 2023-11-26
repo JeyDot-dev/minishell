@@ -6,36 +6,13 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 14:46:46 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:56:46 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
 int	g_status;
 
-int	set_exit_status(int status)
-{
-	if (WIFEXITED(status))
-		g_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-	{
-		g_status = WTERMSIG(status) + 128;
-	}
-	return (g_status);
-}
-
-int	init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig)
-{
-	struct sigaction	sa;
-
-	sa.sa_flags = SA_SIGINFO | SA_RESTART;
-	sa.sa_sigaction = signal_handler;
-	sigemptyset(&sa.sa_mask);
-	sigaddset(&sa.sa_mask, SIGINT);
-	if (sigaction(sig, &sa, NULL) == -1)
-		return (1);
-	return (0);
-}
 int	init_minishell(int ac, char **av, char **envp, t_shell **shell)
 {
 	g_status = 0;
@@ -76,17 +53,15 @@ int	cmd_loop(t_shell *shell)
 	fprint_shell(2, shell, "cmd_loop");
 	if (shell->cmd_line)
 		update_history(shell);
-	if(WIFSIGNALED(g_status))
+	if (WIFSIGNALED(g_status))
 		g_status = WTERMSIG(g_status) + 128;
 	if (!token_status && shell->tokens)
 	{
 		g_status = 0;
-//		delete_tokens(shell->tokens);
-//		shell->tokens = NULL;
-//		parse_tokens(shell->tokens
 	}
 	return (0);
 }
+
 void	parse_and_execute(t_shell *shell)
 {
 	parse_tokens(shell->tokens, shell);
@@ -96,20 +71,19 @@ void	parse_and_execute(t_shell *shell)
 		g_status = WTERMSIG(g_status) + 128;
 	if (shell->cmds)
 	{
-		//g_status = set_exit_status(execute(shell));
 		g_status = execute(shell);
 		free_cmds(shell->cmds);
 	}
 	shell->cmds = NULL;
 }
-//TODO: FIX code 141 instead of 0 | fix '$' crash | Hunt for bugs then try to evaluate the project
+
 int	main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;
 
-	if (ac > 2 ||
-		(ac == 2 &&
-		(ft_strncmp(av[1], "-d", 3) != 0 && ft_strncmp(av[1], "-v", 3) != 0)))
+	if (ac > 2 || (
+			ac == 2 && (ft_strncmp(av[1], "-d", 3) != 0
+				&& ft_strncmp(av[1], "-v", 3) != 0)))
 	{
 		ft_fprintf(2, "minishell: %s: invalid option. Try -d or -v\n", av[1]);
 		exit(1);

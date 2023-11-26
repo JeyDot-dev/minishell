@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 14:21:53 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:22:27 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@
 # define CHR	3
 # define CHRR	4
 # define PIPE	5
-# define HDOC_PROMPT GRN"h"YEL"e"BLU"r"RED"e"GRN"d"YEL"o"BLU"c"RED"> "WHT
+# define HDOC_PROMPT \
+"\e[0;32mh\e[0;33me\e[0;34mr\e[0;3\
+1me\e[0;32md\e[0;33mo\e[0;34mc\e[0;31m> \e[0;37m"
 // ^  [< = 1] [<< = 2] [> = 3] [>> = 4] [| = 5]
 extern int	g_status;
 typedef struct s_cmds
@@ -76,7 +78,10 @@ typedef struct s_io
 }				t_io;
 //-----------------MAIN FUNCTIONS---------------------------
 char	*prompt(void);
+//		v	executes the commands in the list of commands and routes i/o
 int		execute(t_shell *shell);
+//		v	executes a builtin function if it's the only command to execute
+int		special_builtins(t_cmds *cmds, t_shell *shell);
 void	update_history(t_shell *shell);
 //		v	splits command line into usable tokens and expands variables
 int		tokenizer(t_tokens **tokens, t_shell *shell);
@@ -89,6 +94,8 @@ int		is_meta(const int c);
 int		is_string(const int c);
 //		v	expand all variables in string (and creates a new one expanded)
 char	*expand_string(char *str, t_shell *shell);
+//		v	expands a single variable for expand_string()
+int		expand_var(char *str, char **var, int i, t_shell *shell);
 //		 __|finds end of string and returns index
 //		v  |checks for quotes and output error if needed
 int		find_end_of_token(char *cmd_line, int i, int mode);
@@ -159,6 +166,8 @@ int		only_spaces(char *str);
 void	fprint_matrix(int fd, char **matrix);
 void	fatal_error(char *to_print);
 int		check_env_arg(char *arg);
+//		v	set the status of the last command executed and returns it
+int		exit_status(int status);
 //--------------------DEBUG FUNCTIONS---------------------------------
 //		 __|debug function to print a single t_cmds struct
 //		v  |(has different modes depending on debug mode)
@@ -171,11 +180,17 @@ void	fprint_list_cmds(int fd, t_shell shell, char *str);
 void	fprint_shell(int fd, t_shell *shell, char *str);
 void	print_tokens(t_tokens *tokens);
 //--------------------PARSING FUNCTIONS-------------------------------
+
 int		is_builtin(char *cmd);
 //		v	function used to parse the tokens into a list of commands.
 int		parse_tokens(t_tokens *tokens, t_shell *shell);
 int		count_pipes(t_tokens *tokens);
+//--------------------SIGNALS FUNCTIONS-------------------------------
+//		v	function to handle SIGINT signal.
 void	signal_handler(int sig, siginfo_t *info, void *ucontext);
+//		v	fun function for heredoc SIGINT signal.
 void	signal_troll(int sig, siginfo_t *info, void *ucontext);
 int		init_sigint(void (signal_handler)(int, siginfo_t *, void *), int sig);
+//		v	function used to handle the SIGINT signal. (Zombie killer)
+void	handle_sigchild(int sig);
 #endif
