@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/27 02:36:36 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 03:07:00 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -64,7 +64,6 @@ int	cmd_loop(t_shell *shell)
 
 void	parse_and_execute(t_shell *shell)
 {
-	ft_fprintf(2, "parse_and_execute\n");
 	parse_tokens(shell->tokens, shell);
 	delete_tokens(shell->tokens);
 	shell->tokens = NULL;
