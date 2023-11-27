@@ -3,6 +3,24 @@
 ## Overview
 Minishell is a simple shell implementation that allows users to interact with their operating system through a command-line interface. It supports various features such as command execution, history management, redirections, pipes, environment variable expansion, and more.
 
+## Table of Contents
+1. [Overview](#overview)
+2. [Features](#features)
+   - [Basic Shell Functionality](#basic-shell-functionality)
+   - [Command Execution](#command-execution)
+   - [Input Handling](#input-handling)
+   - [Redirections](#redirections)
+   - [Pipes](#pipes)
+   - [Environment Variable Handling](#environment-variable-handling)
+   - [Special Variables](#special-variables)
+   - [Interactive Mode](#interactive-mode)
+   - [Built-in Commands](#built-in-commands)
+   - [Additional Features](#additional-features)
+3. [Usage](#usage)
+4. [Makefile Commands](#makefile-commands)
+5. [External Functions](#external-functions)
+6. [Libft](#libft)
+
 ## Features
 
 ### Basic Shell Functionality
