@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
+/*          1                                         +:+ +:+         +:+     */
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:54:44 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 18:56:52 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 01:01:58 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,24 @@ int	ft_cd(char ***env, char **args)
 	char	*tmp;
 	char	*old_pwd;
 
-	args += 1;
-	if (!*args || (**args == '~' && (*args)[1] == 0))
+	if (args[1] && args[2])
+	{
+		ft_fprintf(2, "cd: too many arguments\n");
+		return (1);
+	}
+	if (!args[1] || ((*args)[1] == '~' || (*args)[1] == 0))
 		tmp = getvar_data(*env, "HOME");
 	else
-		tmp = *args;
+		tmp = args[1];
 	if (!tmp)
-		return (2);
+		return (1);
 	old_pwd = getvar_data(*env, "PWD");
 	if (!chdir(tmp))
 		update_env_cd(env, old_pwd);
 	else
 	{
 		ft_fprintf(2, "cd: %s: %s\n", tmp, strerror(errno));
-		return (-1);
+		return (1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:08:46 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 16:56:46 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 02:36:36 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -64,11 +64,12 @@ int	cmd_loop(t_shell *shell)
 
 void	parse_and_execute(t_shell *shell)
 {
+	ft_fprintf(2, "parse_and_execute\n");
 	parse_tokens(shell->tokens, shell);
 	delete_tokens(shell->tokens);
 	shell->tokens = NULL;
-	if (WIFSIGNALED(g_status))
-		g_status = WTERMSIG(g_status) + 128;
+	if (g_status == SIGINT)
+		g_status = 130;
 	if (shell->cmds)
 	{
 		g_status = execute(shell);

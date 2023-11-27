@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 18:55:22 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:15:44 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ t_cmds	*init_cmd_struct(int pipes);
 int		is_builtin(char *cmd);
 //		v	function used to parse the tokens into a list of commands.
 int		parse_tokens(t_tokens *tokens, t_shell *shell);
+char	*check_cmd_filetype(t_cmds *cmds, t_shell *shell);
 int		count_pipes(t_tokens *tokens);
 int		here_doc(char *delimiter, t_shell *shell);
 void	open_io(t_tokens **tokens, t_cmds **cmds, t_shell *shell);

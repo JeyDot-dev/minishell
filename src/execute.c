@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 17:29:43 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 03:02:14 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	exit_status(int status)
 	else if (WIFSIGNALED(status))
 	{
 		g_status = WTERMSIG(status) + 128;
-		if (g_status == 141)
-			g_status = 0;
+		if (g_status == 129 || g_status == 126)
+			g_status = 1;
 	}
 	return (g_status);
 }
@@ -64,8 +64,10 @@ void	exec_child(t_cmds cmd, t_shell *shell)
 	if (cmd.is_builtin)
 		exit(builtin_cmd(cmd.args, &shell->env));
 	else if (execve(cmd.path_cmd, cmd.args, shell->env) == -1)
-		exit(127);
-	exit(0);
+	{
+		exit(1);
+	}
+	exit(127);
 }
 
 int	execute(t_shell *shell)
@@ -75,14 +77,16 @@ int	execute(t_shell *shell)
 
 	signal(SIGCHLD, handle_sigchild);
 	tmp = shell->cmds;
-	g_status = special_builtins(tmp, shell);
-	if (g_status != 127)
-		tmp = tmp->next;
+	if (is_builtin(tmp->args[0]) && !tmp->next)
+	{
+		g_status = special_builtins(tmp, shell);
+		return (g_status);
+	}
 	while (tmp)
 	{
 		child = fork();
 		if (tmp->run == 1 && child == 0)
-			exit(1);
+			exit(g_status);
 		else if (!child)
 			exec_child(*tmp, shell);
 		close(tmp->pipe[1]);

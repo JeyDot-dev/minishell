@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 16:05:48 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 17:05:23 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 02:54:34 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -14,10 +14,8 @@
 void	handle_sigchild(int sig)
 {
 	(void)sig;
-	while (waitpid(-1, &g_status, 0) > 0)
-	{
-		g_status = exit_status(g_status);
-	}
+	while (waitpid(-1, 0, 0) > 0)
+		;
 }
 
 void	signal_troll(int sig, siginfo_t *info, void *ucontext)

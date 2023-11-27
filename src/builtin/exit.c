@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 19:10:38 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 18:58:03 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 02:10:32 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_exit(t_cmds *cmds, t_shell *shell)
 	if (ft_isdigit(cmds->args[1][0]) && cmds->args[2])
 	{
 		ft_fprintf(2, "minishell: exit: too many arguments\n");
-		exit_shell(shell, 2);
+		exit_shell(shell, 1);
 	}
 	else if (cmds->args[1])
 	{

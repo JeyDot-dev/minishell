@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 18:00:28 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 14:20:38 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 02:11:17 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -42,7 +42,7 @@ int	ft_unset(char ***env, char **var)
 	if (*var)
 		var += 1;
 	if (!*var)
-		return (1);
+		return (0);
 	while (*var)
 	{
 		if (check_env_arg(*var) && getvar(*env, *var))

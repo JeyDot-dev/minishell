@@ -6,14 +6,18 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:18:53 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 18:47:33 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 01:57:05 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
 int	replace_fd(int default_fd, int old_fd, int new_fd)
 {
-	if (old_fd != default_fd && old_fd != new_fd)
+	struct stat	statbuf;
+
+	fstat(old_fd, &statbuf);
+	if (old_fd != default_fd && old_fd != new_fd
+		&& !S_ISFIFO(statbuf.st_mode))
 		close(old_fd);
 	return (new_fd);
 }
@@ -24,6 +28,7 @@ int	open_out(t_tokens *tokens, t_cmds **cmds)
 		open(tokens->next->token, O_CREAT, 0644);
 	if (access(tokens->next->token, W_OK))
 	{
+		(*cmds)->fd_out = replace_fd(1, (*cmds)->fd_out, -1);
 		g_status = errno;
 	}
 	else if (tokens->is_meta == CHR)
@@ -36,6 +41,10 @@ int	open_out(t_tokens *tokens, t_cmds **cmds)
 	{
 		if ((*cmds)->fd_out == -1)
 			perror(tokens->next->token);
+		if (access(tokens->next->token, W_OK))
+			g_status = 1;
+		else
+			g_status = 127;
 		return (1);
 	}
 	return (0);

@@ -105,6 +105,7 @@ add_to_matrix	src/utils/add_to_matrix.c	/^int	add_to_matrix(char ***env, char *n
 add_token	src/utils/token_struct_utils.c	/^int	add_token(char *token, int is_meta, t_tokens **token_list)$/;"	f
 args	inc/minishell.h	/^	char			**args;$/;"	m	struct:s_cmds
 builtin_cmd	src/exec_builtins.c	/^int	builtin_cmd(char **args, char ***env)$/;"	f
+check_cmd_filetype	src/parsing/check_cmd_filetype.c	/^char	*check_cmd_filetype(t_cmds *cmds, t_shell *shell)$/;"	f
 check_env_arg	src/utils/check_env_arg.c	/^int	check_env_arg(char *arg)$/;"	f
 check_length	libft/src/ft_atoi.c	/^int	check_length(const char *str)$/;"	f
 check_post_meta	src/parsing/tokenization_utils.c	/^int	check_post_meta(t_tokens *tokens, char *cmd_line, int i, char sign)$/;"	f
@@ -252,7 +253,6 @@ is_meta	src/utils/is_meta.c	/^int	is_meta(const int c)$/;"	f
 is_string	src/utils/is_string.c	/^int	is_string(const int c)$/;"	f
 last_cmd_line	inc/minishell.h	/^	char		*last_cmd_line;$/;"	m	struct:s_shell
 last_cmd_status	inc/minishell.h	/^	int			last_cmd_status;$/;"	m	struct:s_shell
-main	minishell_tester/test_files/loop.c	/^int	main(int argc, char const *argv[])$/;"	f
 main	src/main.c	/^int	main(int ac, char **av, char **envp)$/;"	f
 make_func_shorter	src/parsing/expand_string.c	/^int	make_func_shorter(char **old, char *new, int ret)$/;"	f
 meta_token	src/parsing/tokenizer.c	/^int	meta_token(t_tokens **tokens, char *cmd_line, int i)$/;"	f
@@ -274,11 +274,13 @@ path_cmd	inc/minishell.h	/^	char			*path_cmd;$/;"	m	struct:s_cmds
 pipe	inc/minishell.h	/^	int				pipe[2];$/;"	m	struct:s_cmds
 populate	libft/src/ft_itoa.c	/^void	populate(char *s, int neg, long int nb, int toalloc)$/;"	f
 prev_pipe	inc/minishell.h	/^	int		prev_pipe;$/;"	m	struct:s_io
+print_return	src/parsing/check_cmd_filetype.c	/^int	print_return(char *arg, int ret)$/;"	f
 print_tokens	src/parsing/tokenization_utils.c	/^void	print_tokens(t_tokens *tokens)$/;"	f
 printvar	src/utils/env_utils.c	/^void	printvar(char **env, char *var)$/;"	f
 prompt	src/prompt.c	/^char	*prompt(void)$/;"	f
 remove_from_env	src/builtin/unset.c	/^void	remove_from_env(char ***env, char *var)$/;"	f
 replace_fd	src/parsing/open_io.c	/^int	replace_fd(int default_fd, int old_fd, int new_fd)$/;"	f
+route_and_next	src/parsing/parse_tokens.c	/^void	route_and_next(t_cmds **cmds, t_tokens **tokens)$/;"	f
 run	inc/minishell.h	/^	int				run;$/;"	m	struct:s_cmds
 s_cmds	inc/minishell.h	/^typedef struct s_cmds$/;"	s
 s_io	inc/minishell.h	/^typedef struct s_io$/;"	s
@@ -305,7 +307,8 @@ t_tokens	inc/minishell.h	/^}				t_tokens;$/;"	t	typeref:struct:s_tokens
 token	inc/minishell.h	/^	char			*token;$/;"	m	struct:s_tokens
 tokenizer	src/parsing/tokenizer.c	/^int	tokenizer(t_tokens **tokens, t_shell *shell)$/;"	f
 tokens	inc/minishell.h	/^	t_tokens	*tokens;$/;"	m	struct:s_shell
-try_paths	src/parsing/parse_tokens.c	/^char	*try_paths(char *cmd, t_shell shell)$/;"	f
+try_paths	src/parsing/check_cmd_filetype.c	/^char	*try_paths(char *cmd, t_shell shell)$/;"	f
+try_paths_extension	src/parsing/check_cmd_filetype.c	/^char	*try_paths_extension(char *str, char *str2)$/;"	f
 update_env	src/builtin/export.c	/^int	update_env(char ***env, char *new_var)$/;"	f
 update_env_cd	src/builtin/cd.c	/^void	update_env_cd(char ***env, char *old_pwd)$/;"	f
 update_history	src/update_history.c	/^void	update_history(t_shell *shell)$/;"	f

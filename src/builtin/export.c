@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:49 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 14:22:28 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/27 02:42:48 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -29,8 +29,10 @@ int	update_env(char ***env, char *new_var)
 int	ft_export(char ***env, char **args)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	if (!args[1])
 		ft_env(*env);
 	while (args[++i])
@@ -42,6 +44,8 @@ int	ft_export(char ***env, char **args)
 			else
 				update_env(env, args[i]);
 		}
+		else
+			j = 1;
 	}
-	return (0);
+	return (j);
 }

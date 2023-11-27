@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:15:48 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 17:33:45 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:16:25 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	special_builtins(t_cmds *cmds, t_shell *shell)
 		return (ft_export(&shell->env, cmds->args));
 	if (!ft_strncmp(cmds->args[0], "unset", 6) && cmds->next == NULL)
 		return (ft_unset(&shell->env, cmds->args));
+	if (!ft_strncmp(cmds->args[0], "env", 4) && cmds->next == NULL)
+		return (ft_env(shell->env));
+	if (!ft_strncmp(cmds->args[0], "pwd", 4) && cmds->next == NULL)
+		return (ft_pwd());
+	if (!ft_strncmp(cmds->args[0], "echo", 5) && cmds->next == NULL)
+		return (ft_echo(cmds->args));
 	return (127);
 }
 
