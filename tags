@@ -105,6 +105,7 @@ add_to_matrix	src/utils/add_to_matrix.c	/^int	add_to_matrix(char ***env, char *n
 add_token	src/utils/token_struct_utils.c	/^int	add_token(char *token, int is_meta, t_tokens **token_list)$/;"	f
 args	inc/minishell.h	/^	char			**args;$/;"	m	struct:s_cmds
 builtin_cmd	src/exec_builtins.c	/^int	builtin_cmd(char **args, char ***env)$/;"	f
+cd_underscore	src/builtin/cd.c	/^int	cd_underscore(char *path, char ***env)$/;"	f
 check_cmd_filetype	src/parsing/check_cmd_filetype.c	/^char	*check_cmd_filetype(t_cmds *cmds, t_shell *shell)$/;"	f
 check_env_arg	src/utils/check_env_arg.c	/^int	check_env_arg(char *arg)$/;"	f
 check_length	libft/src/ft_atoi.c	/^int	check_length(const char *str)$/;"	f
