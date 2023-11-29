@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:58:26 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/28 18:26:14 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:21:37 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	exit_status(int status)
 	else if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGINT)
-			ft_fprintf(2 ,"\n");
+			ft_fprintf(2, "\n");
 		g_status = WTERMSIG(status) + 128;
 		if (g_status == 129 || g_status == 126)
 			g_status = 1;
