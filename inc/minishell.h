@@ -6,7 +6,7 @@
 /*   By: jsousa-a <jsousa-a@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:52:08 by jsousa-a          #+#    #+#             */
-/*   Updated: 2023/11/26 23:15:44 by jsousa-a         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:36:32 by jsousa-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 # define CHR	3
 # define CHRR	4
 # define PIPE	5
-# define HDOC_PROMPT \
-"\e[0;32mh\e[0;33me\e[0;34mr\e[0;3\
+# define HDOC_PROMPT "\e[0;32mh\e[0;33me\e\
+[0;34mr\e[0;3\
 1me\e[0;32md\e[0;33mo\e[0;34mc\e[0;31m> \e[0;37m"
 // ^  [< = 1] [<< = 2] [> = 3] [>> = 4] [| = 5]
 extern int	g_status;
