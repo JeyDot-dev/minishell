@@ -13,8 +13,8 @@ UNAME_S 	:= $(shell uname -s)
 #---------------Directories----------------------
 SRC_D		:=	src/
 BUILD_D		:=	.build/
-LIB_D		:=	libft/
-INC			:=	inc/ libft/inc/
+LIB_D		:=	libft/ $(HOME)/.brew/opt/readline/lib/
+INC			:=	inc/ libft/inc/ $(HOME)/.brew/opt/readline/include/
 
 #---------------Add .c / .h here \/--------------
 BUILTIN		:=	env.c	export.c	unset.c	echo.c	pwd.c	cd.c	exit.c
